@@ -1,0 +1,2103 @@
+{
+ "generatedFrom": "SAPNETPollenCountProspective_DataDictionary_2026-08-22.csv",
+ "generatedAt": "2026-08-24T13:10:14.184Z",
+ "note": "Field map for the legacy seven-day SAPNET instrument. Regenerate with scripts/build-legacy-map.mjs if the REDCap dictionary changes.",
+ "fixedConversionFactor": 0.72,
+ "categoryFieldStems": {
+  "1": "fungalspores",
+  "2": "grass",
+  "3": "trees",
+  "4": "weeds"
+ },
+ "siteChoices": {
+  "1": "Cape Town",
+  "2": "Bloemfontein",
+  "3": "Durban",
+  "4": "George",
+  "5": "Gqeberha",
+  "6": "JHB Central",
+  "7": "Kimberley",
+  "8": "Pretoria"
+ },
+ "categoryChoices": {
+  "1": "Fungal Spores",
+  "2": "Grass",
+  "3": "Trees",
+  "4": "Weeds"
+ },
+ "legacyTaxonToV2": {
+  "tree:1": 1001,
+  "tree:2": 1002,
+  "tree:3": 1003,
+  "tree:4": 1004,
+  "tree:5": 1005,
+  "tree:6": 1006,
+  "tree:7": 1007,
+  "tree:8": 1008,
+  "tree:9": 1009,
+  "tree:11": 1010,
+  "tree:10": 1011,
+  "tree:12": 1012,
+  "tree:13": 1013,
+  "tree:14": 1014,
+  "tree:15": 1015,
+  "tree:16": 1016,
+  "tree:17": 1017,
+  "tree:18": 1018,
+  "tree:19": 1019,
+  "tree:20": 1020,
+  "tree:21": 1021,
+  "tree:22": 1022,
+  "tree:23": 1023,
+  "tree:24": 1024,
+  "tree:25": 1025,
+  "tree:26": 1026,
+  "tree:27": 1027,
+  "tree:28": 1028,
+  "tree:29": 1029,
+  "tree:30": 1030,
+  "tree:31": 1031,
+  "tree:32": 1032,
+  "tree:33": 1033,
+  "tree:34": 1034,
+  "tree:35": 1035,
+  "tree:36": 1036,
+  "tree:37": 1037,
+  "tree:38": 1038,
+  "tree:39": 1039,
+  "tree:40": 1040,
+  "tree:41": 1041,
+  "tree:42": 1042,
+  "tree:43": 1043,
+  "tree:44": 1044,
+  "tree:45": 1045,
+  "tree:46": 1046,
+  "tree:47": 1047,
+  "tree:48": 1048,
+  "tree:49": 1049,
+  "tree:50": 1050,
+  "tree:51": 1051,
+  "tree:52": 1052,
+  "tree:53": 1053,
+  "grass:1": 2001,
+  "grass:2": 2002,
+  "weed:1": 3001,
+  "weed:2": 3002,
+  "weed:3": 3003,
+  "weed:4": 3004,
+  "weed:5": 3005,
+  "weed:6": 3006,
+  "weed:7": 3007,
+  "weed:8": 3008,
+  "weed:9": 3009,
+  "weed:10": 3010,
+  "weed:11": 3011,
+  "weed:12": 3012,
+  "weed:13": 3013,
+  "weed:14": 3014,
+  "weed:15": 3015,
+  "weed:16": 3016,
+  "weed:17": 3017,
+  "weed:18": 3018,
+  "weed:19": 3019,
+  "weed:20": 3020,
+  "weed:21": 3021,
+  "weed:22": 3022,
+  "weed:23": 3023,
+  "weed:24": 3024,
+  "weed:25": 3025,
+  "weed:26": 3026,
+  "weed:27": 3027,
+  "weed:28": 3028,
+  "weed:29": 3029,
+  "weed:30": 3030,
+  "weed:31": 3031,
+  "weed:32": 3032,
+  "weed:33": 3033,
+  "weed:34": 3034,
+  "weed:35": 3035,
+  "weed:37": 3036,
+  "weed:38": 3037,
+  "weed:39": 3038,
+  "weed:40": 3039,
+  "weed:41": 3040,
+  "weed:42": 3041,
+  "weed:43": 3042,
+  "weed:44": 3043,
+  "weed:45": 3044,
+  "weed:46": 3045,
+  "weed:47": 3046,
+  "weed:49": 3047,
+  "weed:50": 3048,
+  "weed:52": 3049,
+  "weed:53": 3050,
+  "fungal:1": 4001,
+  "fungal:3": 4002,
+  "fungal:4": 4003,
+  "fungal:5": 4004,
+  "fungal:6": 4005,
+  "fungal:7": 4006,
+  "fungal:8": 4007,
+  "fungal:9": 4008,
+  "fungal:10": 4009,
+  "fungal:11": 4010,
+  "fungal:12": 4011,
+  "fungal:13": 4012,
+  "fungal:14": 4013,
+  "fungal:18": 4014,
+  "fungal:15": 4015,
+  "fungal:16": 4016,
+  "fungal:17": 4017,
+  "fungal:20": 4018,
+  "fungal:21": 4019,
+  "fungal:22": 4020,
+  "fungal:23": 4021,
+  "fungal:24": 4022,
+  "fungal:25": 4023,
+  "fungal:27": 4024,
+  "fungal:26": 4025,
+  "fungal:29": 4026,
+  "fungal:31": 4027,
+  "fungal:32": 4028,
+  "fungal:34": 4029,
+  "fungal:35": 4030,
+  "fungal:36": 4031,
+  "fungal:38": 4032,
+  "fungal:28": 4033,
+  "fungal:37": 4999,
+  "fungal:2": 5001,
+  "fungal:19": 5002,
+  "weed:36": 5003,
+  "weed:48": 5004,
+  "grass:3": 9001,
+  "tree:54": 9001,
+  "weed:54": 9001,
+  "fungal:33": 4016,
+  "fungal:30": 4027,
+  "weed:51": 3006
+ },
+ "legacyTaxonLabels": {
+  "fungal:1": "Alternaria",
+  "fungal:2": "Algae",
+  "fungal:3": "Arthrinium",
+  "fungal:4": "Ascospores",
+  "fungal:5": "Aspergillus/Penicillium",
+  "fungal:6": "Basidiospores",
+  "fungal:7": "Beltrania",
+  "fungal:8": "Bispora",
+  "fungal:9": "Botryodiplodia",
+  "fungal:10": "Ceratosporiella",
+  "fungal:11": "Chaetomium",
+  "fungal:12": "Cladosporium",
+  "fungal:13": "Curvularia",
+  "fungal:14": "Epicoccum",
+  "fungal:15": "Fusarium",
+  "fungal:16": "Helminthosporium/Drechslera",
+  "fungal:17": "Leptosphaeria",
+  "fungal:18": "Mildew",
+  "fungal:19": "Moss",
+  "fungal:20": "Nigrospora",
+  "fungal:21": "Periconia",
+  "fungal:22": "Pithomyces",
+  "fungal:23": "Pleospora",
+  "fungal:24": "Polythrincium",
+  "fungal:25": "Puccinia",
+  "fungal:26": "Rhizopus",
+  "fungal:27": "Rusts",
+  "fungal:28": "Smuts",
+  "fungal:29": "Spegazzinia",
+  "fungal:30": "Sporormia",
+  "fungal:31": "Sporormiella",
+  "fungal:32": "Stemphyllium",
+  "fungal:33": "Helminthosporium",
+  "fungal:34": "Tetraploa",
+  "fungal:35": "Torula",
+  "fungal:36": "Trichonis",
+  "fungal:37": "Unidentified Fungal Spores",
+  "fungal:38": "Ulocladium",
+  "grass:1": "Poaceae; Grass",
+  "grass:2": "Zea mays; Maize",
+  "grass:3": "Unidentified Pollen",
+  "tree:1": "Acacia-type; Acacia",
+  "tree:2": "Acer; Maple",
+  "tree:3": "Anacardiaceae; Sumac",
+  "tree:4": "Araucariaceae; Monkey puzzle",
+  "tree:5": "Arecaceae; Palm",
+  "tree:6": "Betula; Birch",
+  "tree:7": "Buddleja; False olive",
+  "tree:8": "Carpinus betulus; European hornbeam",
+  "tree:9": "Carpinus orientalis-ostrya type; Oriental hornbeam",
+  "tree:10": "Casuarina; Australian pine",
+  "tree:11": "Carya; Pecan",
+  "tree:12": "Cedrus; Cedar",
+  "tree:13": "Celtis; Hackberry",
+  "tree:14": "Citrus; Lemon",
+  "tree:15": "Combretaceae; Bushwillow",
+  "tree:16": "Cupressaceae; Cypress",
+  "tree:17": "Delonix; Flamboyant tree",
+  "tree:18": "Dodonaea; Sand olive",
+  "tree:19": "Ebenaceae; Ebony/Persimmon",
+  "tree:20": "Erythrina; Coral tree",
+  "tree:21": "Euclea; Guarri",
+  "tree:22": "Fabaceae; Pea family",
+  "tree:23": "Fagus; Beech",
+  "tree:24": "Fraxinus; Ash",
+  "tree:25": "Hippocastinaceae; Chestnut",
+  "tree:26": "Ilex; Cape holly",
+  "tree:27": "Jacaranda; Jacaranda",
+  "tree:28": "Juglandaceae; Walnut",
+  "tree:29": "Larix; Larch",
+  "tree:30": "Ligustrum; Privet",
+  "tree:31": "Liquidambar; Sweetgum",
+  "tree:32": "Melia; Syringa",
+  "tree:33": "Mimusops; Red milkwood",
+  "tree:34": "Moraceae; Mulberry",
+  "tree:35": "Morella/Myricaceae; Waxberry",
+  "tree:36": "Myrtaceae; Eucalyptus",
+  "tree:37": "Nuxia sp; Forest elder",
+  "tree:38": "Oleaceae; Olive",
+  "tree:39": "Picea; Spruce",
+  "tree:40": "Pinus; Pine",
+  "tree:41": "Platanus; Plane",
+  "tree:42": "Podocarpus; Yellowwood",
+  "tree:43": "Populus; Poplar",
+  "tree:44": "Prosopis; Mesquite",
+  "tree:45": "Quercus; Oak",
+  "tree:46": "Rhamnaceae; Buckthorns",
+  "tree:47": "Rhus/Searsia; Karee",
+  "tree:48": "Salix; Willow",
+  "tree:49": "Sapotaceae; Star apple",
+  "tree:50": "Schinus; Pepper tree",
+  "tree:51": "Sclerocarya; Marula",
+  "tree:52": "Tiliaceae; Lindens",
+  "tree:53": "Ulmaceae; Elm",
+  "tree:54": "Unidentified Pollen",
+  "weed:1": "Aizoaceae; Ice plants",
+  "weed:2": "Amaranthus; Pigweed",
+  "weed:3": "Amaryllidaceae; Lily",
+  "weed:4": "Ambrosia; Ragweed",
+  "weed:5": "Anthospermum; Katstert",
+  "weed:6": "Apiaceae; Carrot/celery",
+  "weed:7": "Artemisia; Mugwort",
+  "weed:8": "Asphodelaceae; Aloe",
+  "weed:9": "Asteraceae; Daisy",
+  "weed:10": "Boraginaceae; Borage/forget-me-not",
+  "weed:11": "Brassicaceae; Mustards/cabbage",
+  "weed:12": "Bruniaceae; Coffee bush",
+  "weed:13": "Cannabis; Hemp",
+  "weed:14": "Caryophyllaceae; Carnation family",
+  "weed:15": "Chenopodiaceae; Goosefoot",
+  "weed:16": "Crassulaceae; Pigmyweeds/stonecrops",
+  "weed:17": "Cyperaceae; Sedge",
+  "weed:18": "Ericaceae; Erica",
+  "weed:19": "Erodium; Storksbill",
+  "weed:20": "Euphorbiaceae; Spurges",
+  "weed:21": "Gentianaceae; Gentians",
+  "weed:22": "Geraniaceae; Pelargonium",
+  "weed:23": "Helianthus; Sunflower",
+  "weed:24": "Iridaceae; Iris",
+  "weed:25": "Juncus; Rush",
+  "weed:26": "Lamiaceae; Mint",
+  "weed:27": "Liliaceae; Lily",
+  "weed:28": "Loranthaceae; Mistletoe",
+  "weed:29": "Malvaceae; Mallows",
+  "weed:30": "Oenotheracea; E. primrose",
+  "weed:31": "Oxalidaceae; Sorrel",
+  "weed:32": "Parietaria; Pellitory-of-the-wall",
+  "weed:33": "Persicaria; Knotweed",
+  "weed:34": "Plantaginaceae; Plantain",
+  "weed:35": "Polygonaceae; Buckwheats",
+  "weed:36": "Polypodiaceae; Fern",
+  "weed:37": "Proteaceae; Protea",
+  "weed:38": "Ranunculaceae; Buttercups",
+  "weed:39": "Restionaceae; Reed",
+  "weed:40": "Rosaceae; Rose",
+  "weed:41": "Rumex; Sorrel",
+  "weed:42": "Rutaceae; Citrus/buchu",
+  "weed:43": "Saxifraga; Rockfoils",
+  "weed:44": "Scrophulariaceae; Figworts",
+  "weed:45": "Solanaceae; Nightshade",
+  "weed:46": "Stoebe-type; Slangbos",
+  "weed:47": "Taraxacum; Dandelion",
+  "weed:48": "Theylepteris; Fern",
+  "weed:49": "Thymelaceae; Mezereum",
+  "weed:50": "Typhaceae; Bullrush",
+  "weed:51": "Umbelliferae; see Apiaceae",
+  "weed:52": "Urticaceae; Nettle",
+  "weed:53": "Zygophyllaceae; Caltrops",
+  "weed:54": "Unidentified Pollen"
+ },
+ "days": [
+  {
+   "day": 1,
+   "site": "site1",
+   "date": "date1",
+   "week": "weeknumber1",
+   "collected": "pollenyesno1",
+   "reason": "nopollendatareason1",
+   "comments": "comments_v2",
+   "capturedBy": "capturedby2_v2",
+   "qcBy": "qcby2_v2",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1",
+     "count": "count1",
+     "ccount": "ccount1",
+     "taxon": {
+      "1": "fungalspores1",
+      "2": "grass1",
+      "3": "trees1",
+      "4": "weeds1"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2",
+     "count": "count2",
+     "ccount": "ccount2",
+     "taxon": {
+      "1": "fungalspores2",
+      "2": "grass2",
+      "3": "trees2",
+      "4": "weeds2"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3",
+     "count": "count3",
+     "ccount": "ccount3",
+     "taxon": {
+      "1": "fungalspores3",
+      "2": "grass3",
+      "3": "trees3",
+      "4": "weeds3"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4",
+     "count": "count4",
+     "ccount": "ccount4",
+     "taxon": {
+      "1": "fungalspores4",
+      "2": "grass4",
+      "3": "trees4",
+      "4": "weeds4"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5",
+     "count": "count5",
+     "ccount": "ccount5",
+     "taxon": {
+      "1": "fungalspores5",
+      "2": "grass5",
+      "3": "trees5",
+      "4": "weeds5"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6",
+     "count": "count6",
+     "ccount": "ccount6",
+     "taxon": {
+      "1": "fungalspores6",
+      "2": "grass6",
+      "3": "trees6",
+      "4": "weeds6"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7",
+     "count": "count7",
+     "ccount": "ccount7",
+     "taxon": {
+      "1": "fungalspores7",
+      "2": "grass7",
+      "3": "trees7",
+      "4": "weeds7"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8",
+     "count": "count8",
+     "ccount": "ccount8",
+     "taxon": {
+      "1": "fungalspores8",
+      "2": "grass8",
+      "3": "trees8",
+      "4": "weeds8"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9",
+     "count": "count9",
+     "ccount": "ccount9",
+     "taxon": {
+      "1": "fungalspores9",
+      "2": "grass9",
+      "3": "trees9",
+      "4": "weeds9"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10",
+     "count": "count10",
+     "ccount": "ccount10",
+     "taxon": {
+      "1": "fungalspores10",
+      "2": "grass10",
+      "3": "trees10",
+      "4": "weeds10"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11",
+     "count": "count11",
+     "ccount": "ccount11",
+     "taxon": {
+      "1": "fungalspores11",
+      "2": "grass11",
+      "3": "trees11",
+      "4": "weeds11"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12",
+     "count": "count12",
+     "ccount": "ccount12",
+     "taxon": {
+      "1": "fungalspores12",
+      "2": "grass12",
+      "3": "trees12",
+      "4": "weeds12"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13",
+     "count": "count13",
+     "ccount": "ccount13",
+     "taxon": {
+      "1": "fungalspores13",
+      "2": "grass13",
+      "3": "trees13",
+      "4": "weeds13"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14",
+     "count": "count14",
+     "ccount": "ccount14",
+     "taxon": {
+      "1": "fungalspores14",
+      "2": "grass14",
+      "3": "trees14",
+      "4": "weeds14"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15",
+     "count": "count15",
+     "ccount": "ccount15",
+     "taxon": {
+      "1": "fungalspores15",
+      "2": "grass15",
+      "3": "trees15",
+      "4": "weeds15"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16",
+     "count": "count16",
+     "ccount": "ccount16",
+     "taxon": {
+      "1": "fungalspores16",
+      "2": "grass16",
+      "3": "trees16",
+      "4": "weeds16"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17",
+     "count": "count17",
+     "ccount": "ccount17",
+     "taxon": {
+      "1": "fungalspores17",
+      "2": "grass17",
+      "3": "trees17",
+      "4": "weeds17"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18",
+     "count": "count18",
+     "ccount": "ccount18",
+     "taxon": {
+      "1": "fungalspores18",
+      "2": "grass18",
+      "3": "trees18",
+      "4": "weeds18"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19",
+     "count": "count19",
+     "ccount": "ccount19",
+     "taxon": {
+      "1": "fungalspores19",
+      "2": "grass19",
+      "3": "trees19",
+      "4": "weeds19"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20",
+     "count": "count20",
+     "ccount": "ccount20",
+     "taxon": {
+      "1": "fungalspores20",
+      "2": "grass20",
+      "3": "trees20",
+      "4": "weeds20"
+     }
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "site": "site1_v2",
+   "date": "date1_v2",
+   "week": "weeknumber1_v2",
+   "collected": "pollenyesno1_v2",
+   "reason": "nopollendatareason1_v2",
+   "comments": "comments_v2_v2",
+   "capturedBy": "capturedby2_v2_v2",
+   "qcBy": "qcby2_v2_v2",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1_v2",
+     "count": "count1_v2",
+     "ccount": "ccount1_v2",
+     "taxon": {
+      "1": "fungalspores1_v2",
+      "2": "grass1_v2",
+      "3": "trees1_v2",
+      "4": "weeds1_v2"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2_v2",
+     "count": "count2_v2",
+     "ccount": "ccount2_v2",
+     "taxon": {
+      "1": "fungalspores2_v2",
+      "2": "grass2_v2",
+      "3": "trees2_v2",
+      "4": "weeds2_v2"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3_v2",
+     "count": "count3_v2",
+     "ccount": "ccount3_v2",
+     "taxon": {
+      "1": "fungalspores3_v2",
+      "2": "grass3_v2",
+      "3": "trees3_v2",
+      "4": "weeds3_v2"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4_v2",
+     "count": "count4_v2",
+     "ccount": "ccount4_v2",
+     "taxon": {
+      "1": "fungalspores4_v2",
+      "2": "grass4_v2",
+      "3": "trees4_v2",
+      "4": "weeds4_v2"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5_v2",
+     "count": "count5_v2",
+     "ccount": "ccount5_v2",
+     "taxon": {
+      "1": "fungalspores5_v2",
+      "2": "grass5_v2",
+      "3": "trees5_v2",
+      "4": "weeds5_v2"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6_v2",
+     "count": "count6_v2",
+     "ccount": "ccount6_v2",
+     "taxon": {
+      "1": "fungalspores6_v2",
+      "2": "grass6_v2",
+      "3": "trees6_v2",
+      "4": "weeds6_v2"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7_v2",
+     "count": "count7_v2",
+     "ccount": "ccount7_v2",
+     "taxon": {
+      "1": "fungalspores7_v2",
+      "2": "grass7_v2",
+      "3": "trees7_v2",
+      "4": "weeds7_v2"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8_v2",
+     "count": "count8_v2",
+     "ccount": "ccount8_v2",
+     "taxon": {
+      "1": "fungalspores8_v2",
+      "2": "grass8_v2",
+      "3": "trees8_v2",
+      "4": "weeds8_v2"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9_v2",
+     "count": "count9_v2",
+     "ccount": "ccount9_v2",
+     "taxon": {
+      "1": "fungalspores9_v2",
+      "2": "grass9_v2",
+      "3": "trees9_v2",
+      "4": "weeds9_v2"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10_v2",
+     "count": "count10_v2",
+     "ccount": "ccount10_v2",
+     "taxon": {
+      "1": "fungalspores10_v2",
+      "2": "grass10_v2",
+      "3": "trees10_v2",
+      "4": "weeds10_v2"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11_v2",
+     "count": "count11_v2",
+     "ccount": "ccount11_v2",
+     "taxon": {
+      "1": "fungalspores11_v2",
+      "2": "grass11_v2",
+      "3": "trees11_v2",
+      "4": "weeds11_v2"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12_v2",
+     "count": "count12_v2",
+     "ccount": "ccount12_v2",
+     "taxon": {
+      "1": "fungalspores12_v2",
+      "2": "grass12_v2",
+      "3": "trees12_v2",
+      "4": "weeds12_v2"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13_v2",
+     "count": "count13_v2",
+     "ccount": "ccount13_v2",
+     "taxon": {
+      "1": "fungalspores13_v2",
+      "2": "grass13_v2",
+      "3": "trees13_v2",
+      "4": "weeds13_v2"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14_v2",
+     "count": "count14_v2",
+     "ccount": "ccount14_v2",
+     "taxon": {
+      "1": "fungalspores14_v2",
+      "2": "grass14_v2",
+      "3": "trees14_v2",
+      "4": "weeds14_v2"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15_v2",
+     "count": "count15_v2",
+     "ccount": "ccount15_v2",
+     "taxon": {
+      "1": "fungalspores15_v2",
+      "2": "grass15_v2",
+      "3": "trees15_v2",
+      "4": "weeds15_v2"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16_v2",
+     "count": "count16_v2",
+     "ccount": "ccount16_v2",
+     "taxon": {
+      "1": "fungalspores16_v2",
+      "2": "grass16_v2",
+      "3": "trees16_v2",
+      "4": "weeds16_v2"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17_v2",
+     "count": "count17_v2",
+     "ccount": "ccount17_v2",
+     "taxon": {
+      "1": "fungalspores17_v2",
+      "2": "grass17_v2",
+      "3": "trees17_v2",
+      "4": "weeds17_v2"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18_v2",
+     "count": "count18_v2",
+     "ccount": "ccount18_v2",
+     "taxon": {
+      "1": "fungalspores18_v2",
+      "2": "grass18_v2",
+      "3": "trees18_v2",
+      "4": "weeds18_v2"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19_v2",
+     "count": "count19_v2",
+     "ccount": "ccount19_v2",
+     "taxon": {
+      "1": "fungalspores19_v2",
+      "2": "grass19_v2",
+      "3": "trees19_v2",
+      "4": "weeds19_v2"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20_v2",
+     "count": "count20_v2",
+     "ccount": "ccount20_v2",
+     "taxon": {
+      "1": "fungalspores20_v2",
+      "2": "grass20_v2",
+      "3": "trees20_v2",
+      "4": "weeds20_v2"
+     }
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "site": "site1_v2_v3",
+   "date": "date1_v2_v3",
+   "week": "weeknumber1_v2_v3",
+   "collected": "pollenyesno1_v2_v3",
+   "reason": "nopollendatareason1_v2_v3",
+   "comments": "comments_v2_v2_v3",
+   "capturedBy": "capturedby2_v2_v2_v3",
+   "qcBy": "qcby2_v2_v2_v3",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1_v2_v3",
+     "count": "count1_v2_v3",
+     "ccount": "ccount1_v2_v3",
+     "taxon": {
+      "1": "fungalspores1_v2_v3",
+      "2": "grass1_v2_v3",
+      "3": "trees1_v2_v3",
+      "4": "weeds1_v2_v3"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2_v2_v3",
+     "count": "count2_v2_v3",
+     "ccount": "ccount2_v2_v3",
+     "taxon": {
+      "1": "fungalspores2_v2_v3",
+      "2": "grass2_v2_v3",
+      "3": "trees2_v2_v3",
+      "4": "weeds2_v2_v3"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3_v2_v3",
+     "count": "count3_v2_v3",
+     "ccount": "ccount3_v2_v3",
+     "taxon": {
+      "1": "fungalspores3_v2_v3",
+      "2": "grass3_v2_v3",
+      "3": "trees3_v2_v3",
+      "4": "weeds3_v2_v3"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4_v2_v3",
+     "count": "count4_v2_v3",
+     "ccount": "ccount4_v2_v3",
+     "taxon": {
+      "1": "fungalspores4_v2_v3",
+      "2": "grass4_v2_v3",
+      "3": "trees4_v2_v3",
+      "4": "weeds4_v2_v3"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5_v2_v3",
+     "count": "count5_v2_v3",
+     "ccount": "ccount5_v2_v3",
+     "taxon": {
+      "1": "fungalspores5_v2_v3",
+      "2": "grass5_v2_v3",
+      "3": "trees5_v2_v3",
+      "4": "weeds5_v2_v3"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6_v2_v3",
+     "count": "count6_v2_v3",
+     "ccount": "ccount6_v2_v3",
+     "taxon": {
+      "1": "fungalspores6_v2_v3",
+      "2": "grass6_v2_v3",
+      "3": "trees6_v2_v3",
+      "4": "weeds6_v2_v3"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7_v2_v3",
+     "count": "count7_v2_v3",
+     "ccount": "ccount7_v2_v3",
+     "taxon": {
+      "1": "fungalspores7_v2_v3",
+      "2": "grass7_v2_v3",
+      "3": "trees7_v2_v3",
+      "4": "weeds7_v2_v3"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8_v2_v3",
+     "count": "count8_v2_v3",
+     "ccount": "ccount8_v2_v3",
+     "taxon": {
+      "1": "fungalspores8_v2_v3",
+      "2": "grass8_v2_v3",
+      "3": "trees8_v2_v3",
+      "4": "weeds8_v2_v3"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9_v2_v3",
+     "count": "count9_v2_v3",
+     "ccount": "ccount9_v2_v3",
+     "taxon": {
+      "1": "fungalspores9_v2_v3",
+      "2": "grass9_v2_v3",
+      "3": "trees9_v2_v3",
+      "4": "weeds9_v2_v3"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10_v2_v3",
+     "count": "count10_v2_v3",
+     "ccount": "ccount10_v2_v3",
+     "taxon": {
+      "1": "fungalspores10_v2_v3",
+      "2": "grass10_v2_v3",
+      "3": "trees10_v2_v3",
+      "4": "weeds10_v2_v3"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11_v2_v3",
+     "count": "count11_v2_v3",
+     "ccount": "ccount11_v2_v3",
+     "taxon": {
+      "1": "fungalspores11_v2_v3",
+      "2": "grass11_v2_v3",
+      "3": "trees11_v2_v3",
+      "4": "weeds11_v2_v3"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12_v2_v3",
+     "count": "count12_v2_v3",
+     "ccount": "ccount12_v2_v3",
+     "taxon": {
+      "1": "fungalspores12_v2_v3",
+      "2": "grass12_v2_v3",
+      "3": "trees12_v2_v3",
+      "4": "weeds12_v2_v3"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13_v2_v3",
+     "count": "count13_v2_v3",
+     "ccount": "ccount13_v2_v3",
+     "taxon": {
+      "1": "fungalspores13_v2_v3",
+      "2": "grass13_v2_v3",
+      "3": "trees13_v2_v3",
+      "4": "weeds13_v2_v3"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14_v2_v3",
+     "count": "count14_v2_v3",
+     "ccount": "ccount14_v2_v3",
+     "taxon": {
+      "1": "fungalspores14_v2_v3",
+      "2": "grass14_v2_v3",
+      "3": "trees14_v2_v3",
+      "4": "weeds14_v2_v3"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15_v2_v3",
+     "count": "count15_v2_v3",
+     "ccount": "ccount15_v2_v3",
+     "taxon": {
+      "1": "fungalspores15_v2_v3",
+      "2": "grass15_v2_v3",
+      "3": "trees15_v2_v3",
+      "4": "weeds15_v2_v3"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16_v2_v3",
+     "count": "count16_v2_v3",
+     "ccount": "ccount16_v2_v3",
+     "taxon": {
+      "1": "fungalspores16_v2_v3",
+      "2": "grass16_v2_v3",
+      "3": "trees16_v2_v3",
+      "4": "weeds16_v2_v3"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17_v2_v3",
+     "count": "count17_v2_v3",
+     "ccount": "ccount17_v2_v3",
+     "taxon": {
+      "1": "fungalspores17_v2_v3",
+      "2": "grass17_v2_v3",
+      "3": "trees17_v2_v3",
+      "4": "weeds17_v2_v3"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18_v2_v3",
+     "count": "count18_v2_v3",
+     "ccount": "ccount18_v2_v3",
+     "taxon": {
+      "1": "fungalspores18_v2_v3",
+      "2": "grass18_v2_v3",
+      "3": "trees18_v2_v3",
+      "4": "weeds18_v2_v3"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19_v2_v3",
+     "count": "count19_v2_v3",
+     "ccount": "ccount19_v2_v3",
+     "taxon": {
+      "1": "fungalspores19_v2_v3",
+      "2": "grass19_v2_v3",
+      "3": "trees19_v2_v3",
+      "4": "weeds19_v2_v3"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20_v2_v3",
+     "count": "count20_v2_v3",
+     "ccount": "ccount20_v2_v3",
+     "taxon": {
+      "1": "fungalspores20_v2_v3",
+      "2": "grass20_v2_v3",
+      "3": "trees20_v2_v3",
+      "4": "weeds20_v2_v3"
+     }
+    }
+   ]
+  },
+  {
+   "day": 4,
+   "site": "site1_v2_v3_v4",
+   "date": "date1_v2_v3_v4",
+   "week": "weeknumber1_v2_v3_v4",
+   "collected": "pollenyesno1_v2_v3_v4",
+   "reason": "nopollendatareason1_v2_v3_v4",
+   "comments": "comments_v2_v2_v3_v4",
+   "capturedBy": "capturedby2_v2_v2_v3_v4",
+   "qcBy": "qcby2_v2_v2_v3_v4",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1_v2_v3_v4",
+     "count": "count1_v2_v3_v4",
+     "ccount": "ccount1_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores1_v2_v3_v4",
+      "2": "grass1_v2_v3_v4",
+      "3": "trees1_v2_v3_v4",
+      "4": "weeds1_v2_v3_v4"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2_v2_v3_v4",
+     "count": "count2_v2_v3_v4",
+     "ccount": "ccount2_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores2_v2_v3_v4",
+      "2": "grass2_v2_v3_v4",
+      "3": "trees2_v2_v3_v4",
+      "4": "weeds2_v2_v3_v4"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3_v2_v3_v4",
+     "count": "count3_v2_v3_v4",
+     "ccount": "ccount3_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores3_v2_v3_v4",
+      "2": "grass3_v2_v3_v4",
+      "3": "trees3_v2_v3_v4",
+      "4": "weeds3_v2_v3_v4"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4_v2_v3_v4",
+     "count": "count4_v2_v3_v4",
+     "ccount": "ccount4_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores4_v2_v3_v4",
+      "2": "grass4_v2_v3_v4",
+      "3": "trees4_v2_v3_v4",
+      "4": "weeds4_v2_v3_v4"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5_v2_v3_v4",
+     "count": "count5_v2_v3_v4",
+     "ccount": "ccount5_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores5_v2_v3_v4",
+      "2": "grass5_v2_v3_v4",
+      "3": "trees5_v2_v3_v4",
+      "4": "weeds5_v2_v3_v4"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6_v2_v3_v4",
+     "count": "count6_v2_v3_v4",
+     "ccount": "ccount6_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores6_v2_v3_v4",
+      "2": "grass6_v2_v3_v4",
+      "3": "trees6_v2_v3_v4",
+      "4": "weeds6_v2_v3_v4"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7_v2_v3_v4",
+     "count": "count7_v2_v3_v4",
+     "ccount": "ccount7_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores7_v2_v3_v4",
+      "2": "grass7_v2_v3_v4",
+      "3": "trees7_v2_v3_v4",
+      "4": "weeds7_v2_v3_v4"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8_v2_v3_v4",
+     "count": "count8_v2_v3_v4",
+     "ccount": "ccount8_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores8_v2_v3_v4",
+      "2": "grass8_v2_v3_v4",
+      "3": "trees8_v2_v3_v4",
+      "4": "weeds8_v2_v3_v4"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9_v2_v3_v4",
+     "count": "count9_v2_v3_v4",
+     "ccount": "ccount9_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores9_v2_v3_v4",
+      "2": "grass9_v2_v3_v4",
+      "3": "trees9_v2_v3_v4",
+      "4": "weeds9_v2_v3_v4"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10_v2_v3_v4",
+     "count": "count10_v2_v3_v4",
+     "ccount": "ccount10_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores10_v2_v3_v4",
+      "2": "grass10_v2_v3_v4",
+      "3": "trees10_v2_v3_v4",
+      "4": "weeds10_v2_v3_v4"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11_v2_v3_v4",
+     "count": "count11_v2_v3_v4",
+     "ccount": "ccount11_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores11_v2_v3_v4",
+      "2": "grass11_v2_v3_v4",
+      "3": "trees11_v2_v3_v4",
+      "4": "weeds11_v2_v3_v4"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12_v2_v3_v4",
+     "count": "count12_v2_v3_v4",
+     "ccount": "ccount12_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores12_v2_v3_v4",
+      "2": "grass12_v2_v3_v4",
+      "3": "trees12_v2_v3_v4",
+      "4": "weeds12_v2_v3_v4"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13_v2_v3_v4",
+     "count": "count13_v2_v3_v4",
+     "ccount": "ccount13_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores13_v2_v3_v4",
+      "2": "grass13_v2_v3_v4",
+      "3": "trees13_v2_v3_v4",
+      "4": "weeds13_v2_v3_v4"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14_v2_v3_v4",
+     "count": "count14_v2_v3_v4",
+     "ccount": "ccount14_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores14_v2_v3_v4",
+      "2": "grass14_v2_v3_v4",
+      "3": "trees14_v2_v3_v4",
+      "4": "weeds14_v2_v3_v4"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15_v2_v3_v4",
+     "count": "count15_v2_v3_v4",
+     "ccount": "ccount15_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores15_v2_v3_v4",
+      "2": "grass15_v2_v3_v4",
+      "3": "trees15_v2_v3_v4",
+      "4": "weeds15_v2_v3_v4"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16_v2_v3_v4",
+     "count": "count16_v2_v3_v4",
+     "ccount": "ccount16_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores16_v2_v3_v4",
+      "2": "grass16_v2_v3_v4",
+      "3": "trees16_v2_v3_v4",
+      "4": "weeds16_v2_v3_v4"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17_v2_v3_v4",
+     "count": "count17_v2_v3_v4",
+     "ccount": "ccount17_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores17_v2_v3_v4",
+      "2": "grass17_v2_v3_v4",
+      "3": "trees17_v2_v3_v4",
+      "4": "weeds17_v2_v3_v4"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18_v2_v3_v4",
+     "count": "count18_v2_v3_v4",
+     "ccount": "ccount18_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores18_v2_v3_v4",
+      "2": "grass18_v2_v3_v4",
+      "3": "trees18_v2_v3_v4",
+      "4": "weeds18_v2_v3_v4"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19_v2_v3_v4",
+     "count": "count19_v2_v3_v4",
+     "ccount": "ccount19_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores19_v2_v3_v4",
+      "2": "grass19_v2_v3_v4",
+      "3": "trees19_v2_v3_v4",
+      "4": "weeds19_v2_v3_v4"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20_v2_v3_v4",
+     "count": "count20_v2_v3_v4",
+     "ccount": "ccount20_v2_v3_v4",
+     "taxon": {
+      "1": "fungalspores20_v2_v3_v4",
+      "2": "grass20_v2_v3_v4",
+      "3": "trees20_v2_v3_v4",
+      "4": "weeds20_v2_v3_v4"
+     }
+    }
+   ]
+  },
+  {
+   "day": 5,
+   "site": "site1_v2_v3_v4_v5",
+   "date": "date1_v2_v3_v4_v5",
+   "week": "weeknumber1_v2_v3_v4_v5",
+   "collected": "pollenyesno1_v2_v3_v4_v5",
+   "reason": "nopollendatareason1_v2_v3_v4_v5",
+   "comments": "comments_v2_v2_v3_v4_v5",
+   "capturedBy": "capturedby2_v2_v2_v3_v4_v5",
+   "qcBy": "qcby2_v2_v2_v3_v4_v5",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1_v2_v3_v4_v5",
+     "count": "count1_v2_v3_v4_v5",
+     "ccount": "ccount1_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores1_v2_v3_v4_v5",
+      "2": "grass1_v2_v3_v4_v5",
+      "3": "trees1_v2_v3_v4_v5",
+      "4": "weeds1_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2_v2_v3_v4_v5",
+     "count": "count2_v2_v3_v4_v5",
+     "ccount": "ccount2_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores2_v2_v3_v4_v5",
+      "2": "grass2_v2_v3_v4_v5",
+      "3": "trees2_v2_v3_v4_v5",
+      "4": "weeds2_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3_v2_v3_v4_v5",
+     "count": "count3_v2_v3_v4_v5",
+     "ccount": "ccount3_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores3_v2_v3_v4_v5",
+      "2": "grass3_v2_v3_v4_v5",
+      "3": "trees3_v2_v3_v4_v5",
+      "4": "weeds3_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4_v2_v3_v4_v5",
+     "count": "count4_v2_v3_v4_v5",
+     "ccount": "ccount4_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores4_v2_v3_v4_v5",
+      "2": "grass4_v2_v3_v4_v5",
+      "3": "trees4_v2_v3_v4_v5",
+      "4": "weeds4_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5_v2_v3_v4_v5",
+     "count": "count5_v2_v3_v4_v5",
+     "ccount": "ccount5_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores5_v2_v3_v4_v5",
+      "2": "grass5_v2_v3_v4_v5",
+      "3": "trees5_v2_v3_v4_v5",
+      "4": "weeds5_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6_v2_v3_v4_v5",
+     "count": "count6_v2_v3_v4_v5",
+     "ccount": "ccount6_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores6_v2_v3_v4_v5",
+      "2": "grass6_v2_v3_v4_v5",
+      "3": "trees6_v2_v3_v4_v5",
+      "4": "weeds6_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7_v2_v3_v4_v5",
+     "count": "count7_v2_v3_v4_v5",
+     "ccount": "ccount7_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores7_v2_v3_v4_v5",
+      "2": "grass7_v2_v3_v4_v5",
+      "3": "trees7_v2_v3_v4_v5",
+      "4": "weeds7_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8_v2_v3_v4_v5",
+     "count": "count8_v2_v3_v4_v5",
+     "ccount": "ccount8_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores8_v2_v3_v4_v5",
+      "2": "grass8_v2_v3_v4_v5",
+      "3": "trees8_v2_v3_v4_v5",
+      "4": "weeds8_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9_v2_v3_v4_v5",
+     "count": "count9_v2_v3_v4_v5",
+     "ccount": "ccount9_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores9_v2_v3_v4_v5",
+      "2": "grass9_v2_v3_v4_v5",
+      "3": "trees9_v2_v3_v4_v5",
+      "4": "weeds9_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10_v2_v3_v4_v5",
+     "count": "count10_v2_v3_v4_v5",
+     "ccount": "ccount10_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores10_v2_v3_v4_v5",
+      "2": "grass10_v2_v3_v4_v5",
+      "3": "trees10_v2_v3_v4_v5",
+      "4": "weeds10_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11_v2_v3_v4_v5",
+     "count": "count11_v2_v3_v4_v5",
+     "ccount": "ccount11_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores11_v2_v3_v4_v5",
+      "2": "grass11_v2_v3_v4_v5",
+      "3": "trees11_v2_v3_v4_v5",
+      "4": "weeds11_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12_v2_v3_v4_v5",
+     "count": "count12_v2_v3_v4_v5",
+     "ccount": "ccount12_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores12_v2_v3_v4_v5",
+      "2": "grass12_v2_v3_v4_v5",
+      "3": "trees12_v2_v3_v4_v5",
+      "4": "weeds12_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13_v2_v3_v4_v5",
+     "count": "count13_v2_v3_v4_v5",
+     "ccount": "ccount13_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores13_v2_v3_v4_v5",
+      "2": "grass13_v2_v3_v4_v5",
+      "3": "trees13_v2_v3_v4_v5",
+      "4": "weeds13_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14_v2_v3_v4_v5",
+     "count": "count14_v2_v3_v4_v5",
+     "ccount": "ccount14_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores14_v2_v3_v4_v5",
+      "2": "grass14_v2_v3_v4_v5",
+      "3": "trees14_v2_v3_v4_v5",
+      "4": "weeds14_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15_v2_v3_v4_v5",
+     "count": "count15_v2_v3_v4_v5",
+     "ccount": "ccount15_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores15_v2_v3_v4_v5",
+      "2": "grass15_v2_v3_v4_v5",
+      "3": "trees15_v2_v3_v4_v5",
+      "4": "weeds15_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16_v2_v3_v4_v5",
+     "count": "count16_v2_v3_v4_v5",
+     "ccount": "ccount16_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores16_v2_v3_v4_v5",
+      "2": "grass16_v2_v3_v4_v5",
+      "3": "trees16_v2_v3_v4_v5",
+      "4": "weeds16_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17_v2_v3_v4_v5",
+     "count": "count17_v2_v3_v4_v5",
+     "ccount": "ccount17_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores17_v2_v3_v4_v5",
+      "2": "grass17_v2_v3_v4_v5",
+      "3": "trees17_v2_v3_v4_v5",
+      "4": "weeds17_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18_v2_v3_v4_v5",
+     "count": "count18_v2_v3_v4_v5",
+     "ccount": "ccount18_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores18_v2_v3_v4_v5",
+      "2": "grass18_v2_v3_v4_v5",
+      "3": "trees18_v2_v3_v4_v5",
+      "4": "weeds18_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19_v2_v3_v4_v5",
+     "count": "count19_v2_v3_v4_v5",
+     "ccount": "ccount19_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores19_v2_v3_v4_v5",
+      "2": "grass19_v2_v3_v4_v5",
+      "3": "trees19_v2_v3_v4_v5",
+      "4": "weeds19_v2_v3_v4_v5"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20_v2_v3_v4_v5",
+     "count": "count20_v2_v3_v4_v5",
+     "ccount": "ccount20_v2_v3_v4_v5",
+     "taxon": {
+      "1": "fungalspores20_v2_v3_v4_v5",
+      "2": "grass20_v2_v3_v4_v5",
+      "3": "trees20_v2_v3_v4_v5",
+      "4": "weeds20_v2_v3_v4_v5"
+     }
+    }
+   ]
+  },
+  {
+   "day": 6,
+   "site": "site1_v2_v3_v4_v5_v6",
+   "date": "date1_v2_v3_v4_v5_v6",
+   "week": "weeknumber1_v2_v3_v4_v5_v6",
+   "collected": "pollenyesno1_v2_v3_v4_v5_v6",
+   "reason": "nopollendatareason1_v2_v3_v4_v5_v6",
+   "comments": "comments_v2_v2_v3_v4_v5_v6",
+   "capturedBy": "capturedby2_v2_v2_v3_v4_v5_v6",
+   "qcBy": "qcby2_v2_v2_v3_v4_v5_v6",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1_v2_v3_v4_v5_v6",
+     "count": "count1_v2_v3_v4_v5_v6",
+     "ccount": "ccount1_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores1_v2_v3_v4_v5_v6",
+      "2": "grass1_v2_v3_v4_v5_v6",
+      "3": "trees1_v2_v3_v4_v5_v6",
+      "4": "weeds1_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2_v2_v3_v4_v5_v6",
+     "count": "count2_v2_v3_v4_v5_v6",
+     "ccount": "ccount2_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores2_v2_v3_v4_v5_v6",
+      "2": "grass2_v2_v3_v4_v5_v6",
+      "3": "trees2_v2_v3_v4_v5_v6",
+      "4": "weeds2_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3_v2_v3_v4_v5_v6",
+     "count": "count3_v2_v3_v4_v5_v6",
+     "ccount": "ccount3_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores3_v2_v3_v4_v5_v6",
+      "2": "grass3_v2_v3_v4_v5_v6",
+      "3": "trees3_v2_v3_v4_v5_v6",
+      "4": "weeds3_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4_v2_v3_v4_v5_v6",
+     "count": "count4_v2_v3_v4_v5_v6",
+     "ccount": "ccount4_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores4_v2_v3_v4_v5_v6",
+      "2": "grass4_v2_v3_v4_v5_v6",
+      "3": "trees4_v2_v3_v4_v5_v6",
+      "4": "weeds4_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5_v2_v3_v4_v5_v6",
+     "count": "count5_v2_v3_v4_v5_v6",
+     "ccount": "ccount5_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores5_v2_v3_v4_v5_v6",
+      "2": "grass5_v2_v3_v4_v5_v6",
+      "3": "trees5_v2_v3_v4_v5_v6",
+      "4": "weeds5_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6_v2_v3_v4_v5_v6",
+     "count": "count6_v2_v3_v4_v5_v6",
+     "ccount": "ccount6_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores6_v2_v3_v4_v5_v6",
+      "2": "grass6_v2_v3_v4_v5_v6",
+      "3": "trees6_v2_v3_v4_v5_v6",
+      "4": "weeds6_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7_v2_v3_v4_v5_v6",
+     "count": "count7_v2_v3_v4_v5_v6",
+     "ccount": "ccount7_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores7_v2_v3_v4_v5_v6",
+      "2": "grass7_v2_v3_v4_v5_v6",
+      "3": "trees7_v2_v3_v4_v5_v6",
+      "4": "weeds7_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8_v2_v3_v4_v5_v6",
+     "count": "count8_v2_v3_v4_v5_v6",
+     "ccount": "ccount8_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores8_v2_v3_v4_v5_v6",
+      "2": "grass8_v2_v3_v4_v5_v6",
+      "3": "trees8_v2_v3_v4_v5_v6",
+      "4": "weeds8_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9_v2_v3_v4_v5_v6",
+     "count": "count9_v2_v3_v4_v5_v6",
+     "ccount": "ccount9_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores9_v2_v3_v4_v5_v6",
+      "2": "grass9_v2_v3_v4_v5_v6",
+      "3": "trees9_v2_v3_v4_v5_v6",
+      "4": "weeds9_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10_v2_v3_v4_v5_v6",
+     "count": "count10_v2_v3_v4_v5_v6",
+     "ccount": "ccount10_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores10_v2_v3_v4_v5_v6",
+      "2": "grass10_v2_v3_v4_v5_v6",
+      "3": "trees10_v2_v3_v4_v5_v6",
+      "4": "weeds10_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11_v2_v3_v4_v5_v6",
+     "count": "count11_v2_v3_v4_v5_v6",
+     "ccount": "ccount11_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores11_v2_v3_v4_v5_v6",
+      "2": "grass11_v2_v3_v4_v5_v6",
+      "3": "trees11_v2_v3_v4_v5_v6",
+      "4": "weeds11_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12_v2_v3_v4_v5_v6",
+     "count": "count12_v2_v3_v4_v5_v6",
+     "ccount": "ccount12_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores12_v2_v3_v4_v5_v6",
+      "2": "grass12_v2_v3_v4_v5_v6",
+      "3": "trees12_v2_v3_v4_v5_v6",
+      "4": "weeds12_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13_v2_v3_v4_v5_v6",
+     "count": "count13_v2_v3_v4_v5_v6",
+     "ccount": "ccount13_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores13_v2_v3_v4_v5_v6",
+      "2": "grass13_v2_v3_v4_v5_v6",
+      "3": "trees13_v2_v3_v4_v5_v6",
+      "4": "weeds13_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14_v2_v3_v4_v5_v6",
+     "count": "count14_v2_v3_v4_v5_v6",
+     "ccount": "ccount14_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores14_v2_v3_v4_v5_v6",
+      "2": "grass14_v2_v3_v4_v5_v6",
+      "3": "trees14_v2_v3_v4_v5_v6",
+      "4": "weeds14_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15_v2_v3_v4_v5_v6",
+     "count": "count15_v2_v3_v4_v5_v6",
+     "ccount": "ccount15_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores15_v2_v3_v4_v5_v6",
+      "2": "grass15_v2_v3_v4_v5_v6",
+      "3": "trees15_v2_v3_v4_v5_v6",
+      "4": "weeds15_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16_v2_v3_v4_v5_v6",
+     "count": "count16_v2_v3_v4_v5_v6",
+     "ccount": "ccount16_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores16_v2_v3_v4_v5_v6",
+      "2": "grass16_v2_v3_v4_v5_v6",
+      "3": "trees16_v2_v3_v4_v5_v6",
+      "4": "weeds16_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17_v2_v3_v4_v5_v6",
+     "count": "count17_v2_v3_v4_v5_v6",
+     "ccount": "ccount17_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores17_v2_v3_v4_v5_v6",
+      "2": "grass17_v2_v3_v4_v5_v6",
+      "3": "trees17_v2_v3_v4_v5_v6",
+      "4": "weeds17_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18_v2_v3_v4_v5_v6",
+     "count": "count18_v2_v3_v4_v5_v6",
+     "ccount": "ccount18_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores18_v2_v3_v4_v5_v6",
+      "2": "grass18_v2_v3_v4_v5_v6",
+      "3": "trees18_v2_v3_v4_v5_v6",
+      "4": "weeds18_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19_v2_v3_v4_v5_v6",
+     "count": "count19_v2_v3_v4_v5_v6",
+     "ccount": "ccount19_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores19_v2_v3_v4_v5_v6",
+      "2": "grass19_v2_v3_v4_v5_v6",
+      "3": "trees19_v2_v3_v4_v5_v6",
+      "4": "weeds19_v2_v3_v4_v5_v6"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20_v2_v3_v4_v5_v6",
+     "count": "count20_v2_v3_v4_v5_v6",
+     "ccount": "ccount20_v2_v3_v4_v5_v6",
+     "taxon": {
+      "1": "fungalspores20_v2_v3_v4_v5_v6",
+      "2": "grass20_v2_v3_v4_v5_v6",
+      "3": "trees20_v2_v3_v4_v5_v6",
+      "4": "weeds20_v2_v3_v4_v5_v6"
+     }
+    }
+   ]
+  },
+  {
+   "day": 7,
+   "site": "site1_v2_v3_v4_v5_v6_7",
+   "date": "date1_v2_v3_v4_v5_v6_7",
+   "week": "weeknumber1_v2_v3_v4_v5_v6_7",
+   "collected": "pollenyesno1_v2_v3_v4_v5_v6_7",
+   "reason": "nopollendatareason1_v2_v3_v4_v5_v6_7",
+   "comments": "comments_v2_v2_v3_v4_v5_v6_7",
+   "capturedBy": "capturedby2_v2_v2_v3_v4_v5_v6_7",
+   "qcBy": "qcby2_v2_v2_v3_v4_v5_v6_7",
+   "slots": [
+    {
+     "n": 1,
+     "category": "category1_v2_v3_v4_v5_v6_7",
+     "count": "count1_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount1_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores1_v2_v3_v4_v5_v6_7",
+      "2": "grass1_v2_v3_v4_v5_v6_7",
+      "3": "trees1_v2_v3_v4_v5_v6_7",
+      "4": "weeds1_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 2,
+     "category": "category2_v2_v3_v4_v5_v6_7",
+     "count": "count2_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount2_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores2_v2_v3_v4_v5_v6_7",
+      "2": "grass2_v2_v3_v4_v5_v6_7",
+      "3": "trees2_v2_v3_v4_v5_v6_7",
+      "4": "weeds2_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 3,
+     "category": "category3_v2_v3_v4_v5_v6_7",
+     "count": "count3_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount3_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores3_v2_v3_v4_v5_v6_7",
+      "2": "grass3_v2_v3_v4_v5_v6_7",
+      "3": "trees3_v2_v3_v4_v5_v6_7",
+      "4": "weeds3_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 4,
+     "category": "category4_v2_v3_v4_v5_v6_7",
+     "count": "count4_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount4_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores4_v2_v3_v4_v5_v6_7",
+      "2": "grass4_v2_v3_v4_v5_v6_7",
+      "3": "trees4_v2_v3_v4_v5_v6_7",
+      "4": "weeds4_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 5,
+     "category": "category5_v2_v3_v4_v5_v6_7",
+     "count": "count5_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount5_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores5_v2_v3_v4_v5_v6_7",
+      "2": "grass5_v2_v3_v4_v5_v6_7",
+      "3": "trees5_v2_v3_v4_v5_v6_7",
+      "4": "weeds5_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 6,
+     "category": "category6_v2_v3_v4_v5_v6_7",
+     "count": "count6_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount6_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores6_v2_v3_v4_v5_v6_7",
+      "2": "grass6_v2_v3_v4_v5_v6_7",
+      "3": "trees6_v2_v3_v4_v5_v6_7",
+      "4": "weeds6_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 7,
+     "category": "category7_v2_v3_v4_v5_v6_7",
+     "count": "count7_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount7_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores7_v2_v3_v4_v5_v6_7",
+      "2": "grass7_v2_v3_v4_v5_v6_7",
+      "3": "trees7_v2_v3_v4_v5_v6_7",
+      "4": "weeds7_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 8,
+     "category": "category8_v2_v3_v4_v5_v6_7",
+     "count": "count8_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount8_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores8_v2_v3_v4_v5_v6_7",
+      "2": "grass8_v2_v3_v4_v5_v6_7",
+      "3": "trees8_v2_v3_v4_v5_v6_7",
+      "4": "weeds8_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 9,
+     "category": "category9_v2_v3_v4_v5_v6_7",
+     "count": "count9_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount9_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores9_v2_v3_v4_v5_v6_7",
+      "2": "grass9_v2_v3_v4_v5_v6_7",
+      "3": "trees9_v2_v3_v4_v5_v6_7",
+      "4": "weeds9_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 10,
+     "category": "category10_v2_v3_v4_v5_v6_7",
+     "count": "count10_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount10_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores10_v2_v3_v4_v5_v6_7",
+      "2": "grass10_v2_v3_v4_v5_v6_7",
+      "3": "trees10_v2_v3_v4_v5_v6_7",
+      "4": "weeds10_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 11,
+     "category": "category11_v2_v3_v4_v5_v6_7",
+     "count": "count11_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount11_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores11_v2_v3_v4_v5_v6_7",
+      "2": "grass11_v2_v3_v4_v5_v6_7",
+      "3": "trees11_v2_v3_v4_v5_v6_7",
+      "4": "weeds11_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 12,
+     "category": "category12_v2_v3_v4_v5_v6_7",
+     "count": "count12_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount12_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores12_v2_v3_v4_v5_v6_7",
+      "2": "grass12_v2_v3_v4_v5_v6_7",
+      "3": "trees12_v2_v3_v4_v5_v6_7",
+      "4": "weeds12_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 13,
+     "category": "category13_v2_v3_v4_v5_v6_7",
+     "count": "count13_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount13_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores13_v2_v3_v4_v5_v6_7",
+      "2": "grass13_v2_v3_v4_v5_v6_7",
+      "3": "trees13_v2_v3_v4_v5_v6_7",
+      "4": "weeds13_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 14,
+     "category": "category14_v2_v3_v4_v5_v6_7",
+     "count": "count14_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount14_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores14_v2_v3_v4_v5_v6_7",
+      "2": "grass14_v2_v3_v4_v5_v6_7",
+      "3": "trees14_v2_v3_v4_v5_v6_7",
+      "4": "weeds14_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 15,
+     "category": "category15_v2_v3_v4_v5_v6_7",
+     "count": "count15_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount15_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores15_v2_v3_v4_v5_v6_7",
+      "2": "grass15_v2_v3_v4_v5_v6_7",
+      "3": "trees15_v2_v3_v4_v5_v6_7",
+      "4": "weeds15_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 16,
+     "category": "category16_v2_v3_v4_v5_v6_7",
+     "count": "count16_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount16_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores16_v2_v3_v4_v5_v6_7",
+      "2": "grass16_v2_v3_v4_v5_v6_7",
+      "3": "trees16_v2_v3_v4_v5_v6_7",
+      "4": "weeds16_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 17,
+     "category": "category17_v2_v3_v4_v5_v6_7",
+     "count": "count17_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount17_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores17_v2_v3_v4_v5_v6_7",
+      "2": "grass17_v2_v3_v4_v5_v6_7",
+      "3": "trees17_v2_v3_v4_v5_v6_7",
+      "4": "weeds17_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 18,
+     "category": "category18_v2_v3_v4_v5_v6_7",
+     "count": "count18_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount18_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores18_v2_v3_v4_v5_v6_7",
+      "2": "grass18_v2_v3_v4_v5_v6_7",
+      "3": "trees18_v2_v3_v4_v5_v6_7",
+      "4": "weeds18_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 19,
+     "category": "category19_v2_v3_v4_v5_v6_7",
+     "count": "count19_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount19_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores19_v2_v3_v4_v5_v6_7",
+      "2": "grass19_v2_v3_v4_v5_v6_7",
+      "3": "trees19_v2_v3_v4_v5_v6_7",
+      "4": "weeds19_v2_v3_v4_v5_v6_7"
+     }
+    },
+    {
+     "n": 20,
+     "category": "category20_v2_v3_v4_v5_v6_7",
+     "count": "count20_v2_v3_v4_v5_v6_7",
+     "ccount": "ccount20_v2_v3_v4_v5_v6_7",
+     "taxon": {
+      "1": "fungalspores20_v2_v3_v4_v5_v6_7",
+      "2": "grass20_v2_v3_v4_v5_v6_7",
+      "3": "trees20_v2_v3_v4_v5_v6_7",
+      "4": "weeds20_v2_v3_v4_v5_v6_7"
+     }
+    }
+   ]
+  }
+ ]
+}

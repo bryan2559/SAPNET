@@ -1,0 +1,14 @@
+{
+  "name": "sapnet-aerobiology-dashboard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Weekly to annual pollen and fungal spore reporting dashboard for the SAPNET monitoring network.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node -e \"console.log('Static site — nothing to compile.')\"",
+    "dev": "netlify dev",
+    "data": "node scripts/build-data.mjs",
+    "legacy-map": "node scripts/build-legacy-map.mjs",
+    "check": "for f in netlify/functions/*.js netlify/functions/lib/*.js; do node --check \"$f\" || exit 1; done && for f in public/assets/*.js; do node --input-type=module --check < \"$f\" || exit 1; done && echo 'all modules parse'"
+  }
+}

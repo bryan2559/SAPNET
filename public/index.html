@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAPNET — aerobiology reporting</title>
+<meta name="description" content="Weekly, monthly, quarterly and annual pollen and fungal spore reporting for the South African pollen monitoring network.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div id="loading" class="loading">Loading aerobiology data…</div>
+
+  <div id="app" hidden>
+    <header class="mast">
+      <div>
+        <div class="mark">SAPNET<span>.</span> Aerobiology reporting</div>
+        <div class="sub">Weekly → monthly → quarterly → annual</div>
+      </div>
+      <div class="controls">
+        <label class="sub" for="siteSel" style="letter-spacing:.13em">Site</label>
+        <select id="siteSel"></select>
+        <label class="sub" for="catSel" style="letter-spacing:.13em">Load shown</label>
+        <select id="catSel">
+          <option value="pollen">Total pollen</option>
+          <option value="all">Pollen + spores</option>
+          <option value="1">Tree pollen</option>
+          <option value="2">Grass pollen</option>
+          <option value="3">Weed pollen</option>
+          <option value="4">Fungal spores</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="srcbar">
+      <span id="srcBadge" class="badge">—</span>
+      <span id="srcNote"></span>
+    </div>
+    <p id="srcWarn" class="provwarn" hidden></p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-p="week" aria-selected="true">Week</button>
+      <button class="tab" role="tab" data-p="month" aria-selected="false">Month</button>
+      <button class="tab" role="tab" data-p="quarter" aria-selected="false">Quarter</button>
+      <button class="tab" role="tab" data-p="year" aria-selected="false">Year</button>
+      <div class="periodnav">
+        <button id="prev" aria-label="Previous period">&larr;</button>
+        <span class="lbl" id="periodLbl"></span>
+        <button id="next" aria-label="Next period">&rarr;</button>
+        <span class="acts">
+          <button class="act" id="csv">Export CSV</button>
+          <button class="act" id="print">Print report</button>
+        </span>
+      </div>
+    </div>
+
+    <section class="tapeblock">
+      <div class="eyebrow"><span id="tapeTitle">The tape</span><span id="tapeMeta"></span></div>
+      <div class="tape">
+        <div class="sprocket"></div>
+        <svg id="tapeSvg" viewBox="0 0 1000 96" preserveAspectRatio="none" role="img" aria-label="Sampling tape, one segment per day"></svg>
+        <div class="sprocket"></div>
+      </div>
+      <div class="tapelegend">
+        <span><i style="background:var(--fuchsin)"></i>particle load, darker = heavier</span>
+        <span><i style="background:repeating-linear-gradient(45deg,#B23A00 0 3px,#3a1400 3px 6px)"></i>no valid sample</span>
+        <span><i style="background:#8a6d00"></i>partial day</span>
+      </div>
+    </section>
+
+    <div class="kpis" id="kpis"></div>
+    <div id="views"></div>
+
+    <div class="note">
+      <b>Every figure on this page is derived, not typed.</b> Concentrations come from raw counts multiplied by a
+      conversion factor computed per site and per week from measured flow rate and traverse geometry, and are never
+      rounded before aggregation. Gaps are shown as gaps: a day with no valid sample is excluded from means and
+      marked on the tape, rather than being read as zero.
+    </div>
+
+    <footer>
+      Risk bands are placeholders and must be set by the network's clinical advisory group before public release.
+      Season descriptors use the 95% cumulative method (2.5% to 97.5% of the annual integral).
+      <br><span class="prov">Check release status before citing</span>
+    </footer>
+  </div>
+
+</div>
+<script type="module" src="/assets/app.js"></script>
+</body>
+</html>

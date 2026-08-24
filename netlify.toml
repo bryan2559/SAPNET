@@ -1,0 +1,53 @@
+# SAPNET aerobiology dashboard — Netlify configuration
+
+[build]
+  publish   = "public"
+  functions = "netlify/functions"
+  command   = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Friendly API paths in front of the functions
+[[redirects]]
+  from = "/api/observations"
+  to   = "/.netlify/functions/observations"
+  status = 200
+
+[[redirects]]
+  from = "/api/diagnostics"
+  to   = "/.netlify/functions/diagnostics"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to   = "/.netlify/functions/health"
+  status = 200
+
+# Single page, no client router — anything unknown returns the dashboard
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), interest-cohort=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'none'"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[functions]
+  node_bundler = "esbuild"

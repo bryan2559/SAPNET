@@ -1,0 +1,18 @@
+{
+  "source": "file",
+  "generatedAt": "2026-08-23T06:00:00.000Z",
+  "sites": ["Cape Town"],
+  "taxa": [
+    { "code": 1016, "sci": "Cupressaceae", "common": "Cypress", "category": 1 },
+    { "code": 2001, "sci": "Poaceae", "common": "Grass", "category": 2 },
+    { "code": 4012, "sci": "Cladosporium", "common": "", "category": 4 }
+  ],
+  "observations": [
+    { "site": "Cape Town", "date": "2026-08-17", "status": 1, "validHours": 24, "reason": null,
+      "counts": { "1016": 84.2, "2001": 11.6, "4012": 1420.5 } },
+    { "site": "Cape Town", "date": "2026-08-18", "status": 2, "validHours": 9, "reason": 1,
+      "counts": { "1016": 61.0, "2001": 8.1, "4012": 980.3 } },
+    { "site": "Cape Town", "date": "2026-08-19", "status": 3, "validHours": 0, "reason": 2,
+      "counts": {} }
+  ]
+}
