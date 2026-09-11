@@ -14,6 +14,7 @@
  */
 
 const SCHEMA = require('./legacy-schema.json');
+const { conversionFactor, toConcentration, toRawCount, methodLabel } = require('./conversion.js');
 
 const CATEGORY = {
   1: 'Tree pollen', 2: 'Grass pollen', 3: 'Weed and herb pollen',
@@ -42,8 +43,11 @@ function normaliseDate(raw) {
  * @returns {{payload:object, diagnostics:object}}
  */
 function transformLegacy(records, opts = {}) {
-  const factor = Number(opts.conversionFactor ?? SCHEMA.fixedConversionFactor);
+  const factor = conversionFactor(opts.conversionFactor);
+  const dataset = opts.dataset || 'primary';
+  const datasetLabel = opts.datasetLabel || dataset;
   const diagnostics = {
+    dataset, datasetLabel,
     schema: 'legacy',
     recordsSeen: 0,
     dayFormsRead: 0,
@@ -56,9 +60,12 @@ function transformLegacy(records, opts = {}) {
     duplicateTaxonSameDay: [],
     duplicateSiteDayAcrossRecords: [],
     derivedFromRawCount: 0,
-    usedStoredConvertedCount: 0,
+    backDerivedFromStoredCount: 0,
+    storedVsDerivedRows: 0,
+    storedVsDerivedMeanAbsDiff: null,
     conversionFactorUsed: factor
   };
+  let diffSum = 0;
 
   const out = new Map();            // site|date -> observation
   const seenIn = new Map();         // site|date -> record_id that created it
@@ -87,7 +94,7 @@ function transformLegacy(records, opts = {}) {
 
       if (!out.has(key)) {
         out.set(key, {
-          site, date,
+          site, date, dataset, datasetLabel,
           status: notCollected ? 3 : 1,
           // The legacy instrument does not record sampling hours. Anything less than a
           // full day is invisible here, which is one reason concentrations from this
@@ -95,11 +102,12 @@ function transformLegacy(records, opts = {}) {
           validHours: notCollected ? 0 : 24,
           reason: null,
           reasonText: blank(rec[day.reason]) ? null : String(rec[day.reason]).trim(),
-          methodVersion: `legacy fixed factor ${factor}`,
+          methodVersion: methodLabel('prospective', factor),
+          conversionFactor: factor,
           qcStatus: null,
           releaseStatus: 1,          // legacy data is provisional by construction
           sourceRecordId: rec.record_id,
-          counts: {}
+          counts: {}, raw: {}
         });
         seenIn.set(key, rec.record_id);
       } else if (seenIn.get(key) !== rec.record_id) {
@@ -127,10 +135,27 @@ function transformLegacy(records, opts = {}) {
 
         const stored = rec[slot.ccount];
         const raw = rec[slot.count];
-        let conc;
-        if (!blank(stored)) { conc = Number(stored); diagnostics.usedStoredConvertedCount++; }
-        else if (!blank(raw)) { conc = Number(raw) * factor; diagnostics.derivedFromRawCount++; }
-        else { diagnostics.rowsMissingCount++; continue; }
+        let rawCount, conc;
+
+        if (!blank(raw)) {
+          // Preferred path. The stored ccount is REDCap's round([count]*0.72,0), so it
+          // has already lost precision; the raw count has not.
+          rawCount = Number(raw);
+          conc = toConcentration(rawCount, factor);
+          diagnostics.derivedFromRawCount++;
+          if (!blank(stored) && Number.isFinite(Number(stored)) && Number.isFinite(conc)) {
+            diagnostics.storedVsDerivedRows++;
+            diffSum += Math.abs(Number(stored) - conc);
+          }
+        } else if (!blank(stored)) {
+          // No raw count recorded. Keep the row rather than lose it, but recover the
+          // raw value from the stored one so the whole series stays on one basis.
+          conc = Number(stored);
+          rawCount = toRawCount(conc, factor);
+          diagnostics.backDerivedFromStoredCount++;
+        } else {
+          diagnostics.rowsMissingCount++; continue;
+        }
         if (!Number.isFinite(conc)) { diagnostics.rowsMissingCount++; continue; }
 
         // The legacy form cannot stop the same taxon being entered in two slots.
@@ -142,6 +167,7 @@ function transformLegacy(records, opts = {}) {
         seenThisDay.add(v2);
 
         obs.counts[v2] = (obs.counts[v2] || 0) + conc;
+        obs.raw[v2] = (obs.raw[v2] || 0) + rawCount;
 
         if (!taxaSeen.has(v2)) {
           taxaSeen.set(v2, {
@@ -159,6 +185,8 @@ function transformLegacy(records, opts = {}) {
     }
   }
 
+  diagnostics.storedVsDerivedMeanAbsDiff = diagnostics.storedVsDerivedRows
+    ? Math.round(1000 * diffSum / diagnostics.storedVsDerivedRows) / 1000 : null;
   diagnostics.unmappedTaxonCodes = [...unmapped].sort();
   diagnostics.duplicateTaxonSameDay = diagnostics.duplicateTaxonSameDay.slice(0, 50);
   diagnostics.duplicateSiteDayAcrossRecords =
@@ -174,13 +202,15 @@ function transformLegacy(records, opts = {}) {
   return {
     payload: {
       source: 'redcap',
+      dataset, datasetLabel,
       schema: 'legacy',
       generatedAt: new Date().toISOString(),
       minReleaseStatus: 1,
       provisional: true,
+      conversionFactor: factor,
       provisionalReason:
-        `Concentrations use the legacy fixed conversion factor ${factor} and assume a ` +
-        `full 24-hour sample, because the legacy instrument records neither measured ` +
+        `Converted counts are derived as raw count x ${factor} and assume a full ` +
+        `24-hour sample, because the prospective instrument records neither measured ` +
         `flow rate nor valid sampling hours.`,
       sites: [...new Set(observations.map(o => o.site))].sort(),
       categories: CATEGORY,

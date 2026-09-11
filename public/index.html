@@ -25,6 +25,8 @@
       <div class="controls">
         <label class="sub" for="siteSel" style="letter-spacing:.13em">Site</label>
         <select id="siteSel"></select>
+        <label class="sub" for="dsSel" style="letter-spacing:.13em" id="dsLabel" hidden>Dataset</label>
+        <select id="dsSel" hidden></select>
         <label class="sub" for="catSel" style="letter-spacing:.13em">Load shown</label>
         <select id="catSel">
           <option value="pollen">Total pollen</option>
@@ -41,7 +43,9 @@
       <span id="srcBadge" class="badge">—</span>
       <span id="srcNote"></span>
     </div>
+    <p id="basisNote" class="basisnote" hidden></p>
     <p id="srcWarn" class="provwarn" hidden></p>
+    <p id="joinWarn" class="joinwarn" hidden></p>
 
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-p="week" aria-selected="true">Week</button>
@@ -77,10 +81,13 @@
     <div id="views"></div>
 
     <div class="note">
-      <b>Every figure on this page is derived, not typed.</b> Concentrations come from raw counts multiplied by a
-      conversion factor computed per site and per week from measured flow rate and traverse geometry, and are never
-      rounded before aggregation. Gaps are shown as gaps: a day with no valid sample is excluded from means and
-      marked on the tape, rather than being read as zero.
+      <b>Every figure on this page is a converted count, derived from a raw count.</b> Both REDCap projects
+      are read on one basis &mdash; converted count = raw count &times; the network conversion factor &mdash; so a day
+      from the archive and a day from the prospective project sit on the same scale. The stored converted
+      count in REDCap is deliberately not used: it is rounded to a whole number per row, and rounding twenty
+      rows before summing accumulates error worst at the low counts that set season start and end dates.
+      Values are carried unrounded and rounded only for display. Gaps are shown as gaps: a day with no valid
+      sample is excluded from means and marked on the tape, rather than being read as zero.
     </div>
 
     <footer>

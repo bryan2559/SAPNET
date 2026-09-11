@@ -5,7 +5,7 @@ import {
 } from './charts.js';
 
 let DB = null;
-const state = { site: null, period: 'week', key: 'pollen', anchor: new Date() };
+const state = { site: null, period: 'week', key: 'pollen', dataset: 'all', anchor: new Date() };
 
 const $ = id => document.getElementById(id);
 
@@ -30,7 +30,9 @@ function windowDays() {
   } else {
     from = new Date(Date.UTC(y, 0, 1)); to = new Date(Date.UTC(y, 11, 31)); label = String(y);
   }
-  return { from, to, label, days: all.filter(d => d.ts >= from.getTime() && d.ts <= to.getTime()) };
+  let days = all.filter(d => d.ts >= from.getTime() && d.ts <= to.getTime());
+  if (state.dataset !== 'all') days = days.filter(d => (d.dataset || 'primary') === state.dataset);
+  return { from, to, label, days };
 }
 
 /* ---------------- KPIs ---------------- */
@@ -41,8 +43,15 @@ function kpis(days, key) {
   const mean = vals.reduce((a, b) => a + b, 0) / Math.max(1, vals.length);
   const peak = vals.length ? Math.max(...vals) : 0;
   const peakDay = valid[vals.indexOf(peak)];
-  const comp = 100 * valid.length / Math.max(1, days.length);
   const partial = days.filter(d => d.status === 2).length;
+
+  // A dataset that only holds days with counts cannot report completeness: an absent
+  // day is unknown, not lost. Showing 100% there would be a fiction.
+  const unknownSets = new Set((DB.datasets || [])
+    .filter(d => d.completenessKnown === false).map(d => d.dataset));
+  const completenessKnown = !days.length ||
+    !days.every(d => unknownSets.has(d.dataset));
+  const comp = 100 * valid.length / Math.max(1, days.length);
   const spMean = valid.map(d => catTotal(d, '4', T)).reduce((a, b) => a + b, 0) / Math.max(1, valid.length);
   const hi = vals.filter(v => bandOf(v, key) >= 2).length;
   const b = bandOf(mean, key), pb = bandOf(peak, key);
@@ -54,15 +63,21 @@ function kpis(days, key) {
     <div class="kpi"><div class="k">Days at high or above</div><div class="v">${hi}</div>
       <div class="u">of ${valid.length} valid days</div></div>
     <div class="kpi"><div class="k">Mean fungal spores</div><div class="v">${fmt(spMean)}</div><div class="u">spores/m³</div></div>
-    <div class="kpi${comp < 90 ? ' alert' : ''}"><div class="k">Data completeness</div><div class="v">${comp.toFixed(0)}%</div>
-      <div class="u">${days.length - valid.length} lost · ${partial} partial</div></div>`;
+    ${completenessKnown
+      ? `<div class="kpi${comp < 90 ? ' alert' : ''}"><div class="k">Data completeness</div>
+           <div class="v">${comp.toFixed(0)}%</div>
+           <div class="u">${days.length - valid.length} lost · ${partial} partial</div></div>`
+      : `<div class="kpi"><div class="k">Data completeness</div>
+           <div class="v" style="font-size:19px;color:var(--slate)">not recorded</div>
+           <div class="u">${days.length} days held in the archive</div></div>`}`;
 }
 
 /* ---------------- cross-site comparison ---------------- */
 function siteCompare(from, to, key) {
   const T = DB.taxaByCode;
   const rows = DB.sites.map(s => {
-    const all = (DB.bySite.get(s) || []).filter(x => x.ts >= from.getTime() && x.ts <= to.getTime());
+    let all = (DB.bySite.get(s) || []).filter(x => x.ts >= from.getTime() && x.ts <= to.getTime());
+    if (state.dataset !== 'all') all = all.filter(x => (x.dataset || 'primary') === state.dataset);
     const valid = all.filter(x => x.status !== 3);
     return {
       s,
@@ -110,6 +125,7 @@ function render() {
   $('tapeMeta').textContent = `${days.length} day segments · ${days.length - miss} valid · ${part} partial · ${miss} lost`;
   $('tapeTitle').textContent = state.period === 'week' ? 'The tape · one drum rotation' : 'The tape · consecutive drum rotations';
 
+  joinNotice(days);
   kpis(days, state.key);
   const V = $('views'), P = state.period;
 
@@ -176,23 +192,65 @@ function render() {
   }
 }
 
+/**
+ * A series assembled from two projects can contain a step change at the join that is
+ * purely methodological. Say so whenever the visible window spans more than one
+ * dataset or more than one method version.
+ */
+function joinNotice(days) {
+  const el = $('joinWarn');
+  const sets = [...new Set(days.map(d => d.datasetLabel).filter(Boolean))];
+  const methods = [...new Set(days.map(d => d.methodVersion).filter(Boolean))];
+  const unknown = new Set((DB.datasets || [])
+    .filter(d => d.completenessKnown === false).map(d => d.label));
+  if (sets.length < 2 && methods.length < 2 && !sets.some(l => unknown.has(l))) {
+    el.hidden = true; return;
+  }
+
+  const parts = [];
+  const unknownSets = new Set((DB.datasets || [])
+    .filter(d => d.completenessKnown === false).map(d => d.label));
+  if (sets.some(l => unknownSets.has(l))) {
+    parts.push(`Completeness cannot be computed for ` +
+      sets.filter(l => unknownSets.has(l)).map(l => `<b>${l}</b>`).join(' and ') +
+      `: days absent from the archive are unknown rather than lost.`);
+  }
+  if (sets.length > 1) {
+    const firstOf = l => days.find(d => d.datasetLabel === l).date;
+    parts.push(`This window spans ${sets.length} datasets (` +
+      sets.map(l => `<b>${l}</b> from ${firstOf(l)}`).join(', ') + ').');
+  }
+  if (methods.length > 1) {
+    parts.push(`It also spans ${methods.length} counting methods (${methods.join('; ')}).`);
+  }
+  parts.push('A change in level at the join may be methodological rather than real. ' +
+    'Do not read a trend across it without checking both methods first.');
+  el.innerHTML = parts.join(' ');
+  el.hidden = false;
+}
+
 /* ---------------- CSV export of the current window ---------------- */
 function exportCsv() {
   const { days, label } = windowDays();
   const T = DB.taxaByCode;
-  const head = ['site', 'date', 'day_status', 'valid_hours', 'taxon_code', 'scientific_name',
-    'category', 'concentration_per_m3'];
+  const head = ['site', 'date', 'dataset', 'method_version', 'conversion_factor',
+    'day_status', 'valid_hours', 'taxon_code', 'scientific_name', 'category',
+    'raw_count', 'converted_count_per_m3'];
   const rows = [head.join(',')];
   const STATUS = { 1: 'complete', 2: 'partial', 3: 'not_collected', 4: 'invalidated' };
   for (const d of days) {
     if (!Object.keys(d.counts).length) {
-      rows.push([d.site, d.date, STATUS[d.status], d.validHours, '', '', '', ''].join(','));
+      rows.push([d.site, d.date, `"${d.datasetLabel || ''}"`, `"${d.methodVersion || ''}"`,
+        d.conversionFactor ?? '', STATUS[d.status], d.validHours, '', '', '', '', ''].join(','));
       continue;
     }
     for (const c in d.counts) {
       const t = T.get(+c) || { sci: '', category: Math.floor(+c / 1000) };
-      rows.push([d.site, d.date, STATUS[d.status], d.validHours, c,
-        `"${t.sci}"`, (CAT[t.category] || CAT[9]).n, d.counts[c].toFixed(3)].join(','));
+      rows.push([d.site, d.date, `"${d.datasetLabel || ''}"`, `"${d.methodVersion || ''}"`,
+        d.conversionFactor ?? '', STATUS[d.status], d.validHours, c, `"${t.sci}"`,
+        (CAT[t.category] || CAT[9]).n,
+        d.raw && d.raw[c] !== undefined ? d.raw[c] : '',
+        d.counts[c].toFixed(3)].join(','));
     }
   }
   const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' });
@@ -223,15 +281,39 @@ async function init() {
   DB.sites.forEach(s => { const o = document.createElement('option'); o.value = o.textContent = s; sel.append(o); });
   sel.value = state.site;
 
+  // Dataset selector appears only when more than one project is connected.
+  const dsSel = $('dsSel');
+  if (DB.datasets && DB.datasets.length > 1) {
+    const optAll = document.createElement('option');
+    optAll.value = 'all'; optAll.textContent = 'All datasets';
+    dsSel.append(optAll);
+    for (const d of DB.datasets) {
+      const o = document.createElement('option');
+      o.value = d.dataset; o.textContent = d.label;
+      dsSel.append(o);
+    }
+    dsSel.hidden = false; $('dsLabel').hidden = false;
+    dsSel.onchange = e => { state.dataset = e.target.value; render(); };
+  }
+
   const badge = $('srcBadge'), note = $('srcNote'), warn = $('srcWarn');
   if (DB.source === 'redcap') {
     badge.className = 'badge live';
-    badge.textContent = DB.schema === 'legacy' ? 'Live REDCap · legacy schema' : 'Live REDCap · v2 schema';
+    badge.textContent = DB.datasets && DB.datasets.length > 1
+      ? `Live REDCap · ${DB.datasets.length} projects`
+      : DB.schema === 'legacy' ? 'Live REDCap · legacy schema' : 'Live REDCap · v2 schema';
   } else if (DB.source === 'file') {
     badge.className = 'badge'; badge.textContent = 'Committed dataset';
   } else {
     badge.className = 'badge demo'; badge.textContent = 'Demo data';
   }
+  const basis = $('basisNote');
+  if (DB.conversionBasis) {
+    basis.hidden = false;
+    basis.textContent = DB.conversionBasis;
+    basis.className = (DB.conversionFactorsInUse || []).length > 1 ? 'provwarn' : 'basisnote';
+  } else { basis.hidden = true; }
+
   note.textContent = DB.source === 'demo'
     ? 'No REDCap connection configured — showing synthetic data. Set REDCAP_URL and REDCAP_TOKEN in Netlify environment variables.'
     : `Last refreshed ${new Date(DB.generatedAt).toLocaleString('en-ZA')}`;

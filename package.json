@@ -9,6 +9,7 @@
     "dev": "netlify dev",
     "data": "node scripts/build-data.mjs",
     "legacy-map": "node scripts/build-legacy-map.mjs",
+    "audit-retro": "node scripts/audit-retrospective.mjs",
     "check": "for f in netlify/functions/*.js netlify/functions/lib/*.js; do node --check \"$f\" || exit 1; done && for f in public/assets/*.js; do node --input-type=module --check < \"$f\" || exit 1; done && echo 'all modules parse'"
   }
 }

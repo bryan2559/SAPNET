@@ -87,7 +87,10 @@ async function index(d) {
     arr.sort((a, b) => a.date.localeCompare(b.date));
     for (const o of arr) o.ts = Date.parse(o.date + 'T00:00:00Z');
   }
-  return { ...d, taxaByCode, bySite, sites: [...bySite.keys()].sort() };
+  const datasets = d.datasets ||
+    [...new Set(d.observations.map(o => o.datasetLabel).filter(Boolean))]
+      .map(label => ({ label, dataset: label }));
+  return { ...d, taxaByCode, bySite, datasets, sites: [...bySite.keys()].sort() };
 }
 
 /* ------------------------------------------------------------------ *
