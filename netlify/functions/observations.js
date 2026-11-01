@@ -13,7 +13,7 @@
  *
  *   REDCAP_TOKEN_PROSPECTIVE    = <token>
  *   REDCAP_LABEL_PROSPECTIVE    = Prospective            (optional, display name)
- *   REDCAP_SCHEMA_PROSPECTIVE   = auto|legacy|v2|retrospective  (optional)
+ *   REDCAP_SCHEMA_PROSPECTIVE   = auto|grid|legacy|retrospective|v2  (optional)
  *   REDCAP_PRIORITY_PROSPECTIVE = 100                    (optional, higher wins a clash)
  *   REDCAP_FACTOR_PROSPECTIVE   = 0.72                   (optional, legacy/retro only)
  *   REDCAP_COUNTKIND_PROSPECTIVE= raw|concentration       (optional, retrospective only)
@@ -41,6 +41,7 @@
  *   ?diagnostics=1          append the parse report
  */
 
+const { transformGrid, looksGrid } = require('./lib/grid-adapter.js');
 const { transformLegacy, looksLegacy } = require('./lib/legacy-adapter.js');
 const { transformRetrospective, looksRetrospective } = require('./lib/retrospective-adapter.js');
 const { conversionFactor, toConcentration, methodLabel } = require('./lib/conversion.js');
@@ -383,16 +384,21 @@ async function build() {
       continue;
     }
 
-    // Three shapes now: the retrospective archive, the legacy seven-day grid, and v2.
+    // Four shapes: the current prospective grid, the retrospective archive, the
+    // superseded seven-day instrument, and the v2 repeating design. Order matters —
+    // check the most specific signatures first.
     let detected = config.schema;
     if (detected === 'auto') {
-      detected = looksRetrospective(records) ? 'retrospective'
+      detected = looksGrid(records) ? 'grid'
+        : looksRetrospective(records) ? 'retrospective'
         : looksLegacy(records) ? 'legacy' : 'v2';
     }
 
     const common = { dataset: config.dataset, datasetLabel: config.label };
     const result =
-      detected === 'retrospective'
+      detected === 'grid'
+        ? transformGrid(records, { ...common, conversionFactor: config.factor })
+      : detected === 'retrospective'
         ? transformRetrospective(records, {
             ...common, countKind: config.countKind, conversionFactor: config.factor })
       : detected === 'legacy'

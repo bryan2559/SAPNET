@@ -47,9 +47,37 @@ from the exported field names:
 
 | Schema | What it is | Status |
 |---|---|---|
-| `legacy` | The seven copied day-forms with twenty fixed slots | The prospective project today |
+| `grid` | One `weekly_pollen_count_grid` form: one record per site-week, a 50-row × 7-day grid | **The prospective project today** |
 | `retrospective` | One record per observation, all identifying columns free text | The retrospective archive |
-| `v2` | The repeating-instrument redesign | After migration |
+| `legacy` | The superseded seven copied day-forms with twenty fixed slots | Historical exports only |
+| `v2` | The repeating-instrument redesign | If the project is migrated again |
+
+### The prospective grid
+
+The prospective instrument was rebuilt as a single form and it fixed most of what made
+the old shape hard to read: one instrument instead of seven copies, 50 taxon rows instead
+of 20, day dates derived from the week start with `@CALCDATE` rather than typed seven
+times, an explicit per-day *sampled and read?* flag with a coded reason, and raw counts
+validated to 0–10000.
+
+Two consequences for the dashboard:
+
+- A day that was sampled, with a taxon row present but that day's checkbox unticked, is a
+  **searched-for absence** — a true zero, not missing data. The adapter reads it that way
+  and reports the count as `notFoundTreatedAsZero`.
+- The reason code *Slide not yet read* is work outstanding, not data lost. Those days are
+  counted separately as `daysPendingRead` and shown in amber on the tape and ledger,
+  so a backlog of unread slides never looks like equipment failure.
+
+The grid still hard-codes `round([wk_dNrM]*0.72,0)`, so there is no measured flow rate or
+proportion of slide analysed behind it, and no record of valid sampling hours. Output is
+provisional by construction and the dashboard says so.
+
+Regenerate the field map after any change to the instrument:
+
+```bash
+npm run grid-map -- SAPNETPollenCountProspective_DataDictionary.csv
+```
 
 You do not have to migrate before deploying. Point it at the live project and it works.
 
@@ -262,6 +290,36 @@ npm run check             # parse-check every module and function
 
 ---
 
+## The views
+
+| Tab | What it answers |
+|---|---|
+| **Overview** | The whole record at once — monthly stacked area across every year, a year-on-year seasonal overlay on a common calendar, a day-by-day calendar heatmap, and taxon rankings with sparklines |
+| **Week** | One drum rotation: the tape, stacked daily bars, the day ledger, the network that week |
+| **Month** | 3-day rolling mean by category, taxon ranking, risk-band breakdown |
+| **Quarter** | 7-day rolling mean — season shape rather than weather noise |
+| **Year** | Calendar heatmap, season descriptors by the 95% cumulative method, year-on-year integrals |
+
+The tab lives in the URL hash (`/#quarter`), so a particular view can be linked or
+bookmarked. **Jump to** moves to any date in the record; `|←` and `→|` go to the earliest
+and latest data. The **Load shown** filter is honoured by every chart and table on the
+page, not only the headline figures.
+
+Colour follows the data's job: categories use a fixed, never-cycled order validated for
+colour-vision deficiency in both light and dark modes; magnitude (the tape, the calendar)
+uses a single-hue sequential ramp; risk bands use reserved status colours and always carry
+the word, never colour alone.
+
+**Light is the default**, whatever the viewer's operating system is set to. Dark mode is
+available from the theme button and is remembered per browser; it is a selected set of
+steps validated against the dark surface, not an automatic inversion. To make dark the
+default instead, set `localStorage.sapnet-theme = 'dark'`, or stamp
+`data-theme="dark"` on `<html>` in `public/index.html`.
+
+The tape's shading is anchored to the risk thresholds rather than to each window's own
+maximum, so a quiet week and a peak week do not come out the same shade and the colour
+means the same thing in every view.
+
 ## One conversion basis across both projects
 
 The network reports **converted counts only**. Raw counts are what the analyst records at
@@ -374,6 +432,23 @@ quarterly and annual figures are all `GROUP BY` operations over the same rows.
 
 ---
 
+## Maintaining the taxon list
+
+The taxon reference exists in **two** generated copies, both derived from
+`SAPNET_taxon_reference_v2.csv`:
+
+| File | Read by |
+|---|---|
+| `netlify/functions/lib/taxon-reference.json` | the retrospective adapter, to resolve free-text names |
+| `public/data/taxa.json` | the browser, to render codes as readable labels |
+
+Adding or renaming a taxon means regenerating **both**. Regenerate one only and the
+dashboard will resolve a code it cannot then name, or name a code it cannot resolve.
+
+```bash
+npm run taxa -- SAPNET_taxon_reference_v2.csv
+```
+
 ## Files
 
 ```
@@ -392,10 +467,15 @@ netlify/functions/lib/legacy-schema.json field map generated from the real dicti
 netlify/functions/diagnostics.js        parse report for the live connection
 netlify/functions/health.js             configuration check, leaks no secrets
 scripts/build-data.mjs           offline ETL for the snapshot path
+netlify/functions/lib/grid-adapter.js    weekly_pollen_count_grid reader
+netlify/functions/lib/grid-schema.json   field map generated from the real dictionary
+netlify/functions/lib/conversion.js      the single conversion policy
 netlify/functions/lib/retrospective-adapter.js  free-text archive reader
 netlify/functions/lib/retrospective-map.json    editable site and taxon crosswalk
 netlify/functions/lib/taxon-reference.json      145 taxa, server-side copy
-scripts/build-legacy-map.mjs     regenerates the legacy field map
+scripts/build-grid-map.mjs       regenerates the prospective grid field map
+scripts/build-taxa.mjs           regenerates both taxon reference copies
+scripts/build-legacy-map.mjs     regenerates the superseded legacy field map
 scripts/audit-retrospective.mjs  audits the archive's free-text columns
 ```
 

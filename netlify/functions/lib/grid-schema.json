@@ -1,0 +1,1905 @@
+{
+ "generatedFrom": "SAPNETPollenCountProspective_DataDictionary_2026-11-01.csv",
+ "generatedAt": "2026-11-01T11:36:37.331Z",
+ "note": "Field map for the weekly_pollen_count_grid instrument. Regenerate with scripts/build-grid-map.mjs if the REDCap dictionary changes.",
+ "instrument": "weekly_pollen_count_grid",
+ "instrumentFactor": 0.72,
+ "dimensions": {
+  "rows": 50,
+  "days": 7
+ },
+ "header": {
+  "site": "wk_site",
+  "weekNumber": "wk_weeknumber",
+  "startDate": "wk_startdate",
+  "notes": "wk_notes",
+  "capturedBy": "wk_capturedby",
+  "dateCaptured": "wk_datecaptured",
+  "qcBy": "wk_qcby",
+  "qcDate": "wk_qcdate"
+ },
+ "siteChoices": {
+  "1": "Cape Town",
+  "2": "Bloemfontein",
+  "3": "Durban",
+  "4": "George",
+  "5": "Gqeberha",
+  "6": "JHB Central",
+  "7": "Kimberley",
+  "8": "Pretoria"
+ },
+ "categoryChoices": {
+  "1": "Fungal Spores",
+  "2": "Grass",
+  "3": "Trees",
+  "4": "Weeds"
+ },
+ "noSampleChoices": {
+  "1": "Trap or equipment failure",
+  "2": "Power outage",
+  "3": "Slide damaged or lost",
+  "4": "No staff available",
+  "5": "Slide not yet read",
+  "6": "Other (see notes)"
+ },
+ "categoryTaxonField": {
+  "1": "wk_fung",
+  "2": "wk_grass",
+  "3": "wk_tree",
+  "4": "wk_weed"
+ },
+ "categoryKey": {
+  "1": "fungal",
+  "2": "grass",
+  "3": "tree",
+  "4": "weed"
+ },
+ "days": [
+  {
+   "n": 1,
+   "date": "wk_startdate",
+   "sampled": "wk_d1_sampled",
+   "noSampleReason": "wk_d1_nosample"
+  },
+  {
+   "n": 2,
+   "date": "wk_date2",
+   "sampled": "wk_d2_sampled",
+   "noSampleReason": "wk_d2_nosample"
+  },
+  {
+   "n": 3,
+   "date": "wk_date3",
+   "sampled": "wk_d3_sampled",
+   "noSampleReason": "wk_d3_nosample"
+  },
+  {
+   "n": 4,
+   "date": "wk_date4",
+   "sampled": "wk_d4_sampled",
+   "noSampleReason": "wk_d4_nosample"
+  },
+  {
+   "n": 5,
+   "date": "wk_date5",
+   "sampled": "wk_d5_sampled",
+   "noSampleReason": "wk_d5_nosample"
+  },
+  {
+   "n": 6,
+   "date": "wk_date6",
+   "sampled": "wk_d6_sampled",
+   "noSampleReason": "wk_d6_nosample"
+  },
+  {
+   "n": 7,
+   "date": "wk_date7",
+   "sampled": "wk_d7_sampled",
+   "noSampleReason": "wk_d7_nosample"
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "category": "wk_cat1",
+   "taxon": {
+    "1": "wk_fung1",
+    "2": "wk_grass1",
+    "3": "wk_tree1",
+    "4": "wk_weed1"
+   },
+   "daysFound": "wk_days1",
+   "note": "wk_note1",
+   "raw": {
+    "1": "wk_d1r1",
+    "2": "wk_d2r1",
+    "3": "wk_d3r1",
+    "4": "wk_d4r1",
+    "5": "wk_d5r1",
+    "6": "wk_d6r1",
+    "7": "wk_d7r1"
+   },
+   "converted": {
+    "1": "wk_d1c1",
+    "2": "wk_d2c1",
+    "3": "wk_d3c1",
+    "4": "wk_d4c1",
+    "5": "wk_d5c1",
+    "6": "wk_d6c1",
+    "7": "wk_d7c1"
+   }
+  },
+  {
+   "n": 2,
+   "category": "wk_cat2",
+   "taxon": {
+    "1": "wk_fung2",
+    "2": "wk_grass2",
+    "3": "wk_tree2",
+    "4": "wk_weed2"
+   },
+   "daysFound": "wk_days2",
+   "note": "wk_note2",
+   "raw": {
+    "1": "wk_d1r2",
+    "2": "wk_d2r2",
+    "3": "wk_d3r2",
+    "4": "wk_d4r2",
+    "5": "wk_d5r2",
+    "6": "wk_d6r2",
+    "7": "wk_d7r2"
+   },
+   "converted": {
+    "1": "wk_d1c2",
+    "2": "wk_d2c2",
+    "3": "wk_d3c2",
+    "4": "wk_d4c2",
+    "5": "wk_d5c2",
+    "6": "wk_d6c2",
+    "7": "wk_d7c2"
+   }
+  },
+  {
+   "n": 3,
+   "category": "wk_cat3",
+   "taxon": {
+    "1": "wk_fung3",
+    "2": "wk_grass3",
+    "3": "wk_tree3",
+    "4": "wk_weed3"
+   },
+   "daysFound": "wk_days3",
+   "note": "wk_note3",
+   "raw": {
+    "1": "wk_d1r3",
+    "2": "wk_d2r3",
+    "3": "wk_d3r3",
+    "4": "wk_d4r3",
+    "5": "wk_d5r3",
+    "6": "wk_d6r3",
+    "7": "wk_d7r3"
+   },
+   "converted": {
+    "1": "wk_d1c3",
+    "2": "wk_d2c3",
+    "3": "wk_d3c3",
+    "4": "wk_d4c3",
+    "5": "wk_d5c3",
+    "6": "wk_d6c3",
+    "7": "wk_d7c3"
+   }
+  },
+  {
+   "n": 4,
+   "category": "wk_cat4",
+   "taxon": {
+    "1": "wk_fung4",
+    "2": "wk_grass4",
+    "3": "wk_tree4",
+    "4": "wk_weed4"
+   },
+   "daysFound": "wk_days4",
+   "note": "wk_note4",
+   "raw": {
+    "1": "wk_d1r4",
+    "2": "wk_d2r4",
+    "3": "wk_d3r4",
+    "4": "wk_d4r4",
+    "5": "wk_d5r4",
+    "6": "wk_d6r4",
+    "7": "wk_d7r4"
+   },
+   "converted": {
+    "1": "wk_d1c4",
+    "2": "wk_d2c4",
+    "3": "wk_d3c4",
+    "4": "wk_d4c4",
+    "5": "wk_d5c4",
+    "6": "wk_d6c4",
+    "7": "wk_d7c4"
+   }
+  },
+  {
+   "n": 5,
+   "category": "wk_cat5",
+   "taxon": {
+    "1": "wk_fung5",
+    "2": "wk_grass5",
+    "3": "wk_tree5",
+    "4": "wk_weed5"
+   },
+   "daysFound": "wk_days5",
+   "note": "wk_note5",
+   "raw": {
+    "1": "wk_d1r5",
+    "2": "wk_d2r5",
+    "3": "wk_d3r5",
+    "4": "wk_d4r5",
+    "5": "wk_d5r5",
+    "6": "wk_d6r5",
+    "7": "wk_d7r5"
+   },
+   "converted": {
+    "1": "wk_d1c5",
+    "2": "wk_d2c5",
+    "3": "wk_d3c5",
+    "4": "wk_d4c5",
+    "5": "wk_d5c5",
+    "6": "wk_d6c5",
+    "7": "wk_d7c5"
+   }
+  },
+  {
+   "n": 6,
+   "category": "wk_cat6",
+   "taxon": {
+    "1": "wk_fung6",
+    "2": "wk_grass6",
+    "3": "wk_tree6",
+    "4": "wk_weed6"
+   },
+   "daysFound": "wk_days6",
+   "note": "wk_note6",
+   "raw": {
+    "1": "wk_d1r6",
+    "2": "wk_d2r6",
+    "3": "wk_d3r6",
+    "4": "wk_d4r6",
+    "5": "wk_d5r6",
+    "6": "wk_d6r6",
+    "7": "wk_d7r6"
+   },
+   "converted": {
+    "1": "wk_d1c6",
+    "2": "wk_d2c6",
+    "3": "wk_d3c6",
+    "4": "wk_d4c6",
+    "5": "wk_d5c6",
+    "6": "wk_d6c6",
+    "7": "wk_d7c6"
+   }
+  },
+  {
+   "n": 7,
+   "category": "wk_cat7",
+   "taxon": {
+    "1": "wk_fung7",
+    "2": "wk_grass7",
+    "3": "wk_tree7",
+    "4": "wk_weed7"
+   },
+   "daysFound": "wk_days7",
+   "note": "wk_note7",
+   "raw": {
+    "1": "wk_d1r7",
+    "2": "wk_d2r7",
+    "3": "wk_d3r7",
+    "4": "wk_d4r7",
+    "5": "wk_d5r7",
+    "6": "wk_d6r7",
+    "7": "wk_d7r7"
+   },
+   "converted": {
+    "1": "wk_d1c7",
+    "2": "wk_d2c7",
+    "3": "wk_d3c7",
+    "4": "wk_d4c7",
+    "5": "wk_d5c7",
+    "6": "wk_d6c7",
+    "7": "wk_d7c7"
+   }
+  },
+  {
+   "n": 8,
+   "category": "wk_cat8",
+   "taxon": {
+    "1": "wk_fung8",
+    "2": "wk_grass8",
+    "3": "wk_tree8",
+    "4": "wk_weed8"
+   },
+   "daysFound": "wk_days8",
+   "note": "wk_note8",
+   "raw": {
+    "1": "wk_d1r8",
+    "2": "wk_d2r8",
+    "3": "wk_d3r8",
+    "4": "wk_d4r8",
+    "5": "wk_d5r8",
+    "6": "wk_d6r8",
+    "7": "wk_d7r8"
+   },
+   "converted": {
+    "1": "wk_d1c8",
+    "2": "wk_d2c8",
+    "3": "wk_d3c8",
+    "4": "wk_d4c8",
+    "5": "wk_d5c8",
+    "6": "wk_d6c8",
+    "7": "wk_d7c8"
+   }
+  },
+  {
+   "n": 9,
+   "category": "wk_cat9",
+   "taxon": {
+    "1": "wk_fung9",
+    "2": "wk_grass9",
+    "3": "wk_tree9",
+    "4": "wk_weed9"
+   },
+   "daysFound": "wk_days9",
+   "note": "wk_note9",
+   "raw": {
+    "1": "wk_d1r9",
+    "2": "wk_d2r9",
+    "3": "wk_d3r9",
+    "4": "wk_d4r9",
+    "5": "wk_d5r9",
+    "6": "wk_d6r9",
+    "7": "wk_d7r9"
+   },
+   "converted": {
+    "1": "wk_d1c9",
+    "2": "wk_d2c9",
+    "3": "wk_d3c9",
+    "4": "wk_d4c9",
+    "5": "wk_d5c9",
+    "6": "wk_d6c9",
+    "7": "wk_d7c9"
+   }
+  },
+  {
+   "n": 10,
+   "category": "wk_cat10",
+   "taxon": {
+    "1": "wk_fung10",
+    "2": "wk_grass10",
+    "3": "wk_tree10",
+    "4": "wk_weed10"
+   },
+   "daysFound": "wk_days10",
+   "note": "wk_note10",
+   "raw": {
+    "1": "wk_d1r10",
+    "2": "wk_d2r10",
+    "3": "wk_d3r10",
+    "4": "wk_d4r10",
+    "5": "wk_d5r10",
+    "6": "wk_d6r10",
+    "7": "wk_d7r10"
+   },
+   "converted": {
+    "1": "wk_d1c10",
+    "2": "wk_d2c10",
+    "3": "wk_d3c10",
+    "4": "wk_d4c10",
+    "5": "wk_d5c10",
+    "6": "wk_d6c10",
+    "7": "wk_d7c10"
+   }
+  },
+  {
+   "n": 11,
+   "category": "wk_cat11",
+   "taxon": {
+    "1": "wk_fung11",
+    "2": "wk_grass11",
+    "3": "wk_tree11",
+    "4": "wk_weed11"
+   },
+   "daysFound": "wk_days11",
+   "note": "wk_note11",
+   "raw": {
+    "1": "wk_d1r11",
+    "2": "wk_d2r11",
+    "3": "wk_d3r11",
+    "4": "wk_d4r11",
+    "5": "wk_d5r11",
+    "6": "wk_d6r11",
+    "7": "wk_d7r11"
+   },
+   "converted": {
+    "1": "wk_d1c11",
+    "2": "wk_d2c11",
+    "3": "wk_d3c11",
+    "4": "wk_d4c11",
+    "5": "wk_d5c11",
+    "6": "wk_d6c11",
+    "7": "wk_d7c11"
+   }
+  },
+  {
+   "n": 12,
+   "category": "wk_cat12",
+   "taxon": {
+    "1": "wk_fung12",
+    "2": "wk_grass12",
+    "3": "wk_tree12",
+    "4": "wk_weed12"
+   },
+   "daysFound": "wk_days12",
+   "note": "wk_note12",
+   "raw": {
+    "1": "wk_d1r12",
+    "2": "wk_d2r12",
+    "3": "wk_d3r12",
+    "4": "wk_d4r12",
+    "5": "wk_d5r12",
+    "6": "wk_d6r12",
+    "7": "wk_d7r12"
+   },
+   "converted": {
+    "1": "wk_d1c12",
+    "2": "wk_d2c12",
+    "3": "wk_d3c12",
+    "4": "wk_d4c12",
+    "5": "wk_d5c12",
+    "6": "wk_d6c12",
+    "7": "wk_d7c12"
+   }
+  },
+  {
+   "n": 13,
+   "category": "wk_cat13",
+   "taxon": {
+    "1": "wk_fung13",
+    "2": "wk_grass13",
+    "3": "wk_tree13",
+    "4": "wk_weed13"
+   },
+   "daysFound": "wk_days13",
+   "note": "wk_note13",
+   "raw": {
+    "1": "wk_d1r13",
+    "2": "wk_d2r13",
+    "3": "wk_d3r13",
+    "4": "wk_d4r13",
+    "5": "wk_d5r13",
+    "6": "wk_d6r13",
+    "7": "wk_d7r13"
+   },
+   "converted": {
+    "1": "wk_d1c13",
+    "2": "wk_d2c13",
+    "3": "wk_d3c13",
+    "4": "wk_d4c13",
+    "5": "wk_d5c13",
+    "6": "wk_d6c13",
+    "7": "wk_d7c13"
+   }
+  },
+  {
+   "n": 14,
+   "category": "wk_cat14",
+   "taxon": {
+    "1": "wk_fung14",
+    "2": "wk_grass14",
+    "3": "wk_tree14",
+    "4": "wk_weed14"
+   },
+   "daysFound": "wk_days14",
+   "note": "wk_note14",
+   "raw": {
+    "1": "wk_d1r14",
+    "2": "wk_d2r14",
+    "3": "wk_d3r14",
+    "4": "wk_d4r14",
+    "5": "wk_d5r14",
+    "6": "wk_d6r14",
+    "7": "wk_d7r14"
+   },
+   "converted": {
+    "1": "wk_d1c14",
+    "2": "wk_d2c14",
+    "3": "wk_d3c14",
+    "4": "wk_d4c14",
+    "5": "wk_d5c14",
+    "6": "wk_d6c14",
+    "7": "wk_d7c14"
+   }
+  },
+  {
+   "n": 15,
+   "category": "wk_cat15",
+   "taxon": {
+    "1": "wk_fung15",
+    "2": "wk_grass15",
+    "3": "wk_tree15",
+    "4": "wk_weed15"
+   },
+   "daysFound": "wk_days15",
+   "note": "wk_note15",
+   "raw": {
+    "1": "wk_d1r15",
+    "2": "wk_d2r15",
+    "3": "wk_d3r15",
+    "4": "wk_d4r15",
+    "5": "wk_d5r15",
+    "6": "wk_d6r15",
+    "7": "wk_d7r15"
+   },
+   "converted": {
+    "1": "wk_d1c15",
+    "2": "wk_d2c15",
+    "3": "wk_d3c15",
+    "4": "wk_d4c15",
+    "5": "wk_d5c15",
+    "6": "wk_d6c15",
+    "7": "wk_d7c15"
+   }
+  },
+  {
+   "n": 16,
+   "category": "wk_cat16",
+   "taxon": {
+    "1": "wk_fung16",
+    "2": "wk_grass16",
+    "3": "wk_tree16",
+    "4": "wk_weed16"
+   },
+   "daysFound": "wk_days16",
+   "note": "wk_note16",
+   "raw": {
+    "1": "wk_d1r16",
+    "2": "wk_d2r16",
+    "3": "wk_d3r16",
+    "4": "wk_d4r16",
+    "5": "wk_d5r16",
+    "6": "wk_d6r16",
+    "7": "wk_d7r16"
+   },
+   "converted": {
+    "1": "wk_d1c16",
+    "2": "wk_d2c16",
+    "3": "wk_d3c16",
+    "4": "wk_d4c16",
+    "5": "wk_d5c16",
+    "6": "wk_d6c16",
+    "7": "wk_d7c16"
+   }
+  },
+  {
+   "n": 17,
+   "category": "wk_cat17",
+   "taxon": {
+    "1": "wk_fung17",
+    "2": "wk_grass17",
+    "3": "wk_tree17",
+    "4": "wk_weed17"
+   },
+   "daysFound": "wk_days17",
+   "note": "wk_note17",
+   "raw": {
+    "1": "wk_d1r17",
+    "2": "wk_d2r17",
+    "3": "wk_d3r17",
+    "4": "wk_d4r17",
+    "5": "wk_d5r17",
+    "6": "wk_d6r17",
+    "7": "wk_d7r17"
+   },
+   "converted": {
+    "1": "wk_d1c17",
+    "2": "wk_d2c17",
+    "3": "wk_d3c17",
+    "4": "wk_d4c17",
+    "5": "wk_d5c17",
+    "6": "wk_d6c17",
+    "7": "wk_d7c17"
+   }
+  },
+  {
+   "n": 18,
+   "category": "wk_cat18",
+   "taxon": {
+    "1": "wk_fung18",
+    "2": "wk_grass18",
+    "3": "wk_tree18",
+    "4": "wk_weed18"
+   },
+   "daysFound": "wk_days18",
+   "note": "wk_note18",
+   "raw": {
+    "1": "wk_d1r18",
+    "2": "wk_d2r18",
+    "3": "wk_d3r18",
+    "4": "wk_d4r18",
+    "5": "wk_d5r18",
+    "6": "wk_d6r18",
+    "7": "wk_d7r18"
+   },
+   "converted": {
+    "1": "wk_d1c18",
+    "2": "wk_d2c18",
+    "3": "wk_d3c18",
+    "4": "wk_d4c18",
+    "5": "wk_d5c18",
+    "6": "wk_d6c18",
+    "7": "wk_d7c18"
+   }
+  },
+  {
+   "n": 19,
+   "category": "wk_cat19",
+   "taxon": {
+    "1": "wk_fung19",
+    "2": "wk_grass19",
+    "3": "wk_tree19",
+    "4": "wk_weed19"
+   },
+   "daysFound": "wk_days19",
+   "note": "wk_note19",
+   "raw": {
+    "1": "wk_d1r19",
+    "2": "wk_d2r19",
+    "3": "wk_d3r19",
+    "4": "wk_d4r19",
+    "5": "wk_d5r19",
+    "6": "wk_d6r19",
+    "7": "wk_d7r19"
+   },
+   "converted": {
+    "1": "wk_d1c19",
+    "2": "wk_d2c19",
+    "3": "wk_d3c19",
+    "4": "wk_d4c19",
+    "5": "wk_d5c19",
+    "6": "wk_d6c19",
+    "7": "wk_d7c19"
+   }
+  },
+  {
+   "n": 20,
+   "category": "wk_cat20",
+   "taxon": {
+    "1": "wk_fung20",
+    "2": "wk_grass20",
+    "3": "wk_tree20",
+    "4": "wk_weed20"
+   },
+   "daysFound": "wk_days20",
+   "note": "wk_note20",
+   "raw": {
+    "1": "wk_d1r20",
+    "2": "wk_d2r20",
+    "3": "wk_d3r20",
+    "4": "wk_d4r20",
+    "5": "wk_d5r20",
+    "6": "wk_d6r20",
+    "7": "wk_d7r20"
+   },
+   "converted": {
+    "1": "wk_d1c20",
+    "2": "wk_d2c20",
+    "3": "wk_d3c20",
+    "4": "wk_d4c20",
+    "5": "wk_d5c20",
+    "6": "wk_d6c20",
+    "7": "wk_d7c20"
+   }
+  },
+  {
+   "n": 21,
+   "category": "wk_cat21",
+   "taxon": {
+    "1": "wk_fung21",
+    "2": "wk_grass21",
+    "3": "wk_tree21",
+    "4": "wk_weed21"
+   },
+   "daysFound": "wk_days21",
+   "note": "wk_note21",
+   "raw": {
+    "1": "wk_d1r21",
+    "2": "wk_d2r21",
+    "3": "wk_d3r21",
+    "4": "wk_d4r21",
+    "5": "wk_d5r21",
+    "6": "wk_d6r21",
+    "7": "wk_d7r21"
+   },
+   "converted": {
+    "1": "wk_d1c21",
+    "2": "wk_d2c21",
+    "3": "wk_d3c21",
+    "4": "wk_d4c21",
+    "5": "wk_d5c21",
+    "6": "wk_d6c21",
+    "7": "wk_d7c21"
+   }
+  },
+  {
+   "n": 22,
+   "category": "wk_cat22",
+   "taxon": {
+    "1": "wk_fung22",
+    "2": "wk_grass22",
+    "3": "wk_tree22",
+    "4": "wk_weed22"
+   },
+   "daysFound": "wk_days22",
+   "note": "wk_note22",
+   "raw": {
+    "1": "wk_d1r22",
+    "2": "wk_d2r22",
+    "3": "wk_d3r22",
+    "4": "wk_d4r22",
+    "5": "wk_d5r22",
+    "6": "wk_d6r22",
+    "7": "wk_d7r22"
+   },
+   "converted": {
+    "1": "wk_d1c22",
+    "2": "wk_d2c22",
+    "3": "wk_d3c22",
+    "4": "wk_d4c22",
+    "5": "wk_d5c22",
+    "6": "wk_d6c22",
+    "7": "wk_d7c22"
+   }
+  },
+  {
+   "n": 23,
+   "category": "wk_cat23",
+   "taxon": {
+    "1": "wk_fung23",
+    "2": "wk_grass23",
+    "3": "wk_tree23",
+    "4": "wk_weed23"
+   },
+   "daysFound": "wk_days23",
+   "note": "wk_note23",
+   "raw": {
+    "1": "wk_d1r23",
+    "2": "wk_d2r23",
+    "3": "wk_d3r23",
+    "4": "wk_d4r23",
+    "5": "wk_d5r23",
+    "6": "wk_d6r23",
+    "7": "wk_d7r23"
+   },
+   "converted": {
+    "1": "wk_d1c23",
+    "2": "wk_d2c23",
+    "3": "wk_d3c23",
+    "4": "wk_d4c23",
+    "5": "wk_d5c23",
+    "6": "wk_d6c23",
+    "7": "wk_d7c23"
+   }
+  },
+  {
+   "n": 24,
+   "category": "wk_cat24",
+   "taxon": {
+    "1": "wk_fung24",
+    "2": "wk_grass24",
+    "3": "wk_tree24",
+    "4": "wk_weed24"
+   },
+   "daysFound": "wk_days24",
+   "note": "wk_note24",
+   "raw": {
+    "1": "wk_d1r24",
+    "2": "wk_d2r24",
+    "3": "wk_d3r24",
+    "4": "wk_d4r24",
+    "5": "wk_d5r24",
+    "6": "wk_d6r24",
+    "7": "wk_d7r24"
+   },
+   "converted": {
+    "1": "wk_d1c24",
+    "2": "wk_d2c24",
+    "3": "wk_d3c24",
+    "4": "wk_d4c24",
+    "5": "wk_d5c24",
+    "6": "wk_d6c24",
+    "7": "wk_d7c24"
+   }
+  },
+  {
+   "n": 25,
+   "category": "wk_cat25",
+   "taxon": {
+    "1": "wk_fung25",
+    "2": "wk_grass25",
+    "3": "wk_tree25",
+    "4": "wk_weed25"
+   },
+   "daysFound": "wk_days25",
+   "note": "wk_note25",
+   "raw": {
+    "1": "wk_d1r25",
+    "2": "wk_d2r25",
+    "3": "wk_d3r25",
+    "4": "wk_d4r25",
+    "5": "wk_d5r25",
+    "6": "wk_d6r25",
+    "7": "wk_d7r25"
+   },
+   "converted": {
+    "1": "wk_d1c25",
+    "2": "wk_d2c25",
+    "3": "wk_d3c25",
+    "4": "wk_d4c25",
+    "5": "wk_d5c25",
+    "6": "wk_d6c25",
+    "7": "wk_d7c25"
+   }
+  },
+  {
+   "n": 26,
+   "category": "wk_cat26",
+   "taxon": {
+    "1": "wk_fung26",
+    "2": "wk_grass26",
+    "3": "wk_tree26",
+    "4": "wk_weed26"
+   },
+   "daysFound": "wk_days26",
+   "note": "wk_note26",
+   "raw": {
+    "1": "wk_d1r26",
+    "2": "wk_d2r26",
+    "3": "wk_d3r26",
+    "4": "wk_d4r26",
+    "5": "wk_d5r26",
+    "6": "wk_d6r26",
+    "7": "wk_d7r26"
+   },
+   "converted": {
+    "1": "wk_d1c26",
+    "2": "wk_d2c26",
+    "3": "wk_d3c26",
+    "4": "wk_d4c26",
+    "5": "wk_d5c26",
+    "6": "wk_d6c26",
+    "7": "wk_d7c26"
+   }
+  },
+  {
+   "n": 27,
+   "category": "wk_cat27",
+   "taxon": {
+    "1": "wk_fung27",
+    "2": "wk_grass27",
+    "3": "wk_tree27",
+    "4": "wk_weed27"
+   },
+   "daysFound": "wk_days27",
+   "note": "wk_note27",
+   "raw": {
+    "1": "wk_d1r27",
+    "2": "wk_d2r27",
+    "3": "wk_d3r27",
+    "4": "wk_d4r27",
+    "5": "wk_d5r27",
+    "6": "wk_d6r27",
+    "7": "wk_d7r27"
+   },
+   "converted": {
+    "1": "wk_d1c27",
+    "2": "wk_d2c27",
+    "3": "wk_d3c27",
+    "4": "wk_d4c27",
+    "5": "wk_d5c27",
+    "6": "wk_d6c27",
+    "7": "wk_d7c27"
+   }
+  },
+  {
+   "n": 28,
+   "category": "wk_cat28",
+   "taxon": {
+    "1": "wk_fung28",
+    "2": "wk_grass28",
+    "3": "wk_tree28",
+    "4": "wk_weed28"
+   },
+   "daysFound": "wk_days28",
+   "note": "wk_note28",
+   "raw": {
+    "1": "wk_d1r28",
+    "2": "wk_d2r28",
+    "3": "wk_d3r28",
+    "4": "wk_d4r28",
+    "5": "wk_d5r28",
+    "6": "wk_d6r28",
+    "7": "wk_d7r28"
+   },
+   "converted": {
+    "1": "wk_d1c28",
+    "2": "wk_d2c28",
+    "3": "wk_d3c28",
+    "4": "wk_d4c28",
+    "5": "wk_d5c28",
+    "6": "wk_d6c28",
+    "7": "wk_d7c28"
+   }
+  },
+  {
+   "n": 29,
+   "category": "wk_cat29",
+   "taxon": {
+    "1": "wk_fung29",
+    "2": "wk_grass29",
+    "3": "wk_tree29",
+    "4": "wk_weed29"
+   },
+   "daysFound": "wk_days29",
+   "note": "wk_note29",
+   "raw": {
+    "1": "wk_d1r29",
+    "2": "wk_d2r29",
+    "3": "wk_d3r29",
+    "4": "wk_d4r29",
+    "5": "wk_d5r29",
+    "6": "wk_d6r29",
+    "7": "wk_d7r29"
+   },
+   "converted": {
+    "1": "wk_d1c29",
+    "2": "wk_d2c29",
+    "3": "wk_d3c29",
+    "4": "wk_d4c29",
+    "5": "wk_d5c29",
+    "6": "wk_d6c29",
+    "7": "wk_d7c29"
+   }
+  },
+  {
+   "n": 30,
+   "category": "wk_cat30",
+   "taxon": {
+    "1": "wk_fung30",
+    "2": "wk_grass30",
+    "3": "wk_tree30",
+    "4": "wk_weed30"
+   },
+   "daysFound": "wk_days30",
+   "note": "wk_note30",
+   "raw": {
+    "1": "wk_d1r30",
+    "2": "wk_d2r30",
+    "3": "wk_d3r30",
+    "4": "wk_d4r30",
+    "5": "wk_d5r30",
+    "6": "wk_d6r30",
+    "7": "wk_d7r30"
+   },
+   "converted": {
+    "1": "wk_d1c30",
+    "2": "wk_d2c30",
+    "3": "wk_d3c30",
+    "4": "wk_d4c30",
+    "5": "wk_d5c30",
+    "6": "wk_d6c30",
+    "7": "wk_d7c30"
+   }
+  },
+  {
+   "n": 31,
+   "category": "wk_cat31",
+   "taxon": {
+    "1": "wk_fung31",
+    "2": "wk_grass31",
+    "3": "wk_tree31",
+    "4": "wk_weed31"
+   },
+   "daysFound": "wk_days31",
+   "note": "wk_note31",
+   "raw": {
+    "1": "wk_d1r31",
+    "2": "wk_d2r31",
+    "3": "wk_d3r31",
+    "4": "wk_d4r31",
+    "5": "wk_d5r31",
+    "6": "wk_d6r31",
+    "7": "wk_d7r31"
+   },
+   "converted": {
+    "1": "wk_d1c31",
+    "2": "wk_d2c31",
+    "3": "wk_d3c31",
+    "4": "wk_d4c31",
+    "5": "wk_d5c31",
+    "6": "wk_d6c31",
+    "7": "wk_d7c31"
+   }
+  },
+  {
+   "n": 32,
+   "category": "wk_cat32",
+   "taxon": {
+    "1": "wk_fung32",
+    "2": "wk_grass32",
+    "3": "wk_tree32",
+    "4": "wk_weed32"
+   },
+   "daysFound": "wk_days32",
+   "note": "wk_note32",
+   "raw": {
+    "1": "wk_d1r32",
+    "2": "wk_d2r32",
+    "3": "wk_d3r32",
+    "4": "wk_d4r32",
+    "5": "wk_d5r32",
+    "6": "wk_d6r32",
+    "7": "wk_d7r32"
+   },
+   "converted": {
+    "1": "wk_d1c32",
+    "2": "wk_d2c32",
+    "3": "wk_d3c32",
+    "4": "wk_d4c32",
+    "5": "wk_d5c32",
+    "6": "wk_d6c32",
+    "7": "wk_d7c32"
+   }
+  },
+  {
+   "n": 33,
+   "category": "wk_cat33",
+   "taxon": {
+    "1": "wk_fung33",
+    "2": "wk_grass33",
+    "3": "wk_tree33",
+    "4": "wk_weed33"
+   },
+   "daysFound": "wk_days33",
+   "note": "wk_note33",
+   "raw": {
+    "1": "wk_d1r33",
+    "2": "wk_d2r33",
+    "3": "wk_d3r33",
+    "4": "wk_d4r33",
+    "5": "wk_d5r33",
+    "6": "wk_d6r33",
+    "7": "wk_d7r33"
+   },
+   "converted": {
+    "1": "wk_d1c33",
+    "2": "wk_d2c33",
+    "3": "wk_d3c33",
+    "4": "wk_d4c33",
+    "5": "wk_d5c33",
+    "6": "wk_d6c33",
+    "7": "wk_d7c33"
+   }
+  },
+  {
+   "n": 34,
+   "category": "wk_cat34",
+   "taxon": {
+    "1": "wk_fung34",
+    "2": "wk_grass34",
+    "3": "wk_tree34",
+    "4": "wk_weed34"
+   },
+   "daysFound": "wk_days34",
+   "note": "wk_note34",
+   "raw": {
+    "1": "wk_d1r34",
+    "2": "wk_d2r34",
+    "3": "wk_d3r34",
+    "4": "wk_d4r34",
+    "5": "wk_d5r34",
+    "6": "wk_d6r34",
+    "7": "wk_d7r34"
+   },
+   "converted": {
+    "1": "wk_d1c34",
+    "2": "wk_d2c34",
+    "3": "wk_d3c34",
+    "4": "wk_d4c34",
+    "5": "wk_d5c34",
+    "6": "wk_d6c34",
+    "7": "wk_d7c34"
+   }
+  },
+  {
+   "n": 35,
+   "category": "wk_cat35",
+   "taxon": {
+    "1": "wk_fung35",
+    "2": "wk_grass35",
+    "3": "wk_tree35",
+    "4": "wk_weed35"
+   },
+   "daysFound": "wk_days35",
+   "note": "wk_note35",
+   "raw": {
+    "1": "wk_d1r35",
+    "2": "wk_d2r35",
+    "3": "wk_d3r35",
+    "4": "wk_d4r35",
+    "5": "wk_d5r35",
+    "6": "wk_d6r35",
+    "7": "wk_d7r35"
+   },
+   "converted": {
+    "1": "wk_d1c35",
+    "2": "wk_d2c35",
+    "3": "wk_d3c35",
+    "4": "wk_d4c35",
+    "5": "wk_d5c35",
+    "6": "wk_d6c35",
+    "7": "wk_d7c35"
+   }
+  },
+  {
+   "n": 36,
+   "category": "wk_cat36",
+   "taxon": {
+    "1": "wk_fung36",
+    "2": "wk_grass36",
+    "3": "wk_tree36",
+    "4": "wk_weed36"
+   },
+   "daysFound": "wk_days36",
+   "note": "wk_note36",
+   "raw": {
+    "1": "wk_d1r36",
+    "2": "wk_d2r36",
+    "3": "wk_d3r36",
+    "4": "wk_d4r36",
+    "5": "wk_d5r36",
+    "6": "wk_d6r36",
+    "7": "wk_d7r36"
+   },
+   "converted": {
+    "1": "wk_d1c36",
+    "2": "wk_d2c36",
+    "3": "wk_d3c36",
+    "4": "wk_d4c36",
+    "5": "wk_d5c36",
+    "6": "wk_d6c36",
+    "7": "wk_d7c36"
+   }
+  },
+  {
+   "n": 37,
+   "category": "wk_cat37",
+   "taxon": {
+    "1": "wk_fung37",
+    "2": "wk_grass37",
+    "3": "wk_tree37",
+    "4": "wk_weed37"
+   },
+   "daysFound": "wk_days37",
+   "note": "wk_note37",
+   "raw": {
+    "1": "wk_d1r37",
+    "2": "wk_d2r37",
+    "3": "wk_d3r37",
+    "4": "wk_d4r37",
+    "5": "wk_d5r37",
+    "6": "wk_d6r37",
+    "7": "wk_d7r37"
+   },
+   "converted": {
+    "1": "wk_d1c37",
+    "2": "wk_d2c37",
+    "3": "wk_d3c37",
+    "4": "wk_d4c37",
+    "5": "wk_d5c37",
+    "6": "wk_d6c37",
+    "7": "wk_d7c37"
+   }
+  },
+  {
+   "n": 38,
+   "category": "wk_cat38",
+   "taxon": {
+    "1": "wk_fung38",
+    "2": "wk_grass38",
+    "3": "wk_tree38",
+    "4": "wk_weed38"
+   },
+   "daysFound": "wk_days38",
+   "note": "wk_note38",
+   "raw": {
+    "1": "wk_d1r38",
+    "2": "wk_d2r38",
+    "3": "wk_d3r38",
+    "4": "wk_d4r38",
+    "5": "wk_d5r38",
+    "6": "wk_d6r38",
+    "7": "wk_d7r38"
+   },
+   "converted": {
+    "1": "wk_d1c38",
+    "2": "wk_d2c38",
+    "3": "wk_d3c38",
+    "4": "wk_d4c38",
+    "5": "wk_d5c38",
+    "6": "wk_d6c38",
+    "7": "wk_d7c38"
+   }
+  },
+  {
+   "n": 39,
+   "category": "wk_cat39",
+   "taxon": {
+    "1": "wk_fung39",
+    "2": "wk_grass39",
+    "3": "wk_tree39",
+    "4": "wk_weed39"
+   },
+   "daysFound": "wk_days39",
+   "note": "wk_note39",
+   "raw": {
+    "1": "wk_d1r39",
+    "2": "wk_d2r39",
+    "3": "wk_d3r39",
+    "4": "wk_d4r39",
+    "5": "wk_d5r39",
+    "6": "wk_d6r39",
+    "7": "wk_d7r39"
+   },
+   "converted": {
+    "1": "wk_d1c39",
+    "2": "wk_d2c39",
+    "3": "wk_d3c39",
+    "4": "wk_d4c39",
+    "5": "wk_d5c39",
+    "6": "wk_d6c39",
+    "7": "wk_d7c39"
+   }
+  },
+  {
+   "n": 40,
+   "category": "wk_cat40",
+   "taxon": {
+    "1": "wk_fung40",
+    "2": "wk_grass40",
+    "3": "wk_tree40",
+    "4": "wk_weed40"
+   },
+   "daysFound": "wk_days40",
+   "note": "wk_note40",
+   "raw": {
+    "1": "wk_d1r40",
+    "2": "wk_d2r40",
+    "3": "wk_d3r40",
+    "4": "wk_d4r40",
+    "5": "wk_d5r40",
+    "6": "wk_d6r40",
+    "7": "wk_d7r40"
+   },
+   "converted": {
+    "1": "wk_d1c40",
+    "2": "wk_d2c40",
+    "3": "wk_d3c40",
+    "4": "wk_d4c40",
+    "5": "wk_d5c40",
+    "6": "wk_d6c40",
+    "7": "wk_d7c40"
+   }
+  },
+  {
+   "n": 41,
+   "category": "wk_cat41",
+   "taxon": {
+    "1": "wk_fung41",
+    "2": "wk_grass41",
+    "3": "wk_tree41",
+    "4": "wk_weed41"
+   },
+   "daysFound": "wk_days41",
+   "note": "wk_note41",
+   "raw": {
+    "1": "wk_d1r41",
+    "2": "wk_d2r41",
+    "3": "wk_d3r41",
+    "4": "wk_d4r41",
+    "5": "wk_d5r41",
+    "6": "wk_d6r41",
+    "7": "wk_d7r41"
+   },
+   "converted": {
+    "1": "wk_d1c41",
+    "2": "wk_d2c41",
+    "3": "wk_d3c41",
+    "4": "wk_d4c41",
+    "5": "wk_d5c41",
+    "6": "wk_d6c41",
+    "7": "wk_d7c41"
+   }
+  },
+  {
+   "n": 42,
+   "category": "wk_cat42",
+   "taxon": {
+    "1": "wk_fung42",
+    "2": "wk_grass42",
+    "3": "wk_tree42",
+    "4": "wk_weed42"
+   },
+   "daysFound": "wk_days42",
+   "note": "wk_note42",
+   "raw": {
+    "1": "wk_d1r42",
+    "2": "wk_d2r42",
+    "3": "wk_d3r42",
+    "4": "wk_d4r42",
+    "5": "wk_d5r42",
+    "6": "wk_d6r42",
+    "7": "wk_d7r42"
+   },
+   "converted": {
+    "1": "wk_d1c42",
+    "2": "wk_d2c42",
+    "3": "wk_d3c42",
+    "4": "wk_d4c42",
+    "5": "wk_d5c42",
+    "6": "wk_d6c42",
+    "7": "wk_d7c42"
+   }
+  },
+  {
+   "n": 43,
+   "category": "wk_cat43",
+   "taxon": {
+    "1": "wk_fung43",
+    "2": "wk_grass43",
+    "3": "wk_tree43",
+    "4": "wk_weed43"
+   },
+   "daysFound": "wk_days43",
+   "note": "wk_note43",
+   "raw": {
+    "1": "wk_d1r43",
+    "2": "wk_d2r43",
+    "3": "wk_d3r43",
+    "4": "wk_d4r43",
+    "5": "wk_d5r43",
+    "6": "wk_d6r43",
+    "7": "wk_d7r43"
+   },
+   "converted": {
+    "1": "wk_d1c43",
+    "2": "wk_d2c43",
+    "3": "wk_d3c43",
+    "4": "wk_d4c43",
+    "5": "wk_d5c43",
+    "6": "wk_d6c43",
+    "7": "wk_d7c43"
+   }
+  },
+  {
+   "n": 44,
+   "category": "wk_cat44",
+   "taxon": {
+    "1": "wk_fung44",
+    "2": "wk_grass44",
+    "3": "wk_tree44",
+    "4": "wk_weed44"
+   },
+   "daysFound": "wk_days44",
+   "note": "wk_note44",
+   "raw": {
+    "1": "wk_d1r44",
+    "2": "wk_d2r44",
+    "3": "wk_d3r44",
+    "4": "wk_d4r44",
+    "5": "wk_d5r44",
+    "6": "wk_d6r44",
+    "7": "wk_d7r44"
+   },
+   "converted": {
+    "1": "wk_d1c44",
+    "2": "wk_d2c44",
+    "3": "wk_d3c44",
+    "4": "wk_d4c44",
+    "5": "wk_d5c44",
+    "6": "wk_d6c44",
+    "7": "wk_d7c44"
+   }
+  },
+  {
+   "n": 45,
+   "category": "wk_cat45",
+   "taxon": {
+    "1": "wk_fung45",
+    "2": "wk_grass45",
+    "3": "wk_tree45",
+    "4": "wk_weed45"
+   },
+   "daysFound": "wk_days45",
+   "note": "wk_note45",
+   "raw": {
+    "1": "wk_d1r45",
+    "2": "wk_d2r45",
+    "3": "wk_d3r45",
+    "4": "wk_d4r45",
+    "5": "wk_d5r45",
+    "6": "wk_d6r45",
+    "7": "wk_d7r45"
+   },
+   "converted": {
+    "1": "wk_d1c45",
+    "2": "wk_d2c45",
+    "3": "wk_d3c45",
+    "4": "wk_d4c45",
+    "5": "wk_d5c45",
+    "6": "wk_d6c45",
+    "7": "wk_d7c45"
+   }
+  },
+  {
+   "n": 46,
+   "category": "wk_cat46",
+   "taxon": {
+    "1": "wk_fung46",
+    "2": "wk_grass46",
+    "3": "wk_tree46",
+    "4": "wk_weed46"
+   },
+   "daysFound": "wk_days46",
+   "note": "wk_note46",
+   "raw": {
+    "1": "wk_d1r46",
+    "2": "wk_d2r46",
+    "3": "wk_d3r46",
+    "4": "wk_d4r46",
+    "5": "wk_d5r46",
+    "6": "wk_d6r46",
+    "7": "wk_d7r46"
+   },
+   "converted": {
+    "1": "wk_d1c46",
+    "2": "wk_d2c46",
+    "3": "wk_d3c46",
+    "4": "wk_d4c46",
+    "5": "wk_d5c46",
+    "6": "wk_d6c46",
+    "7": "wk_d7c46"
+   }
+  },
+  {
+   "n": 47,
+   "category": "wk_cat47",
+   "taxon": {
+    "1": "wk_fung47",
+    "2": "wk_grass47",
+    "3": "wk_tree47",
+    "4": "wk_weed47"
+   },
+   "daysFound": "wk_days47",
+   "note": "wk_note47",
+   "raw": {
+    "1": "wk_d1r47",
+    "2": "wk_d2r47",
+    "3": "wk_d3r47",
+    "4": "wk_d4r47",
+    "5": "wk_d5r47",
+    "6": "wk_d6r47",
+    "7": "wk_d7r47"
+   },
+   "converted": {
+    "1": "wk_d1c47",
+    "2": "wk_d2c47",
+    "3": "wk_d3c47",
+    "4": "wk_d4c47",
+    "5": "wk_d5c47",
+    "6": "wk_d6c47",
+    "7": "wk_d7c47"
+   }
+  },
+  {
+   "n": 48,
+   "category": "wk_cat48",
+   "taxon": {
+    "1": "wk_fung48",
+    "2": "wk_grass48",
+    "3": "wk_tree48",
+    "4": "wk_weed48"
+   },
+   "daysFound": "wk_days48",
+   "note": "wk_note48",
+   "raw": {
+    "1": "wk_d1r48",
+    "2": "wk_d2r48",
+    "3": "wk_d3r48",
+    "4": "wk_d4r48",
+    "5": "wk_d5r48",
+    "6": "wk_d6r48",
+    "7": "wk_d7r48"
+   },
+   "converted": {
+    "1": "wk_d1c48",
+    "2": "wk_d2c48",
+    "3": "wk_d3c48",
+    "4": "wk_d4c48",
+    "5": "wk_d5c48",
+    "6": "wk_d6c48",
+    "7": "wk_d7c48"
+   }
+  },
+  {
+   "n": 49,
+   "category": "wk_cat49",
+   "taxon": {
+    "1": "wk_fung49",
+    "2": "wk_grass49",
+    "3": "wk_tree49",
+    "4": "wk_weed49"
+   },
+   "daysFound": "wk_days49",
+   "note": "wk_note49",
+   "raw": {
+    "1": "wk_d1r49",
+    "2": "wk_d2r49",
+    "3": "wk_d3r49",
+    "4": "wk_d4r49",
+    "5": "wk_d5r49",
+    "6": "wk_d6r49",
+    "7": "wk_d7r49"
+   },
+   "converted": {
+    "1": "wk_d1c49",
+    "2": "wk_d2c49",
+    "3": "wk_d3c49",
+    "4": "wk_d4c49",
+    "5": "wk_d5c49",
+    "6": "wk_d6c49",
+    "7": "wk_d7c49"
+   }
+  },
+  {
+   "n": 50,
+   "category": "wk_cat50",
+   "taxon": {
+    "1": "wk_fung50",
+    "2": "wk_grass50",
+    "3": "wk_tree50",
+    "4": "wk_weed50"
+   },
+   "daysFound": "wk_days50",
+   "note": "wk_note50",
+   "raw": {
+    "1": "wk_d1r50",
+    "2": "wk_d2r50",
+    "3": "wk_d3r50",
+    "4": "wk_d4r50",
+    "5": "wk_d5r50",
+    "6": "wk_d6r50",
+    "7": "wk_d7r50"
+   },
+   "converted": {
+    "1": "wk_d1c50",
+    "2": "wk_d2c50",
+    "3": "wk_d3c50",
+    "4": "wk_d4c50",
+    "5": "wk_d5c50",
+    "6": "wk_d6c50",
+    "7": "wk_d7c50"
+   }
+  }
+ ],
+ "legacyTaxonToV2": {
+  "tree:1": 1001,
+  "tree:2": 1002,
+  "tree:3": 1003,
+  "tree:4": 1004,
+  "tree:5": 1005,
+  "tree:6": 1006,
+  "tree:7": 1007,
+  "tree:8": 1008,
+  "tree:9": 1009,
+  "tree:11": 1010,
+  "tree:10": 1011,
+  "tree:12": 1012,
+  "tree:13": 1013,
+  "tree:14": 1014,
+  "tree:15": 1015,
+  "tree:16": 1016,
+  "tree:17": 1017,
+  "tree:18": 1018,
+  "tree:19": 1019,
+  "tree:20": 1020,
+  "tree:21": 1021,
+  "tree:22": 1022,
+  "tree:23": 1023,
+  "tree:24": 1024,
+  "tree:25": 1025,
+  "tree:26": 1026,
+  "tree:27": 1027,
+  "tree:28": 1028,
+  "tree:29": 1029,
+  "tree:30": 1030,
+  "tree:31": 1031,
+  "tree:32": 1032,
+  "tree:33": 1033,
+  "tree:34": 1034,
+  "tree:35": 1035,
+  "tree:36": 1036,
+  "tree:37": 1037,
+  "tree:38": 1038,
+  "tree:39": 1039,
+  "tree:40": 1040,
+  "tree:41": 1041,
+  "tree:42": 1042,
+  "tree:43": 1043,
+  "tree:44": 1044,
+  "tree:45": 1045,
+  "tree:46": 1046,
+  "tree:47": 1047,
+  "tree:48": 1048,
+  "tree:49": 1049,
+  "tree:50": 1050,
+  "tree:51": 1051,
+  "tree:52": 1052,
+  "tree:53": 1053,
+  "grass:1": 2001,
+  "grass:2": 2002,
+  "weed:1": 3001,
+  "weed:2": 3002,
+  "weed:3": 3003,
+  "weed:4": 3004,
+  "weed:5": 3005,
+  "weed:6": 3006,
+  "weed:7": 3007,
+  "weed:8": 3008,
+  "weed:9": 3009,
+  "weed:10": 3010,
+  "weed:11": 3011,
+  "weed:12": 3012,
+  "weed:13": 3013,
+  "weed:14": 3014,
+  "weed:15": 3015,
+  "weed:16": 3016,
+  "weed:17": 3017,
+  "weed:18": 3018,
+  "weed:19": 3019,
+  "weed:20": 3020,
+  "weed:21": 3021,
+  "weed:22": 3022,
+  "weed:23": 3023,
+  "weed:24": 3024,
+  "weed:25": 3025,
+  "weed:26": 3026,
+  "weed:27": 3027,
+  "weed:28": 3028,
+  "weed:29": 3029,
+  "weed:30": 3030,
+  "weed:31": 3031,
+  "weed:32": 3032,
+  "weed:33": 3033,
+  "weed:34": 3034,
+  "weed:35": 3035,
+  "weed:37": 3036,
+  "weed:38": 3037,
+  "weed:39": 3038,
+  "weed:40": 3039,
+  "weed:41": 3040,
+  "weed:42": 3041,
+  "weed:43": 3042,
+  "weed:44": 3043,
+  "weed:45": 3044,
+  "weed:46": 3045,
+  "weed:47": 3046,
+  "weed:49": 3047,
+  "weed:50": 3048,
+  "weed:52": 3049,
+  "weed:53": 3050,
+  "fungal:1": 4001,
+  "fungal:3": 4002,
+  "fungal:4": 4003,
+  "fungal:5": 4004,
+  "fungal:6": 4005,
+  "fungal:7": 4006,
+  "fungal:8": 4007,
+  "fungal:9": 4008,
+  "fungal:10": 4009,
+  "fungal:11": 4010,
+  "fungal:12": 4011,
+  "fungal:13": 4012,
+  "fungal:14": 4013,
+  "fungal:18": 4014,
+  "fungal:15": 4015,
+  "fungal:16": 4016,
+  "fungal:17": 4017,
+  "fungal:20": 4018,
+  "fungal:21": 4019,
+  "fungal:22": 4020,
+  "fungal:23": 4021,
+  "fungal:24": 4022,
+  "fungal:25": 4023,
+  "fungal:27": 4024,
+  "fungal:26": 4025,
+  "fungal:29": 4026,
+  "fungal:31": 4027,
+  "fungal:32": 4028,
+  "fungal:34": 4029,
+  "fungal:35": 4030,
+  "fungal:36": 4031,
+  "fungal:38": 4032,
+  "fungal:28": 4033,
+  "fungal:37": 4999,
+  "fungal:2": 5001,
+  "fungal:19": 5002,
+  "weed:36": 5003,
+  "weed:48": 5004,
+  "grass:3": 9001,
+  "tree:54": 9001,
+  "weed:54": 9001,
+  "fungal:33": 4016,
+  "fungal:30": 4027,
+  "weed:51": 3006
+ },
+ "taxonLabels": {
+  "fungal:1": "Alternaria",
+  "fungal:2": "Algae",
+  "fungal:3": "Arthrinium",
+  "fungal:4": "Ascospores",
+  "fungal:5": "Aspergillus/Penicillium",
+  "fungal:6": "Basidiospores",
+  "fungal:7": "Beltrania",
+  "fungal:8": "Bispora",
+  "fungal:9": "Botryodiplodia",
+  "fungal:10": "Ceratosporiella",
+  "fungal:11": "Chaetomium",
+  "fungal:12": "Cladosporium",
+  "fungal:13": "Curvularia",
+  "fungal:14": "Epicoccum",
+  "fungal:15": "Fusarium",
+  "fungal:16": "Helminthosporium/Drechslera",
+  "fungal:17": "Leptosphaeria",
+  "fungal:18": "Mildew",
+  "fungal:19": "Moss",
+  "fungal:20": "Nigrospora",
+  "fungal:21": "Periconia",
+  "fungal:22": "Pithomyces",
+  "fungal:23": "Pleospora",
+  "fungal:24": "Polythrincium",
+  "fungal:25": "Puccinia",
+  "fungal:26": "Rhizopus",
+  "fungal:27": "Rusts",
+  "fungal:28": "Smuts",
+  "fungal:29": "Spegazzinia",
+  "fungal:30": "Sporormia",
+  "fungal:31": "Sporormiella",
+  "fungal:32": "Stemphyllium",
+  "fungal:33": "Helminthosporium",
+  "fungal:34": "Tetraploa",
+  "fungal:35": "Torula",
+  "fungal:36": "Trichonis",
+  "fungal:37": "Unidentified Fungal Spores",
+  "fungal:38": "Ulocladium",
+  "grass:1": "Poaceae; Grass",
+  "grass:2": "Zea mays; Maize",
+  "grass:3": "Unidentified Pollen",
+  "tree:1": "Acacia-type; Acacia",
+  "tree:2": "Acer; Maple",
+  "tree:3": "Anacardiaceae; Sumac",
+  "tree:4": "Araucariaceae; Monkey puzzle",
+  "tree:5": "Arecaceae; Palm",
+  "tree:6": "Betula; Birch",
+  "tree:7": "Buddleja; False olive",
+  "tree:8": "Carpinus betulus; European hornbeam",
+  "tree:9": "Carpinus orientalis-ostrya type; Oriental hornbeam",
+  "tree:10": "Casuarina; Australian pine",
+  "tree:11": "Carya; Pecan",
+  "tree:12": "Cedrus; Cedar",
+  "tree:13": "Celtis; Hackberry",
+  "tree:14": "Citrus; Lemon",
+  "tree:15": "Combretaceae; Bushwillow",
+  "tree:16": "Cupressaceae; Cypress",
+  "tree:17": "Delonix; Flamboyant tree",
+  "tree:18": "Dodonaea; Sand olive",
+  "tree:19": "Ebenaceae; Ebony/Persimmon",
+  "tree:20": "Erythrina; Coral tree",
+  "tree:21": "Euclea; Guarri",
+  "tree:22": "Fabaceae; Pea family",
+  "tree:23": "Fagus; Beech",
+  "tree:24": "Fraxinus; Ash",
+  "tree:25": "Hippocastinaceae; Chestnut",
+  "tree:26": "Ilex; Cape holly",
+  "tree:27": "Jacaranda; Jacaranda",
+  "tree:28": "Juglandaceae; Walnut",
+  "tree:29": "Larix; Larch",
+  "tree:30": "Ligustrum; Privet",
+  "tree:31": "Liquidambar; Sweetgum",
+  "tree:32": "Melia; Syringa",
+  "tree:33": "Mimusops; Red milkwood",
+  "tree:34": "Moraceae; Mulberry",
+  "tree:35": "Morella/Myricaceae; Waxberry",
+  "tree:36": "Myrtaceae; Eucalyptus",
+  "tree:37": "Nuxia sp; Forest elder",
+  "tree:38": "Oleaceae; Olive",
+  "tree:39": "Picea; Spruce",
+  "tree:40": "Pinus; Pine",
+  "tree:41": "Platanus; Plane",
+  "tree:42": "Podocarpus; Yellowwood",
+  "tree:43": "Populus; Poplar",
+  "tree:44": "Prosopis; Mesquite",
+  "tree:45": "Quercus; Oak",
+  "tree:46": "Rhamnaceae; Buckthorns",
+  "tree:47": "Rhus/Searsia; Karee",
+  "tree:48": "Salix; Willow",
+  "tree:49": "Sapotaceae; Star apple",
+  "tree:50": "Schinus; Pepper tree",
+  "tree:51": "Sclerocarya; Marula",
+  "tree:52": "Tiliaceae; Lindens",
+  "tree:53": "Ulmaceae; Elm",
+  "tree:54": "Unidentified Pollen",
+  "weed:1": "Aizoaceae; Ice plants",
+  "weed:2": "Amaranthus; Pigweed",
+  "weed:3": "Amaryllidaceae; Lily",
+  "weed:4": "Ambrosia; Ragweed",
+  "weed:5": "Anthospermum; Katstert",
+  "weed:6": "Apiaceae; Carrot/celery",
+  "weed:7": "Artemisia; Mugwort",
+  "weed:8": "Asphodelaceae; Aloe",
+  "weed:9": "Asteraceae; Daisy",
+  "weed:10": "Boraginaceae; Borage/forget-me-not",
+  "weed:11": "Brassicaceae; Mustards/cabbage",
+  "weed:12": "Bruniaceae; Coffee bush",
+  "weed:13": "Cannabis; Hemp",
+  "weed:14": "Caryophyllaceae; Carnation family",
+  "weed:15": "Chenopodiaceae; Goosefoot",
+  "weed:16": "Crassulaceae; Pigmyweeds/stonecrops",
+  "weed:17": "Cyperaceae; Sedge",
+  "weed:18": "Ericaceae; Erica",
+  "weed:19": "Erodium; Storksbill",
+  "weed:20": "Euphorbiaceae; Spurges",
+  "weed:21": "Gentianaceae; Gentians",
+  "weed:22": "Geraniaceae; Pelargonium",
+  "weed:23": "Helianthus; Sunflower",
+  "weed:24": "Iridaceae; Iris",
+  "weed:25": "Juncus; Rush",
+  "weed:26": "Lamiaceae; Mint",
+  "weed:27": "Liliaceae; Lily",
+  "weed:28": "Loranthaceae; Mistletoe",
+  "weed:29": "Malvaceae; Mallows",
+  "weed:30": "Oenotheracea; E. primrose",
+  "weed:31": "Oxalidaceae; Sorrel",
+  "weed:32": "Parietaria; Pellitory-of-the-wall",
+  "weed:33": "Persicaria; Knotweed",
+  "weed:34": "Plantaginaceae; Plantain",
+  "weed:35": "Polygonaceae; Buckwheats",
+  "weed:36": "Polypodiaceae; Fern",
+  "weed:37": "Proteaceae; Protea",
+  "weed:38": "Ranunculaceae; Buttercups",
+  "weed:39": "Restionaceae; Reed",
+  "weed:40": "Rosaceae; Rose",
+  "weed:41": "Rumex; Sorrel",
+  "weed:42": "Rutaceae; Citrus/buchu",
+  "weed:43": "Saxifraga; Rockfoils",
+  "weed:44": "Scrophulariaceae; Figworts",
+  "weed:45": "Solanaceae; Nightshade",
+  "weed:46": "Stoebe-type; Slangbos",
+  "weed:47": "Taraxacum; Dandelion",
+  "weed:48": "Theylepteris; Fern",
+  "weed:49": "Thymelaceae; Mezereum",
+  "weed:50": "Typhaceae; Bullrush",
+  "weed:51": "Umbelliferae; see Apiaceae",
+  "weed:52": "Urticaceae; Nettle",
+  "weed:53": "Zygophyllaceae; Caltrops",
+  "weed:54": "Unidentified Pollen"
+ }
+}
