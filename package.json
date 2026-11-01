@@ -5,7 +5,7 @@
   "description": "Weekly to annual pollen and fungal spore reporting dashboard for the SAPNET monitoring network.",
   "engines": { "node": ">=20" },
   "scripts": {
-    "build": "node -e \"console.log('Static site — nothing to compile.')\"",
+    "build": "node scripts/stamp-assets.mjs",
     "dev": "netlify dev",
     "data": "node scripts/build-data.mjs",
     "legacy-map": "node scripts/build-legacy-map.mjs",

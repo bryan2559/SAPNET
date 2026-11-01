@@ -39,10 +39,19 @@
     Permissions-Policy = "geolocation=(), camera=(), microphone=(), interest-cohort=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'none'"
 
+# Asset filenames are stable (styles.css, app.js) rather than content-hashed, so they
+# must NOT be cached as immutable: a browser that had the old file would keep serving
+# it for a year after a redeploy. Netlify sends an ETag, so revalidation costs one
+# conditional request and returns 304 when nothing changed.
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/api/*"
