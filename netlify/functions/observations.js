@@ -45,6 +45,7 @@ const { transformGrid, looksGrid } = require('./lib/grid-adapter.js');
 const { transformLegacy, looksLegacy } = require('./lib/legacy-adapter.js');
 const { transformRetrospective, looksRetrospective } = require('./lib/retrospective-adapter.js');
 const { conversionFactor, toConcentration, methodLabel } = require('./lib/conversion.js');
+const { parseCsv } = require('./lib/csv.js');
 
 const CATEGORY = {
   1: 'Tree pollen', 2: 'Grass pollen', 3: 'Weed and herb pollen',
@@ -80,7 +81,9 @@ function readSources() {
       schema: String(process.env.REDCAP_SCHEMA || 'auto').toLowerCase(),
       priority: 100,
       factor: process.env.CONVERSION_FACTOR,
-      countKind: process.env.COUNT_KIND
+      countKind: process.env.COUNT_KIND,
+      filterLogic: process.env.REDCAP_FILTER,
+      forms: process.env.REDCAP_FORMS
     }];
   }
 
@@ -99,34 +102,85 @@ function readSources() {
       // order you list them in is a sensible default precedence.
       priority: Number(process.env[`REDCAP_PRIORITY_${K}`] ?? (100 - i)),
       factor: process.env[`REDCAP_FACTOR_${K}`] || process.env.CONVERSION_FACTOR,
-      countKind: process.env[`REDCAP_COUNTKIND_${K}`] || process.env.COUNT_KIND
+      countKind: process.env[`REDCAP_COUNTKIND_${K}`] || process.env.COUNT_KIND,
+      filterLogic: process.env[`REDCAP_FILTER_${K}`] || process.env.REDCAP_FILTER,
+      forms: process.env[`REDCAP_FORMS_${K}`] || process.env.REDCAP_FORMS
     };
   });
 }
 
 /* ---------------------------------------------------------------- fetch */
-async function redcapExport(url, token) {
-  const body = new URLSearchParams({
-    token, content: 'record', format: 'json', type: 'flat', returnFormat: 'json',
+/**
+ * Netlify kills a synchronous function at 10 seconds on the default plan (26 on
+ * some). The abort below must fire BEFORE that, or the function is killed
+ * mid-request and the browser is left holding a connection that never answers —
+ * which looks like a dashboard stuck on its loading spinner rather than an error.
+ * Raise REDCAP_TIMEOUT_MS only if your plan's function limit is higher.
+ */
+const REDCAP_TIMEOUT_MS = Number(process.env.REDCAP_TIMEOUT_MS || 8500);
+
+async function redcapExport(url, token, cfg = {}) {
+  // CSV by default: on a 1,082-field instrument a JSON flat export repeats every
+  // field name in every record, which is usually most of the payload.
+  const format = String(process.env.REDCAP_FORMAT || 'csv').toLowerCase() === 'json'
+    ? 'json' : 'csv';
+
+  const params = {
+    token, content: 'record', type: 'flat',
+    format, returnFormat: 'json',
     rawOrLabel: 'raw', rawOrLabelHeaders: 'raw', exportCheckboxLabel: 'false',
-    exportSurveyFields: 'false', exportDataAccessGroups: 'true'
-  });
+    exportSurveyFields: 'false', exportDataAccessGroups: 'false'
+  };
+  // Optional server-side narrowing, e.g. REDCAP_FILTER_PROSPECTIVE=[wk_startdate]>'2023-01-01'
+  if (cfg.filterLogic) params.filterLogic = cfg.filterLogic;
+  if (cfg.forms) params['forms[0]'] = cfg.forms;
+
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25000);
+  const timer = setTimeout(() => controller.abort(), REDCAP_TIMEOUT_MS);
+  const started = Date.now();
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body, signal: controller.signal
+      body: new URLSearchParams(params), signal: controller.signal
     });
     const text = await res.text();
     if (!res.ok) throw new Error(`REDCap responded ${res.status}: ${text.slice(0, 300)}`);
-    let json;
-    try { json = JSON.parse(text); }
-    catch { throw new Error(`REDCap returned non-JSON: ${text.slice(0, 200)}`); }
-    if (json && json.error) throw new Error(`REDCap error: ${json.error}`);
-    if (!Array.isArray(json)) throw new Error('REDCap did not return a record array.');
-    return json;
+
+    // An error comes back as JSON whatever format was asked for.
+    if (text.trimStart().startsWith('{')) {
+      try {
+        const j = JSON.parse(text);
+        if (j && j.error) throw new Error(`REDCap error: ${j.error}`);
+      } catch (e) { if (/REDCap error/.test(e.message)) throw e; }
+    }
+
+    let records;
+    if (format === 'csv' && !text.trimStart().startsWith('[')) {
+      records = parseCsv(text);
+    } else if (format === 'csv') {
+      // Asked for CSV and got a JSON array back. Some proxies and older REDCap
+      // builds ignore the format parameter; read what actually arrived.
+      records = JSON.parse(text);
+    } else {
+      let json;
+      try { json = JSON.parse(text); }
+      catch { throw new Error(`REDCap returned non-JSON: ${text.slice(0, 200)}`); }
+      if (json && json.error) throw new Error(`REDCap error: ${json.error}`);
+      if (!Array.isArray(json)) throw new Error('REDCap did not return a record array.');
+      records = json;
+    }
+    records._meta = { bytes: text.length, ms: Date.now() - started, format };
+    return records;
+  } catch (e) {
+    if (e.name === 'AbortError') {
+      throw new Error(
+        `REDCap did not respond within ${REDCAP_TIMEOUT_MS} ms. On a 1,082-field ` +
+        `instrument a full export is often too slow for a serverless function. ` +
+        `Narrow it with REDCAP_FILTER_<KEY> (for example [wk_startdate]>'2024-01-01'), ` +
+        `or publish a snapshot with scripts/build-data.mjs instead.`);
+    }
+    throw e;
   } finally {
     clearTimeout(timer);
   }
@@ -374,7 +428,7 @@ async function build() {
   for (const config of sources) {
     let records;
     try {
-      records = await redcapExport(config.url, config.token);
+      records = await redcapExport(config.url, config.token, config);
     } catch (e) {
       // One project failing must not take out the whole dashboard.
       sourceDiagnostics.push({
@@ -413,14 +467,20 @@ async function build() {
 
     result.diagnostics.schemaForced = config.schema !== 'auto' ? config.schema : null;
     result.diagnostics.rawRecordsReturned = records.length;
+    result.diagnostics.export = records._meta || null;
     result.diagnostics.priority = config.priority;
     sourceDiagnostics.push(result.diagnostics);
     perSource.push({ payload: result.payload, config });
   }
 
   if (!perSource.length) {
-    const err = new Error('Every configured REDCap source failed. See /api/diagnostics.');
+    // Surface the first real reason rather than a generic failure: this message is
+    // what the dashboard shows the user and what you read in the browser console.
+    const why = sourceDiagnostics.map(s => `${s.datasetLabel}: ${s.error}`).join(' | ');
+    const err = new Error(
+      `Every configured REDCap source failed. ${why}`);
     err.code = 'redcap_unavailable';
+    err.sources = sourceDiagnostics;
     throw err;
   }
 

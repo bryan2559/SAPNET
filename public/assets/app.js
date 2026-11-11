@@ -456,11 +456,41 @@ function shift(dir) {
   render();
 }
 
+/** Build identity, so it is always possible to tell which version is actually live. */
+const BUILD = '2026-11-09';
+
 async function init() {
   try { applyTheme(localStorage.getItem('sapnet-theme')); } catch (e) { applyTheme(null); }
   initTooltip();
+  console.info(`SAPNET dashboard build ${BUILD}`);
 
-  DB = await loadData();
+  // Last line of defence. Every individual request has its own deadline, but a bug
+  // in any one of them must not be able to leave the page on its spinner: whatever
+  // happens, something renders within 30 seconds and says what went wrong.
+  const watchdog = new Promise(resolve => setTimeout(
+    () => resolve({ __watchdog: true }), 30000));
+
+  DB = await Promise.race([
+    loadData(msg => {
+      const el = $('loading');
+      if (el) el.innerHTML = `<span class="spin"></span>${msg}`;
+    }),
+    watchdog
+  ]);
+
+  if (DB && DB.__watchdog) {
+    $('loading').innerHTML =
+      `<p style="max-width:52ch;margin:0 auto;text-align:left;line-height:1.6">
+         <b>Loading did not finish within 30 seconds.</b><br><br>
+         Something the page requested accepted the connection and never answered.
+         Open the browser console and the Network tab, reload, and look for the
+         request that stays pending — that is the one to chase.<br><br>
+         <code>/api/health</code> answers instantly and will say whether the REDCap
+         tokens are configured at all.<br><br>
+         Build ${BUILD}.
+       </p>`;
+    return;
+  }
   state.site = DB.sites[0];
   const last = (DB.bySite.get(state.site) || []).at(-1);
   state.anchor = last ? new Date(last.ts) : new Date();
@@ -502,9 +532,20 @@ async function init() {
       : `Live REDCap · ${DB.schema} schema`;
   } else if (DB.source === 'file') { badge.className = 'badge'; badge.textContent = 'Committed dataset'; }
   else { badge.className = 'badge demo'; badge.textContent = 'Demo data'; }
-  $('srcNote').textContent = DB.source === 'demo'
-    ? 'No REDCap connection configured — showing synthetic data.'
-    : `Refreshed ${new Date(DB.generatedAt).toLocaleString('en-ZA')}`;
+  $('srcNote').textContent = DB.source === 'redcap'
+    ? `Refreshed ${new Date(DB.generatedAt).toLocaleString('en-ZA')}`
+    : DB.source === 'file' ? 'Committed snapshot.'
+    : 'No REDCap connection configured — showing synthetic data.';
+
+  // If a live connection was attempted and failed, say so rather than quietly
+  // presenting demo numbers as though nothing had gone wrong.
+  if (DB.liveError) {
+    $('srcWarn').hidden = false;
+    $('srcWarn').innerHTML = `<b>Live REDCap data could not be loaded, so this is not your data.</b> ` +
+      `${DB.liveError} Check <code>/api/diagnostics</code> for the reason.`;
+    $('about').hidden = false;
+    $('aboutToggle').setAttribute('aria-expanded', 'true');
+  }
 
   if (DB.conversionBasis) {
     $('basisNote').hidden = false;
@@ -559,6 +600,9 @@ async function init() {
   };
   $('first').onclick = () => { const { lo } = span(state.site); if (lo !== null) { state.anchor = new Date(lo); render(); } };
   $('last').onclick = () => { const { hi } = span(state.site); if (hi !== null) { state.anchor = new Date(hi); render(); } };
+
+  const stamp = document.querySelector('footer .stamp');
+  if (stamp) stamp.textContent = `Build ${BUILD} · check release status before citing`;
 
   $('loading').remove();
   $('app').hidden = false;

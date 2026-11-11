@@ -28,36 +28,102 @@ export const bandOf = (v, key) => {
   return v < t[0] ? 0 : v < t[1] ? 1 : v < t[2] ? 2 : 3;
 };
 
+/**
+ * Every network call on this page goes through here.
+ *
+ * A bare `await fetch(...)` never settles if the other end accepts the connection
+ * and then goes quiet — no error, no rejection, nothing in the console. The page
+ * simply waits on its loading spinner for as long as the tab is open. A serverless
+ * function killed mid-request does exactly that, and so can a proxy or a captive
+ * portal. Nothing here is allowed to wait without a deadline.
+ */
+async function fetchWithTimeout(url, ms, init = {}) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), ms);
+  try {
+    return await fetch(url, { ...init, signal: ctl.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 /** Names for taxon codes, shipped with the site so any schema renders readable labels. */
 async function taxonReference() {
   try {
-    const r = await fetch('/data/taxa.json');
+    // Static file on the same origin, so it should be instant. It still gets a
+    // deadline: this runs on every path, including the demo fallback, so a hang
+    // here would freeze the page even when the live request timed out correctly.
+    const r = await fetchWithTimeout('/data/taxa.json', 5000);
     if (r.ok) { const d = await r.json(); return new Map(d.taxa.map(t => [Number(t.code), t])); }
-  } catch (e) { /* names fall back to whatever the API supplied */ }
+  } catch (e) { console.warn('taxa.json unavailable:', e.message); }
   return new Map();
 }
 
-export async function loadData() {
-  try {
-    const r = await fetch('/api/observations', { headers: { Accept: 'application/json' } });
-    if (r.ok) {
-      const d = await r.json();
-      if (d.observations && d.observations.length) return await index(d);
-    } else if (r.status !== 501) {
-      const e = await r.json().catch(() => ({}));
-      console.warn('Live data unavailable:', e.message || r.status);
-    }
-  } catch (e) { console.warn('Live data unreachable:', e.message); }
+/**
+ * Deadlines, chosen so that the three of them in sequence still finish inside the
+ * watchdog in app.js. The graceful fallback should always win that race; the
+ * watchdog is there for bugs, not for slow networks.
+ *
+ *   live 15s + snapshot 5s + taxa 5s = 25s worst case, against a 30s watchdog.
+ *
+ * The function aborts its own REDCap call at 8.5s, so a healthy API answers well
+ * inside 15s whatever REDCap is doing.
+ */
+const LIVE_TIMEOUT_MS = 15000;
 
+export async function loadData(onStatus = () => {}) {
+  onStatus('Contacting REDCap…');
+  const started = Date.now();
+  let liveError = null;
+
+  const slow = setTimeout(
+    () => onStatus('REDCap is taking a while — a full export of a wide instrument is slow…'),
+    6000);
+
+  let live = null;
   try {
-    const r = await fetch('/data/observations.json');
+    const r = await fetchWithTimeout('/api/observations', LIVE_TIMEOUT_MS,
+      { headers: { Accept: 'application/json' } });
+    if (r.ok) {
+      onStatus('Reading response…');
+      const d = await r.json();
+      if (d.observations && d.observations.length) live = d;
+      else liveError = 'REDCap returned no observations.';
+    } else if (r.status === 501) {
+      liveError = null;                         // simply not configured yet
+    } else {
+      const e = await r.json().catch(() => ({}));
+      liveError = e.message || `API returned ${r.status}`;
+    }
+  } catch (e) {
+    liveError = e.name === 'AbortError'
+      ? `No response from /api/observations within ${LIVE_TIMEOUT_MS / 1000}s.`
+      : e.message;
+  }
+  clearTimeout(slow);
+  // Index outside the request's deadline: building the lookups is local work and
+  // must not be cut short by a timer meant for the network.
+  if (live) return await index(live);
+  if (liveError) console.warn('Live data unavailable:', liveError);
+
+  onStatus('Falling back to the committed snapshot…');
+  try {
+    const r = await fetchWithTimeout('/data/observations.json', 5000);
     if (r.ok) {
       const d = await r.json();
-      if (d.observations && d.observations.length) return await index({ ...d, source: 'file' });
+      if (d.observations && d.observations.length) {
+        const db = await index({ ...d, source: 'file' });
+        db.liveError = liveError;
+        return db;
+      }
     }
   } catch (e) { /* fall through to demo */ }
 
-  return await index(demoDataset());
+  onStatus('Using the built-in demo dataset…');
+  const db = await index(demoDataset());
+  db.liveError = liveError;
+  db.liveElapsedMs = Date.now() - started;
+  return db;
 }
 
 /** Add the lookups the views need, without changing the wire format. */

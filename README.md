@@ -193,6 +193,44 @@ Two things to check on the REDCap side:
 - If REDCap sits behind an institutional firewall, Netlify's egress will not reach it.
   Use the snapshot path below instead.
 
+### Which build is live?
+
+The footer reads `Build <date>`, and the console logs `SAPNET dashboard build <date>`
+on load. If that date is older than the zip you deployed, the browser or the CDN is
+still serving old assets — hard-refresh, and redeploy with **Clear cache and deploy
+site**.
+
+`/api/health` answers instantly and without touching REDCap, so it is the fastest way
+to tell a configuration problem from a slow export:
+
+```json
+{ "ok": true, "redcapConfigured": true, "dataSource": "redcap" }
+```
+
+### If the dashboard sits on its loading spinner
+
+That means the request to `/api/observations` never answered. The usual cause is the
+size of the prospective export: 1,082 fields across every record is a lot to move
+inside a serverless function's time budget.
+
+Three settings control this, all in the environment:
+
+| Variable | Default | What it does |
+|---|---|---|
+| `REDCAP_FORMAT` | `csv` | CSV is ~12× smaller than JSON here, because `format=json` repeats all 1,082 field names on every record |
+| `REDCAP_TIMEOUT_MS` | `8500` | Must stay **below** your Netlify plan's function limit (10 s on the default plan). Above it, the function is killed mid-request and the browser waits on a connection that never answers |
+| `REDCAP_FILTER_<KEY>` | unset | REDCap filter logic to narrow the export server-side, e.g. `[wk_startdate]>'2024-01-01'` |
+
+Every request on the page now carries its own deadline — 15 s for the live API, 5 s
+each for the snapshot and the taxon names — and a 30 s watchdog sits above all of them.
+A request that accepts the connection and then goes quiet can no longer leave the page
+on its spinner: the page falls back to the snapshot or the demo data and shows a banner
+saying the live load failed and why.
+
+If filtering still is not enough, use the snapshot path: export once by hand, run it
+through `scripts/build-data.mjs`, and commit the result. A weekly snapshot is a
+legitimate answer for a network that publishes weekly.
+
 ### Check it worked
 
 Visit **`/api/diagnostics`** on your deployed site. It reports which schema was detected,
