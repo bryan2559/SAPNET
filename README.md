@@ -193,6 +193,61 @@ Two things to check on the REDCap side:
 - If REDCap sits behind an institutional firewall, Netlify's egress will not reach it.
   Use the snapshot path below instead.
 
+### Deploying: use Git, not drag-and-drop
+
+**Netlify's drag-and-drop (app.netlify.com/drop) does not run a build.** It publishes
+the folder exactly as dropped. That matters here for two reasons: `npm run build` never
+runs, and the serverless functions in `netlify/functions` are not bundled — so
+`/api/observations` returns 404 and the dashboard can never show live data, however
+correct the tokens are.
+
+Drag-and-drop is fine for the one-file build. For the live dashboard, connect a Git
+repository so Netlify reads `netlify.toml`, runs the build and bundles the functions.
+
+To confirm a deploy really produced functions, open `/api/health` on the deployed site.
+It answers instantly, never touches REDCap, and a 404 there means the functions are not
+deployed.
+
+### The one-file build
+
+```bash
+npm run standalone
+```
+
+Writes `SAPNET-dashboard-standalone.html`: the whole dashboard in a single file, with
+the CSS, all three scripts and the taxon names inlined, and no ES modules. It opens by
+double-clicking and it also deploys as a one-file drag-and-drop site.
+
+It carries the demo dataset and **cannot reach REDCap**, so it is for proving the
+dashboard works and for sending the interface to someone, never for live reporting.
+Its header says so on every view.
+
+Use it when the deployed site will not start: if the single file works and the
+deployed site does not, the dashboard's code is fine and the problem is in the deploy
+or the cache, not the dashboard.
+
+### First stop when something is wrong: `/check.html`
+
+Open `https://your-site/check.html`. It tests each asset, the dashboard's own module,
+and both API endpoints, reporting what loaded and how long each took. It uses no
+modules and no imports, so **it still reports when the dashboard itself will not
+start** — which is the case the dashboard cannot diagnose for itself.
+
+What the result means:
+
+| Result | Meaning |
+|---|---|
+| An asset shows **FAIL 404** | That file is not in the deployed build. Check Netlify is building from the folder containing `netlify.toml`, then redeploy with **Clear cache and deploy site** |
+| **Dashboard module runs** shows FAIL | The dashboard's code never executes. This is what leaves it on its loading spinner, and no amount of data-layer timeout can help, because they all live inside that module |
+| **/api/health** shows FAIL 404 | The serverless functions are not deployed, so live data can never load |
+| **/api/health** passes, **/api/observations** times out | The code is fine; the REDCap export is too slow. Narrow it with `REDCAP_FILTER_<KEY>` or publish a snapshot |
+| Everything passes | The dashboard should load. If it does not, the browser is holding a stale cached page — hard-refresh |
+
+The dashboard also carries a **boot guard** (`assets/boot.js`), a plain script loaded
+before the modules. If a module fails to load or parse, it replaces the spinner with
+the reason instead of leaving the page to hang. It must be a separate file rather than
+an inline script, because the site's CSP is `script-src 'self'`.
+
 ### Which build is live?
 
 The footer reads `Build <date>`, and the console logs `SAPNET dashboard build <date>`

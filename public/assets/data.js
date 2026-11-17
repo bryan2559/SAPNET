@@ -71,7 +71,7 @@ async function taxonReference() {
  */
 const LIVE_TIMEOUT_MS = 15000;
 
-export async function loadData(onStatus = () => {}) {
+export async function loadData(onStatus = () => {}, opts = {}) {
   onStatus('Contacting REDCap…');
   const started = Date.now();
   let liveError = null;
@@ -82,8 +82,11 @@ export async function loadData(onStatus = () => {}) {
 
   let live = null;
   try {
-    const r = await fetchWithTimeout('/api/observations', LIVE_TIMEOUT_MS,
-      { headers: { Accept: 'application/json' } });
+    // refresh=1 tells the function to bypass its five-minute cache and re-export
+    // from REDCap. cache: 'no-store' stops the browser serving its own copy.
+    const url = '/api/observations' + (opts.force ? '?refresh=1' : '');
+    const r = await fetchWithTimeout(url, LIVE_TIMEOUT_MS,
+      { headers: { Accept: 'application/json' }, cache: opts.force ? 'no-store' : 'default' });
     if (r.ok) {
       onStatus('Reading response…');
       const d = await r.json();

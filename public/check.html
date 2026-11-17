@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAPNET — connection check</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/assets/check.css">
+</head>
+<body>
+<main>
+  <h1>Connection check</h1>
+  <p class="lede">
+    Each piece of the site, tested on its own. This page uses no modules and no
+    imports, so it still reports even when the dashboard itself will not start.
+  </p>
+  <div id="out"><p class="muted">Running…</p></div>
+  <div id="done" hidden>
+    <h2>Reading the result</h2>
+    <ul>
+      <li><b>An asset shows FAIL 404</b> — that file is not in the deployed build.
+        Check Netlify is building from the folder containing <code>netlify.toml</code>,
+        then redeploy with <b>Clear cache and deploy site</b>.</li>
+      <li><b>“Dashboard module runs” shows FAIL</b> — the dashboard's code never
+        executes, which is what leaves it on its loading spinner. The data timeouts
+        live inside that module and cannot help. The browser console names the file
+        and the reason.</li>
+      <li><b>/api/health shows FAIL 404</b> — the serverless functions are not
+        deployed, so the data endpoint cannot work either.</li>
+      <li><b>/api/health passes but /api/observations times out</b> — the code is
+        fine and the REDCap export is too slow. Narrow it with
+        <code>REDCAP_FILTER_&lt;KEY&gt;</code> or publish a snapshot.</li>
+      <li><b>Everything passes</b> — the dashboard should load. If it still does not,
+        the browser is holding a stale cached page: hard-refresh.</li>
+    </ul>
+    <p><a href="/">Back to the dashboard</a></p>
+  </div>
+</main>
+<script src="/assets/check.js"></script>
+</body>
+</html>

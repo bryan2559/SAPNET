@@ -417,6 +417,78 @@ function render() {
   }
 }
 
+/** The badge, the timestamp and the failure banner. Called on load and after a refresh. */
+function sourceLine() {
+  const badge = $('srcBadge');
+  if (DB.source === 'redcap') {
+    badge.className = 'badge live';
+    badge.textContent = DB.datasets && DB.datasets.length > 1
+      ? `Live REDCap · ${DB.datasets.length} projects`
+      : `Live REDCap · ${DB.schema} schema`;
+  } else if (DB.source === 'file') {
+    badge.className = 'badge'; badge.textContent = 'Committed dataset';
+  } else {
+    badge.className = 'badge demo'; badge.textContent = 'Demo data';
+  }
+
+  $('srcNote').textContent = DB.source === 'redcap'
+    ? `Refreshed ${new Date(DB.generatedAt).toLocaleString('en-ZA')}`
+    : DB.source === 'file' ? 'Committed snapshot.'
+    : 'No REDCap connection configured — showing synthetic data.';
+
+  // If a live connection was attempted and failed, say so rather than quietly
+  // presenting demo numbers as though nothing had gone wrong.
+  if (DB.liveError) {
+    $('srcWarn').hidden = false;
+    $('srcWarn').innerHTML = `<b>Live REDCap data could not be loaded, so this is not your data.</b> ` +
+      `${DB.liveError} Check <code>/api/diagnostics</code> for the reason.`;
+    $('about').hidden = false;
+    $('aboutToggle').setAttribute('aria-expanded', 'true');
+  } else {
+    $('srcWarn').hidden = true;
+  }
+}
+
+/**
+ * Pull fresh data from REDCap on demand.
+ *
+ * The function caches its REDCap export for a few minutes so that ordinary page
+ * loads do not re-run a slow export. This asks it to skip that cache, which is what
+ * makes the button meaningful rather than cosmetic: without it, a "refresh" could
+ * return the same cached numbers and look like nothing had changed.
+ */
+async function refreshNow() {
+  const btn = $('refresh');
+  if (btn.disabled) return;
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '\u21bb Refreshing…';
+
+  try {
+    const fresh = await loadData(msg => { btn.innerHTML = '\u21bb ' + msg; }, { force: true });
+    if (fresh.source === 'redcap') {
+      DB = fresh;
+      // Keep the viewer where they were; only the numbers change.
+      if (!DB.sites.includes(state.site)) state.site = DB.sites[0];
+      sourceLine();
+      render();
+      btn.innerHTML = '\u2713 Updated';
+    } else {
+      // Do not silently swap live figures for demo ones.
+      btn.innerHTML = '\u21bb Not updated';
+      $('srcWarn').hidden = false;
+      $('srcWarn').innerHTML = '<b>Refresh did not reach REDCap, so the figures below are unchanged.</b> ' +
+        (fresh.liveError ? fresh.liveError : 'No live connection is configured.') +
+        ' Check <code>/api/diagnostics</code> for the reason.';
+      $('about').hidden = false;
+    }
+  } catch (e) {
+    btn.innerHTML = '\u21bb Failed';
+    console.error('Refresh failed:', e);
+  }
+  setTimeout(() => { btn.disabled = false; btn.innerHTML = label; }, 2500);
+}
+
 /* ============================================================ export */
 function exportCsv() {
   const { days, label } = windowDays();
@@ -460,6 +532,9 @@ function shift(dir) {
 const BUILD = '2026-11-09';
 
 async function init() {
+  // Tell the boot guard the module is alive, so it stops waiting to report a
+  // failure that did not happen.
+  window.__sapnetStarted = Date.now();
   try { applyTheme(localStorage.getItem('sapnet-theme')); } catch (e) { applyTheme(null); }
   initTooltip();
   console.info(`SAPNET dashboard build ${BUILD}`);
@@ -524,28 +599,7 @@ async function init() {
       `(${e.n.toLocaleString('en-ZA')} site-days)`).join(' · ');
   }
 
-  const badge = $('srcBadge');
-  if (DB.source === 'redcap') {
-    badge.className = 'badge live';
-    badge.textContent = DB.datasets && DB.datasets.length > 1
-      ? `Live REDCap · ${DB.datasets.length} projects`
-      : `Live REDCap · ${DB.schema} schema`;
-  } else if (DB.source === 'file') { badge.className = 'badge'; badge.textContent = 'Committed dataset'; }
-  else { badge.className = 'badge demo'; badge.textContent = 'Demo data'; }
-  $('srcNote').textContent = DB.source === 'redcap'
-    ? `Refreshed ${new Date(DB.generatedAt).toLocaleString('en-ZA')}`
-    : DB.source === 'file' ? 'Committed snapshot.'
-    : 'No REDCap connection configured — showing synthetic data.';
-
-  // If a live connection was attempted and failed, say so rather than quietly
-  // presenting demo numbers as though nothing had gone wrong.
-  if (DB.liveError) {
-    $('srcWarn').hidden = false;
-    $('srcWarn').innerHTML = `<b>Live REDCap data could not be loaded, so this is not your data.</b> ` +
-      `${DB.liveError} Check <code>/api/diagnostics</code> for the reason.`;
-    $('about').hidden = false;
-    $('aboutToggle').setAttribute('aria-expanded', 'true');
-  }
+  sourceLine();
 
   if (DB.conversionBasis) {
     $('basisNote').hidden = false;
@@ -573,6 +627,7 @@ async function init() {
   $('catSel').onchange = e => { state.key = e.target.value; render(); };
   $('prev').onclick = () => shift(-1);
   $('next').onclick = () => shift(1);
+  $('refresh').onclick = refreshNow;
   $('csv').onclick = exportCsv;
   $('print').onclick = () => window.print();
   $('aboutToggle').onclick = e => {

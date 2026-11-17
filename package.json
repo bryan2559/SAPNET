@@ -12,6 +12,8 @@
     "grid-map": "node scripts/build-grid-map.mjs",
     "audit-retro": "node scripts/audit-retrospective.mjs",
     "taxa": "node scripts/build-taxa.mjs",
+    "standalone": "node scripts/build-standalone.mjs",
+    "artifact": "node scripts/build-artifact.mjs",
     "check": "for f in netlify/functions/*.js netlify/functions/lib/*.js; do node --check \"$f\" || exit 1; done && for f in public/assets/*.js; do node --input-type=module --check < \"$f\" || exit 1; done && echo 'all modules parse'"
   }
 }

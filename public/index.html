@@ -10,14 +10,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css?v=202611091156">
+<link rel="stylesheet" href="/assets/styles.css?v=202611171134">
 </head>
 <body>
 <div id="tip" role="tooltip" aria-hidden="true"></div>
 
 <div class="wrap">
 
-  <div id="loading" class="loading"><span class="spin"></span>Loading aerobiology data…</div>
+  <noscript><div class="callout warn" style="margin:40px 0">
+      <b>This dashboard needs JavaScript.</b> Every chart is drawn in the browser.
+    </div></noscript>
+    <div id="loading" class="loading"><span class="spin"></span>Loading aerobiology data…</div>
 
   <div id="app" hidden>
 
@@ -79,6 +82,7 @@
         <input type="date" id="jump" aria-label="Jump to date">
         <button class="btn icon" id="first" title="Earliest data" aria-label="Earliest data">|←</button>
         <button class="btn icon" id="last" title="Latest data" aria-label="Latest data">→|</button>
+        <button class="btn" id="refresh" title="Re-export from REDCap now">&#8635; Refresh</button>
         <button class="btn" id="csv">Export CSV</button>
         <button class="btn" id="print">Print</button>
       </div>
@@ -112,10 +116,12 @@
       Risk bands are placeholders and must be set by the network's clinical advisory group before public
       release. Season descriptors use the 95% cumulative method (2.5% to 97.5% of the annual integral).
       <br><span class="stamp">Check release status before citing</span>
+      <span style="margin-left:10px"><a href="/check.html" style="color:var(--ink-3)">Connection check</a></span>
     </footer>
   </div>
 
 </div>
-<script type="module" src="/assets/app.js?v=202611091156"></script>
+<script src="/assets/boot.js"></script>
+<script type="module" src="/assets/app.js?v=202611171134"></script>
 </body>
 </html>
