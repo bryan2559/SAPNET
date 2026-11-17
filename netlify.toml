@@ -24,7 +24,24 @@
   to   = "/.netlify/functions/health"
   status = 200
 
-# Single page, no client router — anything unknown returns the dashboard
+# A missing asset or data file must return a real 404.
+#
+# Without these two rules the catch-all below answers /assets/data.js with
+# index.html and HTTP 200: the browser sees a successful response whose body is
+# HTML, the module fails to parse, and the page dies with no error status anywhere.
+# These rules apply only when the file genuinely is not there, because Netlify
+# serves an existing static file before it consults any redirect.
+[[redirects]]
+  from = "/assets/*"
+  to   = "/assets/:splat"
+  status = 404
+
+[[redirects]]
+  from = "/data/*"
+  to   = "/data/:splat"
+  status = 404
+
+# Single page, no client router — anything else unknown returns the dashboard
 [[redirects]]
   from = "/*"
   to   = "/index.html"

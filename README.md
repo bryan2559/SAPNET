@@ -193,6 +193,21 @@ Two things to check on the REDCap side:
 - If REDCap sits behind an institutional firewall, Netlify's egress will not reach it.
   Use the snapshot path below instead.
 
+### A missing asset must 404, not return the index page
+
+`netlify.toml` gives `/assets/*` and `/data/*` an explicit 404 rule ahead of the
+single-page catch-all. Without them, a request for a file the deploy did not publish
+falls through to `/index.html` and answers **HTTP 200 with an HTML body**. Nothing
+reports an error — the status says success — but the browser cannot parse HTML as a
+module, so the dashboard's code never runs and the page dies silently.
+
+Netlify serves an existing static file before it consults any redirect, so these rules
+only ever apply when the file genuinely is not there.
+
+The boot guard tests for this case directly: when the module has not started, it
+fetches each module file and reports the status and content type of each, so a file
+answering 200-with-HTML is named on the page rather than left in the console.
+
 ### Deploying: use Git, not drag-and-drop
 
 **Netlify's drag-and-drop (app.netlify.com/drop) does not run a build.** It publishes
@@ -261,6 +276,43 @@ to tell a configuration problem from a slow export:
 ```json
 { "ok": true, "redcapConfigured": true, "dataSource": "redcap" }
 ```
+
+### A 502 from /api/observations: the export is too slow
+
+A 502 after twenty-odd seconds means the functions are deployed and working, reached
+REDCap, and ran out of time. Two things address it.
+
+**Sources are now fetched in parallel.** They used to run one after another, so two
+sources with an 8.5-second deadline each failed after 22 seconds without either being
+especially slow. In parallel each gets the full budget.
+
+**Publish the archive as a static file.** The retrospective project holds one record
+per observation across several years. That is too much for REDCap to export inside a
+function's few seconds, and it is also finished data — those counts do not change.
+Export it once and publish it:
+
+```bash
+npm run archive -- retro-export.json      # Data Exports -> All data -> JSON, raw values
+git add public/data/archive.json && git commit -m "Historical archive" && git push
+```
+
+Then drop the retrospective project from `REDCAP_SOURCES`, leaving only the current
+project:
+
+```
+REDCAP_SOURCES = PROSPECTIVE
+```
+
+The dashboard loads `archive.json` as a static file, fetches the live API, and merges
+them into one series. Where a site-day appears in both, the live record wins, because
+it comes from the project still being edited; values are never summed. The result:
+
+- the whole record still shows, from 2019 to today
+- the API carries only the current project, so it answers quickly
+- **Refresh** re-exports just that project, which is what actually changes
+- a REDCap outage leaves the archive on screen rather than demo data, and says so
+
+Re-run `npm run archive` only when the archive itself changes, which should be rarely.
 
 ### If the dashboard sits on its loading spinner
 

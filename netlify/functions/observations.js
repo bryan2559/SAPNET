@@ -111,13 +111,14 @@ function readSources() {
 
 /* ---------------------------------------------------------------- fetch */
 /**
- * Netlify kills a synchronous function at 10 seconds on the default plan (26 on
- * some). The abort below must fire BEFORE that, or the function is killed
- * mid-request and the browser is left holding a connection that never answers —
- * which looks like a dashboard stuck on its loading spinner rather than an error.
- * Raise REDCAP_TIMEOUT_MS only if your plan's function limit is higher.
+ * Netlify kills a synchronous function at its plan's limit — 10 seconds on the
+ * default plan, 26 on others. The abort below must fire BEFORE that, or the function
+ * is killed mid-request and returns a bare 502 with no explanation of its own.
+ *
+ * Sources are fetched in parallel, so this is the budget for the whole call rather
+ * than per source. On the 10-second plan set REDCAP_TIMEOUT_MS=8500.
  */
-const REDCAP_TIMEOUT_MS = Number(process.env.REDCAP_TIMEOUT_MS || 8500);
+const REDCAP_TIMEOUT_MS = Number(process.env.REDCAP_TIMEOUT_MS || 20000);
 
 async function redcapExport(url, token, cfg = {}) {
   // CSV by default: on a 1,082-field instrument a JSON flat export repeats every
@@ -423,20 +424,41 @@ async function build() {
   const perSource = [];
   const sourceDiagnostics = [];
 
-  // Sequential rather than parallel: two REDCap exports at once on a shared
-  // institutional server is a good way to get rate-limited.
-  for (const config of sources) {
-    let records;
-    try {
-      records = await redcapExport(config.url, config.token, config);
-    } catch (e) {
+  // Fetch every source at once.
+  //
+  // These ran one after another, to be gentle on a shared institutional server. But
+  // the function's whole budget is a handful of seconds, and two slow exports in
+  // sequence spend it twice over: with a 8.5 s deadline each, two sources failed
+  // after 22 s without either of them being especially slow. In parallel each source
+  // gets the full budget, and one slow project no longer starves the other.
+  // Set REDCAP_SEQUENTIAL=true to go back to one at a time if REDCap rate-limits.
+  const sequential = String(process.env.REDCAP_SEQUENTIAL || 'false') === 'true';
+
+  const fetched = [];
+  if (sequential) {
+    for (const config of sources) {
+      try { fetched.push({ config, records: await redcapExport(config.url, config.token, config) }); }
+      catch (e) { fetched.push({ config, error: e }); }
+    }
+  } else {
+    const settled = await Promise.all(sources.map(config =>
+      redcapExport(config.url, config.token, config)
+        .then(records => ({ config, records }))
+        .catch(error => ({ config, error }))));
+    fetched.push(...settled);
+  }
+
+  for (const item of fetched) {
+    const config = item.config;
+    if (item.error) {
       // One project failing must not take out the whole dashboard.
       sourceDiagnostics.push({
         dataset: config.dataset, datasetLabel: config.label,
-        error: String(e.message || e), siteDaysProduced: 0
+        error: String(item.error.message || item.error), siteDaysProduced: 0
       });
       continue;
     }
+    const records = item.records;
 
     // Four shapes: the current prospective grid, the retrospective archive, the
     // superseded seven-day instrument, and the v2 repeating design. Order matters —

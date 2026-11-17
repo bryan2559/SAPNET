@@ -529,7 +529,7 @@ function shift(dir) {
 }
 
 /** Build identity, so it is always possible to tell which version is actually live. */
-const BUILD = '2026-11-09';
+const BUILD = '2026-11-17';
 
 async function init() {
   // Tell the boot guard the module is alive, so it stops waiting to report a

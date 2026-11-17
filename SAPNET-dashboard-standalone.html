@@ -470,10 +470,35 @@ async function loadData(onStatus = () => {}, opts = {}) {
       : e.message;
   }
   clearTimeout(slow);
+
+  // The historical archive, if one has been published alongside the site.
+  //
+  // The retrospective project holds one record per observation across years, which
+  // is far too large to export from REDCap inside a function's few seconds. It is
+  // also finished: those counts do not change. Publishing it as a static file lets
+  // the API carry only the current project — small, fast, and genuinely live — while
+  // the dashboard still shows the whole record.
+  onStatus('Loading the historical archive…');
+  const archive = await loadArchive();
+
   // Index outside the request's deadline: building the lookups is local work and
   // must not be cut short by a timer meant for the network.
-  if (live) return await index(live);
+  if (live) {
+    const merged = archive ? mergeSources(archive, live) : live;
+    const db = await index(merged);
+    db.archiveUsed = Boolean(archive);
+    return db;
+  }
   if (liveError) console.warn('Live data unavailable:', liveError);
+
+  // Live failed, but an archive on its own is still real data and far better than
+  // demo numbers. Say clearly that the current project is missing from it.
+  if (archive) {
+    const db = await index(archive);
+    db.liveError = liveError;
+    db.archiveOnly = true;
+    return db;
+  }
 
   onStatus('Falling back to the committed snapshot…');
   try {
@@ -493,6 +518,58 @@ async function loadData(onStatus = () => {}, opts = {}) {
   db.liveError = liveError;
   db.liveElapsedMs = Date.now() - started;
   return db;
+}
+
+/** Fetch the published historical archive, if the site has one. */
+async function loadArchive() {
+  try {
+    const r = await fetchWithTimeout('/data/archive.json', 10000);
+    if (!r.ok) return null;                      // 404 simply means none was published
+    const d = await r.json();
+    if (d.observations && d.observations.length) return d;
+  } catch (e) { console.warn('archive.json unavailable:', e.message); }
+  return null;
+}
+
+/**
+ * Combine the archive with the live export.
+ *
+ * Where a site-day appears in both, the live record wins: it comes from the project
+ * still being edited, so it is the more current of the two. Values are never summed —
+ * one physical day of sampling recorded twice is still one day.
+ */
+function mergeSources(archive, live) {
+  const byKey = new Map();
+  for (const o of archive.observations) byKey.set(`${o.site}|${o.date}`, o);
+  let overlaps = 0;
+  for (const o of live.observations) {
+    const k = `${o.site}|${o.date}`;
+    if (byKey.has(k)) overlaps++;
+    byKey.set(k, o);
+  }
+
+  const taxa = new Map();
+  for (const t of [...(archive.taxa || []), ...(live.taxa || [])]) {
+    if (!taxa.has(Number(t.code))) taxa.set(Number(t.code), t);
+  }
+
+  const datasets = [...(live.datasets || [])];
+  for (const d of archive.datasets || []) {
+    if (!datasets.some(x => x.dataset === d.dataset)) datasets.push(d);
+  }
+
+  const observations = [...byKey.values()]
+    .sort((a, b) => a.site.localeCompare(b.site) || a.date.localeCompare(b.date));
+
+  return {
+    ...live,
+    datasets,
+    taxa: [...taxa.values()].sort((a, b) => a.code - b.code),
+    observations,
+    sites: [...new Set(observations.map(o => o.site))].sort(),
+    archiveOverlaps: overlaps,
+    archiveGeneratedAt: archive.generatedAt || null
+  };
 }
 
 /** Add the lookups the views need, without changing the wire format. */
@@ -1710,7 +1787,7 @@ function shift(dir) {
 }
 
 /** Build identity, so it is always possible to tell which version is actually live. */
-const BUILD = '2026-11-09';
+const BUILD = '2026-11-17';
 
 async function init() {
   // Tell the boot guard the module is alive, so it stops waiting to report a
