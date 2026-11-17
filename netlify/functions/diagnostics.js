@@ -73,7 +73,7 @@ exports.handler = async function () {
           completenessPct: payload.observations.length
             ? Math.round(1000 * valid.length / payload.observations.length) / 10 : null,
           firstDate: dates[0] || null,
-          lastDate: dates.at(-1) || null,
+          lastDate: dates.length ? dates[dates.length - 1] : null,
           byDataset: perDataset
         },
         parse: diagnostics,

@@ -193,6 +193,27 @@ Two things to check on the REDCap side:
 - If REDCap sits behind an institutional firewall, Netlify's egress will not reach it.
   Use the snapshot path below instead.
 
+### The page loads one bundled script, not a module graph
+
+`public/assets/bundle.js` is the dashboard's code: the three modules bundled into one
+classic script and transpiled to ES2015. It is committed, and `npm run build`
+regenerates it.
+
+Two reasons it exists, both learned the hard way.
+
+**Browser reach.** The source uses `??` and `?.`, which are *syntax*. A browser that
+does not know them cannot parse the file at all — so the module never executes, and
+the page dies before any of its own error handling can run. That is indistinguishable
+from a deploy problem from the outside. Targeting ES2015 removes the whole class of
+failure, and `.at()` was replaced with index arithmetic for the same reason.
+
+**Fragility.** A module graph needs every file published and served with a JavaScript
+content type. One file does not.
+
+The modules under `public/assets/` remain the source of truth; edit those, then run
+`npm run build`. If esbuild is unavailable, the build keeps the committed bundle and
+says so.
+
 ### A missing asset must 404, not return the index page
 
 `netlify.toml` gives `/assets/*` and `/data/*` an explicit 404 rule ahead of the

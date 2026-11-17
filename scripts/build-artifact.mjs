@@ -4,18 +4,13 @@
  *
  *   npm run artifact
  *
- * The artifact runtime sandboxes the page, so three things in the standalone build
- * cannot work there and are changed rather than left to fail silently:
+ * The artifact runtime sandboxes the page, so two of the standalone build's controls
+ * cannot work there: downloads a page starts are refused, and window.print is
+ * ignored. Both buttons are removed rather than left to do nothing when clicked.
  *
- *   1. fetch to other hosts is blocked, and there is no /api route. The data layer
- *      would spend its timeouts discovering that on every load, so the demo dataset
- *      is selected directly.
- *   2. Downloads a page starts are refused, so Export CSV copies to the clipboard
- *      instead, and says so.
- *   3. window.print is refused, so the Print button is removed rather than left to
- *      do nothing when clicked.
- *
- * Everything else — every chart, filter and view — is unchanged.
+ * Only the HTML is changed. The script is transpiled bundler output whose internals
+ * change shape whenever the bundler does, so patching it by regex would be a build
+ * that breaks silently; the standalone's fetch shim already answers the data calls.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -33,67 +28,33 @@ function must(find, replace, label) {
   html = html.replace(find, replace);
 }
 
-/* 1. Go straight to the demo dataset: there is no server behind this page. */
-must(
-  `async function loadData(onStatus = () => {}) {`,
-  `async function loadData(onStatus = () => {}) {
-  // Hosted artifact: no server and no /api route, so there is nothing to contact.
-  // Selecting the demo dataset directly avoids spending the network timeouts on
-  // every load just to rediscover that.
-  onStatus('Preparing demonstration data…');
-  return await index(demoDataset());
-}
+/* The sandbox refuses downloads and printing; do not offer buttons that cannot work. */
+must('<button class="btn" id="csv">Export CSV</button>\n', '', 'CSV button');
+must('        <button class="btn" id="print">Print</button>\n', '', 'print button');
 
-async function loadDataUnused(onStatus = () => {}) {`,
-  'loadData entry');
-
-/* 2. Downloads are refused in the sandbox; copy to the clipboard instead. */
-must(
-  `  const blob = new Blob([rows.join('\\n')], { type: 'text/csv;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = \`sapnet_\${state.site.replace(/\\s+/g, '-')}_\${label.replace(/[^\\w]+/g, '-')}.csv\`;
-  a.click();
-  URL.revokeObjectURL(a.href);`,
-  `  // The sandbox refuses downloads a page starts, so the CSV goes to the clipboard.
-  const text = rows.join('\\n');
-  const btn = document.getElementById('csv');
-  const restore = function (msg) {
-    if (!btn) return;
-    btn.textContent = msg;
-    setTimeout(function () { btn.textContent = 'Copy CSV'; }, 2200);
+/* Their handlers would now throw on a null element and stop the rest of init. */
+must(`<script>\n`, `<script>\n// Hosted preview: the sandbox has no downloads and no printing, so those two
+// controls are absent. Give their ids a harmless home so wiring them is a no-op.
+(function () {
+  var orig = document.getElementById.bind(document);
+  document.getElementById = function (id) {
+    var el = orig(id);
+    if (el) return el;
+    if (id === 'csv' || id === 'print') return document.createElement('button');
+    return el;
   };
-  try {
-    await navigator.clipboard.writeText(text);
-    restore(\`Copied \${rows.length - 1} rows\`);
-  } catch (e) {
-    // Clipboard access can be refused; leave the data somewhere reachable.
-    console.log(text);
-    restore('Copy blocked — see console');
-  }`,
-  'CSV download');
+})();
+`, 'first script tag');
 
-must(`function exportCsv() {`, `async function exportCsv() {`, 'exportCsv signature');
-must(`<button class="btn" id="csv">Export CSV</button>`,
-     `<button class="btn" id="csv" title="Copies the current view as CSV to your clipboard">Copy CSV</button>`,
-     'CSV button label');
-
-/* 3. window.print is refused in the sandbox. */
-must(`        <button class="btn" id="print">Print</button>\n`, '', 'print button');
-must(`  $('print').onclick = () => window.print();\n`, '', 'print handler');
-
-/* Say plainly, in the page, what this build is and is not. */
 must(
-  `<div class="tagline" data-standalone="1">Standalone single-file build &middot; demo data only &middot; `,
-  `<div class="tagline" data-standalone="1">Hosted preview &middot; demonstration data &middot; not connected to REDCap &middot; `,
+  '<div class="tagline" data-standalone="1">Standalone single-file build &middot; demo data only &middot; ',
+  '<div class="tagline" data-standalone="1">Hosted preview &middot; demonstration data &middot; not connected to REDCap &middot; ',
   'tagline');
 
-must(
-  `<title>SAPNET — aerobiology reporting (standalone)</title>`,
-  `<title>SAPNET aerobiology reporting</title>`,
-  'title');
+must('<title>SAPNET — aerobiology reporting (standalone)</title>',
+     '<title>SAPNET aerobiology reporting</title>', 'title');
 
 writeFileSync(OUT, html);
 console.log(`Wrote ${OUT}`);
 console.log(`  ${(html.length / 1024).toFixed(0)} KB (was ${(before / 1024).toFixed(0)} KB)`);
-console.log('  demo data selected directly; CSV copies to clipboard; print removed');
+console.log('  download and print controls removed; everything else unchanged');

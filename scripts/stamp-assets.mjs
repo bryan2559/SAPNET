@@ -25,7 +25,7 @@ const stamp = (process.env.COMMIT_REF || '').slice(0, 8) ||
 
 let html = readFileSync(FILE, 'utf8');
 const before = html;
-html = html.replace(/(\/assets\/(?:styles\.css|app\.js))(\?v=[^"']*)?/g, `$1?v=${stamp}`);
+html = html.replace(/(\/assets\/(?:styles\.css|bundle\.js))(\?v=[^"']*)?/g, `$1?v=${stamp}`);
 
 if (html !== before) {
   writeFileSync(FILE, html);

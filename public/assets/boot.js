@@ -14,7 +14,7 @@
  * Content-Security-Policy is script-src 'self' and inline scripts are blocked.
  */
 (function () {
-  var BOOT = '2026-11-17';
+  var BOOT = '2026-11-17b';
   var started = Date.now();
   window.__sapnetBoot = { at: started, build: BOOT, errors: [] };
 
@@ -82,7 +82,7 @@
    * HTML as a module, and the page stops.
    */
   function diagnose(done) {
-    var files = ['/assets/app.js', '/assets/data.js', '/assets/charts.js'];
+    var files = ['/assets/bundle.js'];
     var results = [];
     var left = files.length;
 
@@ -107,8 +107,12 @@
   setTimeout(function () {
     if (window.__sapnetStarted || !el()) return;
 
+    // An error reported earlier is the real explanation; the generic check below
+    // used to replace it with something vaguer. Keep it and show it alongside.
+    var caught = window.__sapnetBoot.errors.slice();
+
     show('The dashboard code did not start.',
-      'The page loaded, but <code>/assets/app.js</code> never began running. ' +
+      'The page loaded, but <code>/assets/bundle.js</code> never began running. ' +
       'Checking what the server returns for each file&hellip;', '');
 
     diagnose(function (rs) {
@@ -125,8 +129,21 @@
       }
       list += '</ul>';
 
+      if (caught.length) {
+        list += '<p style="font-size:13px;margin:0 0 10px"><b>The browser reported:</b></p>' +
+          '<ul style="margin:0 0 12px;padding-left:20px">';
+        for (var k = 0; k < caught.length; k++) {
+          list += '<li style="margin-bottom:5px"><code>' + esc(caught[k]) + '</code></li>';
+        }
+        list += '</ul>';
+      }
+
       var hint;
-      if (bad.some(function (r) { return r.html; })) {
+      if (caught.some(function (m) { return /SyntaxError|Unexpected token/i.test(m); })) {
+        hint = 'A syntax error means this browser cannot parse the code. That usually ' +
+          'means it is older than the code expects. Check the browser version, and try ' +
+          'the same URL in an up-to-date Chrome, Edge, Firefox or Safari to confirm.';
+      } else if (bad.some(function (r) { return r.html; })) {
         hint = 'A file answering with HTML means it is <b>not in the deployed build</b>: ' +
           'the host is falling back to the index page for a path it cannot find. The ' +
           'status says 200, so nothing looks wrong from the outside, but the browser ' +

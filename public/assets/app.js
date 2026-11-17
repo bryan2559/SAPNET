@@ -567,7 +567,9 @@ async function init() {
     return;
   }
   state.site = DB.sites[0];
-  const last = (DB.bySite.get(state.site) || []).at(-1);
+  // Array.prototype.at is ES2022; index arithmetic works in every browser.
+  const siteDays = DB.bySite.get(state.site) || [];
+  const last = siteDays.length ? siteDays[siteDays.length - 1] : null;
   state.anchor = last ? new Date(last.ts) : new Date();
 
   const sel = $('siteSel');

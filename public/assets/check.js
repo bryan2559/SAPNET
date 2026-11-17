@@ -208,9 +208,7 @@
   /* ---- run in sequence ---- */
   var queue = [
     function (n) { checkAsset('/assets/styles.css', 'styles.css', n); },
-    function (n) { checkAsset('/assets/app.js', 'app.js', n); },
-    function (n) { checkAsset('/assets/data.js', 'data.js', n); },
-    function (n) { checkAsset('/assets/charts.js', 'charts.js', n); },
+    function (n) { checkAsset('/assets/bundle.js', 'bundle.js (the dashboard code)', n); },
     function (n) { checkAsset('/data/taxa.json', 'taxa.json', n); },
     checkModule,
     checkHealth,

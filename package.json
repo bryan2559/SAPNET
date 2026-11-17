@@ -4,8 +4,9 @@
   "private": true,
   "description": "Weekly to annual pollen and fungal spore reporting dashboard for the SAPNET monitoring network.",
   "engines": { "node": ">=20" },
+  "devDependencies": { "esbuild": "^0.25.0" },
   "scripts": {
-    "build": "node scripts/stamp-assets.mjs",
+    "build": "node scripts/build-bundle.mjs && node scripts/stamp-assets.mjs",
     "dev": "netlify dev",
     "data": "node scripts/build-data.mjs",
     "legacy-map": "node scripts/build-legacy-map.mjs",
